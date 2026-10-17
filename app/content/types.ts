@@ -55,7 +55,6 @@ export interface Project {
   name: string;
   category: string;
   summary: string;
-  tagline?: string;
   /** Solo tecnologías verificadas en el CV o el repositorio. */
   stack: string[];
   /**
@@ -71,9 +70,8 @@ export interface ProjectsContent extends SectionIntro {
   allProjectsLink: ExternalLink | null;
 }
 
-/** Área del bloque "Cómo trabajo", con las tecnologías que la respaldan. */
+/** Área del bloque "Capacidades", con las tecnologías que la respaldan. */
 export interface ApproachArea {
-  area: string;
   title: string;
   description: string;
   technologies: string[];

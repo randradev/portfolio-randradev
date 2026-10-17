@@ -27,13 +27,6 @@
   color: var(--color-text-muted);
 }
 
-.tagline {
-  padding-left: var(--space-4);
-  border-left: 2px solid var(--color-accent);
-  color: var(--color-text);
-  font-weight: var(--weight-medium);
-}
-
 /* Etiquetas y CTA al pie, alineados entre tarjetas de distinta altura. */
 .footer {
   display: grid;

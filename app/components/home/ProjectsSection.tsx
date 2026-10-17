@@ -39,7 +39,6 @@ function ProjectCard({ project }: { project: Project }) {
       <p className={styles.category}>{project.category}</p>
       <h3 className={styles.name}>{project.name}</h3>
       <p className={styles.summary}>{project.summary}</p>
-      {project.tagline && <p className={styles.tagline}>{project.tagline}</p>}
 
       <div className={styles.footer}>
         <TagList items={project.stack} label={`Tecnologías de ${project.name}`} />

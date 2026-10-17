@@ -9,11 +9,10 @@ export function ApproachSection() {
     <Section intro={approach}>
       <ul className={styles.list}>
         {approach.areas.map((area) => (
-          <li key={area.area} className={styles.area}>
-            <p className={styles.label}>{area.area}</p>
+          <li key={area.title} className={styles.area}>
             <h3>{area.title}</h3>
             <p className={styles.description}>{area.description}</p>
-            <TagList items={area.technologies} label={`Tecnologías: ${area.area}`} />
+            <TagList items={area.technologies} label={`Tecnologías: ${area.title}`} />
           </li>
         ))}
       </ul>

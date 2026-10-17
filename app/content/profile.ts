@@ -1,35 +1,35 @@
 import type { EducationItem, ExperienceItem } from "./types";
 
 /**
- * Trayectoria: textos de docs/COPY-HOME.md §7. Organización y cargo según el CV.
+ * Trayectoria: textos, organización y cargos de docs/COPY-HOME-FINAL.md §7.
  * Periodo de Mauricio Minck confirmado por el usuario (el CV del repo está
  * desactualizado en ese punto). Planetario: periodo vigente del CV.
  */
 export const experience: ExperienceItem[] = [
   {
-    organization: "Empresa Constructora Mauricio Minck y Cía. Ltda.",
+    organization: "Constructora Mauricio Minck & Cía. Ltda.",
     role: "Desarrollador de Software Junior / Practicante",
     period: "Marzo – mayo de 2026",
     description:
-      "Participé en trabajo relacionado con un ERP y en un prototipo conversacional con React e integración de Gemini, además de tareas de persistencia local y colaboración mediante Git.",
+      "Diseño y desarrollo de módulos de ERP. Prototipado de asistente conversacional integrado en la plataforma.",
   },
   {
     organization: "Planetario Chile",
     role: "Animador Digital / Optimización de Flujos de Producción",
     period: "Mayo de 2024 – actualidad",
     description:
-      "Experiencia en animación y producción, aportando una perspectiva práctica sobre la comunicación de ideas y la ejecución de experiencias para audiencias.",
+      "Gestión de flujos complejos. Optimización de procesos. Decisiones basadas en datos.",
   },
   {
     organization: "Púrpura Digital",
     role: "Productor Digital / Coordinación de Proyectos",
     period: "Agosto de 2018 – mayo de 2023",
     description:
-      "Experiencia en producción y coordinación de proyectos, con foco en organizar tareas, articular necesidades y acompañar la ejecución.",
+      "Gestión de proyectos digitales. Coordinación con clientes. Optimización de flujos de trabajo.",
   },
 ];
 
-/** Formación: docs/COPY-HOME.md §9, confirmada por el usuario. Sin promedio. */
+/** Formación: docs/COPY-HOME-FINAL.md §9, confirmada por el usuario. Sin promedio. */
 export const education: EducationItem[] = [
   {
     title: "Técnico Universitario en Programación Computacional",

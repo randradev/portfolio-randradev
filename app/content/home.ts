@@ -10,31 +10,29 @@ import type {
 } from "./types";
 
 /**
- * Textos de la página principal. Fuente canónica: docs/COPY-HOME.md.
+ * Textos de la página principal. Fuente canónica: docs/COPY-HOME-FINAL.md.
  * Se conservan literalmente; cambiarlos requiere autorización del usuario.
  */
 
 export const hero: HeroContent = {
-  eyebrow: "DESARROLLO FULL STACK · INTELIGENCIA ARTIFICIAL",
+  eyebrow: "FULL STACK DEVELOPMENT · PYTHON · APPLIED AI",
   title: {
-    lead: "Construyo productos digitales donde la ingeniería se encuentra con",
-    emphasis: "la inteligencia artificial.",
+    lead: "Construyo software.",
+    emphasis: "Integro inteligencia.",
   },
   summary:
-    "Soy Ricardo Andrade, desarrollador Full Stack. Diseño e implemento experiencias web y sistemas que conectan interfaces, lógica de negocio y servicios inteligentes, con foco en resolver problemas reales y construir soluciones mantenibles.",
-  primaryCta: { label: "Explorar proyectos", to: "/#proyectos" },
-  secondaryCta: { label: "Conocer mi trayectoria", to: "/#trayectoria" },
-  note: "Abierto a oportunidades laborales en desarrollo de software y soluciones con IA.",
+    "Desarrollador Full Stack con foco en Python e inteligencia artificial aplicada.",
+  primaryCta: { label: "Ver proyectos", to: "/#proyectos" },
+  secondaryCta: { label: "Ver trayectoria", to: "/#trayectoria" },
+  note: "Abierto a oportunidades en desarrollo de software.",
 };
 
 export const projectsIntro: ProjectsContent = {
   id: "proyectos",
-  eyebrow: "TRABAJO SELECCIONADO",
-  title: "Ideas que toman forma en sistemas reales.",
-  description: [
-    "Una selección de proyectos en los que exploro cómo convertir necesidades concretas en productos funcionales: desde la automatización y el análisis de información hasta las experiencias web potenciadas por inteligencia artificial.",
-  ],
-  cardCtaLabel: "Explorar caso de estudio",
+  eyebrow: "PROYECTOS SELECCIONADOS",
+  title: "Analizar. Diseñar. Construir.",
+  description: ["Automatización, aplicaciones web e inteligencia artificial aplicada."],
+  cardCtaLabel: "Ver proyecto",
   // Oculto hasta que exista una página o destino acordado ("Ver todos los proyectos").
   allProjectsLink: null,
 };
@@ -45,24 +43,17 @@ export const projectsIntro: ProjectsContent = {
  */
 export const approach: ApproachContent = {
   id: "enfoque",
-  eyebrow: "CÓMO TRABAJO",
-  title: "De la interfaz a la lógica que la hace funcionar.",
-  description: [
-    "Me interesa comprender el sistema completo: cómo una persona interactúa con un producto, cómo se procesa la información detrás de esa experiencia y cómo integrar herramientas de IA cuando aportan valor real.",
-  ],
+  eyebrow: "CAPACIDADES",
+  title: "Pensar, diseñar y construir software.",
   areas: [
     {
-      area: "Frontend",
-      title: "Interfaces con intención",
-      description:
-        "Construyo interfaces web cuidando la estructura, la claridad de uso, la consistencia visual y la adaptación a distintos dispositivos.",
+      title: "Interfaces",
+      description: "Interfaces web claras, funcionales y adaptables.",
       technologies: ["JavaScript", "TypeScript", "React", "HTML5", "CSS3"],
     },
     {
-      area: "Backend e integración",
-      title: "Sistemas conectados",
-      description:
-        "Trabajo con lógica de aplicación, APIs y persistencia de datos para conectar la experiencia de usuario con servicios y procesos de negocio.",
+      title: "Sistemas",
+      description: "APIs, lógica de negocio e integración de datos.",
       technologies: [
         "Python",
         "Node.js",
@@ -75,10 +66,8 @@ export const approach: ApproachContent = {
       ],
     },
     {
-      area: "Inteligencia artificial",
-      title: "IA aplicada a problemas concretos",
-      description:
-        "Exploro cómo integrar modelos y flujos de IA en aplicaciones, con atención al contexto, la utilidad de las respuestas y los límites de cada solución.",
+      title: "IA aplicada",
+      description: "Modelos y flujos inteligentes integrados en aplicaciones.",
       technologies: ["Gemini API", "LangGraph", "RAG"],
     },
   ],
@@ -86,46 +75,45 @@ export const approach: ApproachContent = {
 
 export const experienceIntro: ExperienceContent = {
   id: "trayectoria",
-  eyebrow: "TRAYECTORIA",
-  title: "Una perspectiva que combina tecnología, producción y coordinación.",
+  eyebrow: "EXPERIENCIA",
+  title: "Experiencia profesional más allá del código.",
   description: [
-    "Mi recorrido combina formación en programación con experiencia en entornos de producción y coordinación. Esa perspectiva influye en cómo abordo el desarrollo: entender el objetivo, organizar el trabajo y cuidar tanto la ejecución como el resultado.",
+    "Experiencia en desarrollo de software, animación, producción y coordinación de proyectos.",
   ],
-  cvCtaLabel: "Ver CV completo",
+  cvCtaLabel: "Ver CV",
 };
 
 export const about: AboutContent = {
   id: "sobre-mi",
-  eyebrow: "SOBRE MÍ",
-  title: "Me interesa entender el problema, no solo escribir el código.",
+  eyebrow: "PERFIL",
+  title: "Full Stack. Python. IA aplicada.",
   description: [
-    "Soy desarrollador Full Stack con interés en construir productos digitales útiles, bien estructurados y cuidados en su experiencia de uso. Me gusta conectar las distintas capas de una aplicación y explorar dónde la inteligencia artificial puede mejorar un flujo de trabajo o hacer más accesible la información.",
-    "Mi experiencia previa en producción y coordinación también forma parte de mi manera de trabajar: tener presente el objetivo, comunicar con claridad y avanzar de forma organizada.",
-    "Busco incorporarme a un equipo donde pueda aportar, seguir desarrollándome como ingeniero de software y participar en la construcción de soluciones con impacto tangible.",
+    "Desarrollo software de extremo a extremo, desde la interfaz hasta la lógica de negocio. Me interesa Python y la integración de inteligencia artificial en aplicaciones que resuelven problemas concretos.",
+    "Mi experiencia en producción y coordinación también aporta a mi forma de trabajar: entender el objetivo, organizar el proceso y cuidar la ejecución.",
   ],
-  cta: { label: "Hablemos de una oportunidad", to: "/#contacto" },
+  cta: { label: "Ver trayectoria", to: "/#trayectoria" },
 };
 
 export const educationIntro: SectionIntro = {
   id: "formacion",
   eyebrow: "FORMACIÓN",
-  title: "Una base técnica en evolución constante.",
+  title: "Formación técnica.",
 };
 
 export const contact: ContactContent = {
   id: "contacto",
-  eyebrow: "SIGUIENTE PASO",
-  title: "¿Construimos algo que valga la pena?",
+  eyebrow: "CONTACTO",
+  title: "Hablemos de software.",
   description: [
-    "Estoy buscando una oportunidad laboral en la que pueda aportar desde el desarrollo Full Stack y seguir explorando aplicaciones prácticas de la inteligencia artificial. Si mi perfil encaja con lo que tu equipo necesita, me gustaría conversar.",
+    "Busco una oportunidad para desarrollar software Full Stack e integrar inteligencia artificial en productos y procesos reales.",
   ],
   primaryCtaLabel: "Contactarme",
-  cvCtaLabel: "Ver CV",
-  note: "Disponible para conversar sobre oportunidades profesionales, proyectos de software e IA aplicada.",
+  cvCtaLabel: "Descargar CV",
+  note: "Disponible para oportunidades laborales en desarrollo de software.",
 };
 
 export const footer: FooterContent = {
   credit: "Diseñado y desarrollado por Ricardo Andrade.",
-  descriptor: "Full Stack Developer · AI",
+  descriptor: "Full Stack Developer · Python · AI",
   cvLabel: "CV",
 };

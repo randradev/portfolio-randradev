@@ -1,13 +1,13 @@
 import type { SiteConfig } from "./types";
 
-/** Textos de navegación y metadatos: docs/COPY-HOME.md §1 y §12. */
+/** Textos de navegación y metadatos: docs/COPY-HOME-FINAL.md §1 y §12. */
 export const site: SiteConfig = {
   name: "Ricardo Andrade",
   lang: "es",
   meta: {
-    title: "Ricardo Andrade — Desarrollador Full Stack | IA aplicada",
+    title: "Ricardo Andrade — Desarrollador Full Stack | Python e IA",
     description:
-      "Portafolio de Ricardo Andrade, desarrollador Full Stack interesado en crear productos digitales, integrar APIs y explorar soluciones prácticas con inteligencia artificial.",
+      "Portafolio de Ricardo Andrade, desarrollador Full Stack con foco en Python e inteligencia artificial aplicada.",
   },
   nav: [
     { label: "Inicio", to: "/#inicio" },
@@ -17,9 +17,8 @@ export const site: SiteConfig = {
     { label: "Contacto", to: "/#contacto" },
   ],
   navCta: { label: "Ver proyectos", to: "/#proyectos" },
-  // PENDIENTE: el PDF actual incluye el teléfono. Activar ("/cv/ricardo-andrade-cv.pdf")
-  // cuando el usuario sustituya el archivo por una versión sin teléfono.
-  cvHref: null,
+  // Activado por decisión del usuario con el PDF actual (incluye el teléfono).
+  cvHref: "/cv/ricardo-andrade-cv.pdf",
   // Datos del CV. GitHub verificado (HTTP 200). PENDIENTE: confirmar la URL de
   // LinkedIn a mano; LinkedIn bloquea las comprobaciones automáticas.
   contact: {

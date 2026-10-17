@@ -16,14 +16,16 @@
   gap: var(--space-6);
 }
 
-/* Escala propia, más contenida que --text-h1: el titular es una frase larga y
-   debe leerse completo en la primera pantalla, también a 320px. */
+/* Escala propia, más contenida que --text-h1: el titular debe leerse completo
+   en la primera pantalla, también a 320px. */
 .title {
   max-width: 22ch;
   font-size: clamp(2rem, 7.5vw, 3rem);
 }
 
+/* Segunda frase del titular en su propia línea, sin <br> en el contenido. */
 .emphasis {
+  display: block;
   color: var(--color-primary);
 }
 

@@ -11,7 +11,7 @@ export function meta() {
   return buildMeta();
 }
 
-/** Página principal. Orden de secciones según docs/COPY-HOME.md. */
+/** Página principal. Orden de secciones según docs/COPY-HOME-FINAL.md. */
 export default function Home() {
   return (
     <>
