@@ -1,0 +1,25 @@
+.link {
+  display: inline-flex;
+  align-items: center;
+  min-height: var(--tap-target);
+  color: var(--color-text);
+  font-weight: var(--weight-medium);
+  text-decoration-line: underline;
+  text-decoration-color: color-mix(in srgb, var(--color-primary) 60%, transparent);
+  text-decoration-thickness: 1px;
+  text-underline-offset: 0.3em;
+  transition:
+    color var(--duration-fast) var(--ease-standard),
+    text-decoration-color var(--duration-fast) var(--ease-standard);
+}
+
+.link:hover {
+  color: var(--color-primary);
+  text-decoration-color: currentColor;
+}
+
+/* Dentro de un párrafo, no forzar la altura táctil para no romper el interlineado. */
+.inline {
+  display: inline;
+  min-height: 0;
+}

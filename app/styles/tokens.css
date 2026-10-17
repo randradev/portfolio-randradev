@@ -1,0 +1,125 @@
+/*
+ * Tokens de diseño — única fuente de colores, tipografía, espaciado y motion.
+ * Referencia: DESIGN-SYSTEM.md. Los componentes solo consumen estas variables.
+ *
+ * Breakpoints (las variables CSS no funcionan dentro de @media; usar estos valores):
+ *   --bp-md: 48rem  (768px)  — tablet / navegación de escritorio
+ *   --bp-lg: 64rem  (1024px)
+ *   --bp-xl: 80rem  (1280px)
+ */
+
+:root {
+  color-scheme: dark;
+
+  /* Color */
+  --color-bg: #080b12;
+  --color-surface: #111827;
+  --color-surface-raised: #1c2739;
+  --color-primary: #4d8dff;
+  --color-accent: #8b5cf6;
+  --color-positive: #00d6c9;
+  --color-text: #edf2fa;
+  --color-text-muted: #a8b3c7;
+  --color-border: rgba(168, 179, 199, 0.16);
+  --color-overlay: rgba(8, 11, 18, 0.72);
+
+  /* Derivados */
+  --color-border-strong: rgba(168, 179, 199, 0.32);
+  --color-primary-hover: color-mix(in srgb, var(--color-primary) 85%, var(--color-text));
+  --color-primary-active: color-mix(in srgb, var(--color-primary) 85%, var(--color-bg));
+  /* Texto sobre --color-primary: oscuro (≈6:1, AA). El texto claro daba ≈2.8:1. */
+  --color-on-primary: var(--color-bg);
+  --gradient-brand: linear-gradient(135deg, var(--color-primary), var(--color-accent));
+
+  /* Foco */
+  --focus-ring-color: var(--color-primary);
+  --focus-ring-width: 2px;
+  --focus-ring-offset: 3px;
+
+  /* Tipografía */
+  --font-heading: "Manrope Variable", "Manrope", system-ui, sans-serif;
+  --font-body: "Inter Variable", "Inter", system-ui, sans-serif;
+  --font-mono: "JetBrains Mono Variable", "JetBrains Mono", ui-monospace, monospace;
+
+  --text-h1: clamp(2.4rem, 11vw, 3.5rem);
+  --text-h2: clamp(2rem, 4vw, 3.25rem);
+  --text-h3: clamp(1.25rem, 1.1rem + 0.5vw, 1.5rem);
+  --text-body-lg: 1.125rem;
+  --text-body: 1rem;
+  --text-small: 0.875rem;
+  --text-meta: 0.8125rem;
+
+  --leading-tight: 1.05;
+  --leading-snug: 1.25;
+  --leading-body: 1.6;
+
+  --weight-regular: 400;
+  --weight-medium: 500;
+  --weight-semibold: 600;
+  --weight-bold: 700;
+  --weight-extrabold: 800;
+
+  --tracking-tight: -0.02em;
+  --measure: 68ch;
+
+  /* Espaciado (múltiplos de 4px) */
+  --space-1: 0.25rem;
+  --space-2: 0.5rem;
+  --space-3: 0.75rem;
+  --space-4: 1rem;
+  --space-5: 1.25rem;
+  --space-6: 1.5rem;
+  --space-8: 2rem;
+  --space-10: 2.5rem;
+  --space-12: 3rem;
+  --space-16: 4rem;
+  --space-20: 5rem;
+  --space-24: 6rem;
+  --space-32: 8rem;
+
+  --section-gap: clamp(var(--space-16), 10vw, var(--space-32));
+
+  /* Layout */
+  --container-max: 75rem; /* 1200px */
+  --container-gutter: clamp(var(--space-4), 5vw, var(--space-12));
+  --header-height: 4rem;
+  --tap-target: 2.75rem; /* 44px */
+
+  /* Radios */
+  --radius-sm: 6px;
+  --radius-md: 10px;
+  --radius-lg: 16px;
+
+  /* Sombras */
+  --shadow-raised: 0 12px 40px -16px rgba(0, 0, 0, 0.6);
+  --shadow-raised-hover: 0 20px 56px -20px rgba(0, 0, 0, 0.7);
+
+  /* Superficies translúcidas (glassmorphism controlado) */
+  --glass-bg: rgba(17, 24, 39, 0.72);
+  --glass-blur: 12px;
+
+  /* Motion */
+  --duration-fast: 180ms;
+  --duration-base: 240ms;
+  --duration-enter: 400ms;
+  --ease-standard: cubic-bezier(0.2, 0, 0, 1);
+
+  /* Capas */
+  --z-header: 100;
+  --z-skip-link: 200;
+}
+
+@media (min-width: 48rem) {
+  :root {
+    --text-h1: clamp(2.8rem, 6vw, 5.5rem);
+    --header-height: 4.5rem;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  :root {
+    --duration-fast: 0ms;
+    --duration-base: 0ms;
+    --duration-enter: 0ms;
+  }
+}

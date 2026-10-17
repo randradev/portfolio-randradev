@@ -1,0 +1,7 @@
+build
+.react-router
+node_modules
+package-lock.json
+# Documentos de especificación: se mantienen con su formato original.
+*.md
+.claude

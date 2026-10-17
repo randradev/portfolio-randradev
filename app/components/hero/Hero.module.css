@@ -1,0 +1,95 @@
+.hero {
+  overflow: clip;
+}
+
+/* Móvil: texto primero y objeto debajo, para que título y CTA no se desplacen. */
+.inner {
+  display: grid;
+  align-items: center;
+  gap: var(--space-10);
+  padding-block: var(--space-12) var(--space-16);
+}
+
+.content {
+  display: grid;
+  justify-items: start;
+  gap: var(--space-6);
+}
+
+.eyebrow {
+  color: var(--color-text-muted);
+  font-family: var(--font-mono);
+  font-size: var(--text-meta);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+/* Escala propia, algo más contenida que --text-h1: "Desarrollador" debe caber
+   sin cortarse a 320px y en la columna de escritorio. */
+.title {
+  max-width: 14ch;
+  font-size: clamp(2.25rem, 10vw, 3.5rem);
+}
+
+.emphasis {
+  color: var(--color-primary);
+}
+
+@supports (background-clip: text) or (-webkit-background-clip: text) {
+  .emphasis {
+    background-image: var(--gradient-brand);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+    -webkit-box-decoration-break: clone;
+    box-decoration-break: clone;
+  }
+}
+
+@media (forced-colors: active) {
+  .emphasis {
+    background-image: none;
+    color: CanvasText;
+  }
+}
+
+.summary {
+  max-width: 44ch;
+  color: var(--color-text-muted);
+  font-size: var(--text-body-lg);
+}
+
+.actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-3);
+  padding-top: var(--space-2);
+}
+
+.visual {
+  max-width: 22rem;
+}
+
+@media (min-width: 48rem) {
+  .visual {
+    max-width: 28rem;
+  }
+}
+
+/* Escritorio: composición editorial en dos columnas. */
+@media (min-width: 64rem) {
+  .inner {
+    grid-template-columns: minmax(0, 7fr) minmax(0, 5fr);
+    gap: var(--space-12);
+    min-height: min(calc(100svh - var(--header-height)), 52rem);
+    padding-block: var(--space-16);
+  }
+
+  .title {
+    font-size: clamp(3.25rem, 5vw, 4.75rem);
+  }
+
+  .visual {
+    max-width: none;
+  }
+}

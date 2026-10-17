@@ -1,0 +1,40 @@
+.root {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 1;
+  margin-inline: auto;
+  /* Decorativo: nunca intercepta clics ni toques. */
+  pointer-events: none;
+}
+
+/* Halo discreto detrás del objeto, común al 3D y al fallback. */
+.root::before {
+  content: "";
+  position: absolute;
+  inset: 6%;
+  border-radius: 50%;
+  background: radial-gradient(
+    closest-side,
+    color-mix(in srgb, var(--color-accent) 20%, transparent),
+    color-mix(in srgb, var(--color-primary) 7%, transparent) 65%,
+    transparent
+  );
+}
+
+.layer {
+  position: absolute;
+  inset: 0;
+  transition: opacity var(--duration-enter) var(--ease-standard);
+}
+
+.scene {
+  opacity: 0;
+}
+
+.root[data-ready="true"] .scene {
+  opacity: 1;
+}
+
+.root[data-ready="true"] .fallback {
+  opacity: 0;
+}
