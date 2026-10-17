@@ -54,8 +54,9 @@ explicar el motivo.
 
 Seguir `DESIGN-SYSTEM.md`. Resumen: - Fondo `#080B12`, superficies
 `#111827` y `#1C2739`. - Azul `#4D8DFF`, violeta `#8B5CF6`. - Texto
-`#EDF2FA`, secundario `#A8B3C7`. - Manrope para títulos, Inter para
-cuerpo y JetBrains Mono para detalles técnicos. - Estética editorial
+`#EDF2FA`, secundario `#A8B3C7`. - Space Grotesk para títulos, Raleway
+para cuerpo e IBM Plex Mono para detalles técnicos (ver
+`docs/REDESIGN-BRIEF.md` §3.4). - Estética editorial
 premium, objeto 3D de metal y cristal con reflejos azul-violeta. -
 Glassmorphism y motion controlados. - Responsive, foco visible y respeto
 por `prefers-reduced-motion`.

@@ -1,6 +1,7 @@
-import "@fontsource-variable/manrope";
-import "@fontsource-variable/inter";
-import "@fontsource-variable/jetbrains-mono";
+import "@fontsource-variable/space-grotesk";
+import "@fontsource-variable/raleway";
+import "@fontsource/ibm-plex-mono/400.css";
+import "@fontsource/ibm-plex-mono/500.css";
 import "./styles/tokens.css";
 import "./styles/base.css";
 

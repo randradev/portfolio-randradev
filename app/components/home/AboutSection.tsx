@@ -8,6 +8,7 @@ export function AboutSection() {
     <Section
       intro={about}
       align="start"
+      scale="xl"
       actions={
         <ButtonLink to={about.cta.to} variant="secondary">
           {about.cta.label}

@@ -1,5 +1,43 @@
 .hero {
+  position: relative;
+  isolation: isolate;
   overflow: clip;
+}
+
+/* Atmósfera del hero: luz azul del lado del objeto, contraluz violeta abajo
+   y estrías de cristal verticales (motivo de la ref. Fractal Glass). */
+.hero::before,
+.hero::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+}
+
+/* La capa se desvanece antes del borde inferior: el contraluz violeta "baja"
+   hacia proyectos, cuya luz violeta lo recoge en el mismo lado, sin corte. */
+.hero::before {
+  background:
+    radial-gradient(45% 55% at 78% 45%, var(--light-blue), transparent 70%),
+    radial-gradient(40% 50% at 8% 88%, var(--light-violet), transparent 70%);
+  -webkit-mask-image: linear-gradient(to bottom, var(--color-bg) 70%, transparent);
+  mask-image: linear-gradient(to bottom, var(--color-bg) 70%, transparent);
+}
+
+.hero::after {
+  background-image: repeating-linear-gradient(
+    90deg,
+    transparent 0,
+    var(--flute-line) 36px,
+    transparent 48px
+  );
+  -webkit-mask-image: radial-gradient(
+    40% 45% at 78% 45%,
+    var(--color-bg),
+    transparent 80%
+  );
+  mask-image: radial-gradient(40% 45% at 78% 45%, var(--color-bg), transparent 80%);
 }
 
 /* Móvil: texto primero y objeto debajo, para que título y CTA no se desplacen. */
@@ -23,28 +61,11 @@
   font-size: clamp(2rem, 7.5vw, 3rem);
 }
 
-/* Segunda frase del titular en su propia línea, sin <br> en el contenido. */
+/* Segunda frase en su propia línea, sin <br> en el contenido. El contraste
+   entre las dos frases viene del peso, no de un gradiente de color. */
 .emphasis {
   display: block;
-  color: var(--color-primary);
-}
-
-@supports (background-clip: text) or (-webkit-background-clip: text) {
-  .emphasis {
-    background-image: var(--gradient-brand);
-    -webkit-background-clip: text;
-    background-clip: text;
-    color: transparent;
-    -webkit-box-decoration-break: clone;
-    box-decoration-break: clone;
-  }
-}
-
-@media (forced-colors: active) {
-  .emphasis {
-    background-image: none;
-    color: CanvasText;
-  }
+  font-weight: var(--weight-light);
 }
 
 .summary {

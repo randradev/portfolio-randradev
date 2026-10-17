@@ -146,8 +146,9 @@ en producción.
     puntuales.
 -   Texto principal Ice White `#EDF2FA`.
 -   Texto secundario Cool Gray `#A8B3C7`.
--   Tipografías: Manrope para títulos, Inter para cuerpo y JetBrains
-    Mono para detalles técnicos puntuales.
+-   Tipografías: Space Grotesk para títulos, Raleway para cuerpo e IBM
+    Plex Mono para detalles técnicos puntuales (`docs/REDESIGN-BRIEF.md`
+    §3.4).
 -   Navegación horizontal clásica y refinada en escritorio; menú
     compacto en móvil.
 -   Tarjetas y superficies limpias, contraste alto, glassmorphism muy

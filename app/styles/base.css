@@ -29,9 +29,22 @@ body {
   font-family: var(--font-body);
   font-size: var(--text-body);
   line-height: var(--leading-body);
+  /* Raleway usa numerales de estilo antiguo por defecto; las fechas los necesitan alineados. */
+  font-variant-numeric: lining-nums;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   overflow-x: clip;
+}
+
+/* Grano de la atmósfera: una única capa fija, sin blend mode, que se compone una vez. */
+body::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  z-index: var(--z-grain);
+  background-image: var(--grain);
+  opacity: var(--grain-opacity);
+  pointer-events: none;
 }
 
 h1,
@@ -39,14 +52,14 @@ h2,
 h3,
 h4 {
   font-family: var(--font-heading);
-  font-weight: var(--weight-bold);
+  font-weight: var(--weight-medium);
   letter-spacing: var(--tracking-tight);
   text-wrap: balance;
 }
 
 h1 {
   font-size: var(--text-h1);
-  font-weight: var(--weight-extrabold);
+  font-weight: var(--weight-semibold);
   line-height: var(--leading-tight);
 }
 

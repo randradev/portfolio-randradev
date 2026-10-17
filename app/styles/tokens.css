@@ -1,6 +1,7 @@
 /*
- * Tokens de diseño — única fuente de colores, tipografía, espaciado y motion.
- * Referencia: DESIGN-SYSTEM.md. Los componentes solo consumen estas variables.
+ * Tokens de diseño — única fuente de colores, tipografía, espaciado, luz y motion.
+ * Referencia: DESIGN-SYSTEM.md y docs/REDESIGN-BRIEF.md. Los componentes solo
+ * consumen estas variables.
  *
  * Breakpoints (las variables CSS no funcionan dentro de @media; usar estos valores):
  *   --bp-md: 48rem  (768px)  — tablet / navegación de escritorio
@@ -29,38 +30,43 @@
   --color-primary-active: color-mix(in srgb, var(--color-primary) 85%, var(--color-bg));
   /* Texto sobre --color-primary: oscuro (≈6:1, AA). El texto claro daba ≈2.8:1. */
   --color-on-primary: var(--color-bg);
-  --gradient-brand: linear-gradient(135deg, var(--color-primary), var(--color-accent));
 
   /* Foco */
   --focus-ring-color: var(--color-primary);
   --focus-ring-width: 2px;
   --focus-ring-offset: 3px;
 
-  /* Tipografía */
-  --font-heading: "Manrope Variable", "Manrope", system-ui, sans-serif;
-  --font-body: "Inter Variable", "Inter", system-ui, sans-serif;
-  --font-mono: "JetBrains Mono Variable", "JetBrains Mono", ui-monospace, monospace;
+  /* Tipografía (Fontsource: mismas familias que Google Fonts, servidas en local) */
+  --font-heading: "Space Grotesk Variable", "Space Grotesk", system-ui, sans-serif;
+  --font-body: "Raleway Variable", "Raleway", system-ui, sans-serif;
+  --font-mono: "IBM Plex Mono", ui-monospace, monospace;
 
+  /* Escala: dos niveles de h2 para que no todas las secciones pesen igual. */
+  --text-display: clamp(3rem, 1.2rem + 6vw, 6rem);
   --text-h1: clamp(2.4rem, 11vw, 3.5rem);
-  --text-h2: clamp(2rem, 4vw, 3.25rem);
+  --text-h2-xl: clamp(2.5rem, 1.5rem + 4vw, 4.5rem);
+  --text-h2: clamp(2rem, 1.4rem + 2.2vw, 3rem);
   --text-h3: clamp(1.25rem, 1.1rem + 0.5vw, 1.5rem);
-  --text-body-lg: 1.125rem;
-  --text-body: 1rem;
-  --text-small: 0.875rem;
+  --text-body-lg: 1.1875rem;
+  --text-body: 1.0625rem;
+  --text-small: 0.9375rem;
   --text-meta: 0.8125rem;
 
-  --leading-tight: 1.05;
+  --leading-display: 0.94;
+  --leading-tight: 1.04;
   --leading-snug: 1.25;
-  --leading-body: 1.6;
+  --leading-body: 1.65;
 
+  --weight-light: 300;
   --weight-regular: 400;
   --weight-medium: 500;
   --weight-semibold: 600;
   --weight-bold: 700;
-  --weight-extrabold: 800;
 
-  --tracking-tight: -0.02em;
-  --measure: 68ch;
+  --tracking-display: -0.04em;
+  --tracking-tight: -0.025em;
+  --tracking-mono: 0.14em;
+  --measure: 64ch;
 
   /* Espaciado (múltiplos de 4px) */
   --space-1: 0.25rem;
@@ -85,26 +91,49 @@
   --header-height: 4rem;
   --tap-target: 2.75rem; /* 44px */
 
-  /* Radios */
-  --radius-sm: 6px;
-  --radius-md: 10px;
-  --radius-lg: 16px;
+  /* Radios: moderados, editoriales; nada parece una cápsula. */
+  --radius-sm: 4px;
+  --radius-md: 8px;
+  --radius-lg: 14px;
 
-  /* Sombras */
-  --shadow-raised: 0 12px 40px -16px rgba(0, 0, 0, 0.6);
-  --shadow-raised-hover: 0 20px 56px -20px rgba(0, 0, 0, 0.7);
+  /* Sombras: amplias y frías, nunca brillos de color. */
+  --shadow-raised: 0 16px 48px -24px rgba(0, 0, 0, 0.7);
+  --shadow-raised-hover: 0 24px 64px -28px rgba(0, 0, 0, 0.8);
+  /* Filo de luz superior: da grosor a superficies y botones. */
+  --highlight-edge: inset 0 1px 0 rgba(237, 242, 250, 0.06);
 
-  /* Superficies translúcidas (glassmorphism controlado) */
-  --glass-bg: rgba(17, 24, 39, 0.72);
-  --glass-blur: 12px;
+  /* Superficies */
+  --surface-deep: color-mix(in srgb, var(--color-bg) 60%, var(--color-surface));
+
+  /* Cristal (solo cabecera, paneles de proyecto y contacto). Fallback: --color-surface. */
+  --glass-bg: rgba(17, 24, 39, 0.55);
+  --glass-border: rgba(237, 242, 250, 0.08);
+  --glass-blur: 16px;
+  --glass-filter: blur(var(--glass-blur)) saturate(120%);
+
+  /* Luz ambiental: azul y violeta como iluminación, no como relleno. */
+  --light-blue: color-mix(in srgb, var(--color-primary) 16%, transparent);
+  --light-blue-soft: color-mix(in srgb, var(--color-primary) 7%, transparent);
+  --light-violet: color-mix(in srgb, var(--color-accent) 14%, transparent);
+  --light-violet-soft: color-mix(in srgb, var(--color-accent) 6%, transparent);
+  /* Estrías de cristal (motivo del hero) y trama técnica (capacidades). */
+  --flute-line: rgba(237, 242, 250, 0.028);
+  --grid-line: rgba(168, 179, 199, 0.08);
+  --grid-size: 64px;
+
+  /* Grano: ruido monocromo en SVG, una sola capa fija. */
+  --grain: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  --grain-opacity: 0.04;
 
   /* Motion */
-  --duration-fast: 180ms;
-  --duration-base: 240ms;
-  --duration-enter: 400ms;
+  --duration-fast: 200ms;
+  --duration-base: 280ms;
+  --duration-enter: 480ms;
   --ease-standard: cubic-bezier(0.2, 0, 0, 1);
+  --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
 
   /* Capas */
+  --z-grain: 90;
   --z-header: 100;
   --z-skip-link: 200;
 }

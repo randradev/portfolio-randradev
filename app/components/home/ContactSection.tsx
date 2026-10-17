@@ -13,6 +13,8 @@ export function ContactSection() {
     <Section
       intro={contact}
       layout="panel"
+      tone="horizon"
+      scale="xl"
       actions={
         <>
           <ButtonLink href={`mailto:${email}`} size="large">

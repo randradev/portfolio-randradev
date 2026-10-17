@@ -6,7 +6,7 @@ import { Section } from "./Section";
 
 export function ApproachSection() {
   return (
-    <Section intro={approach}>
+    <Section intro={approach} tone="grid">
       <ul className={styles.list}>
         {approach.areas.map((area) => (
           <li key={area.title} className={styles.area}>

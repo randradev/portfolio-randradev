@@ -14,6 +14,8 @@ export function ProjectsSection() {
   return (
     <Section
       intro={projectsIntro}
+      tone="deep"
+      scale="xl"
       actions={
         allProjectsLink && (
           <TextLink href={allProjectsLink.href}>{allProjectsLink.label}</TextLink>
@@ -35,7 +37,7 @@ function ProjectCard({ project }: { project: Project }) {
   const { caseStudyTo } = project;
 
   return (
-    <Card className={styles.card} interactive={caseStudyTo !== null}>
+    <Card className={styles.card} surface="glass" interactive={caseStudyTo !== null}>
       <p className={styles.category}>{project.category}</p>
       <h3 className={styles.name}>{project.name}</h3>
       <p className={styles.summary}>{project.summary}</p>

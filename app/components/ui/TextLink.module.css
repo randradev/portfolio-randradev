@@ -9,13 +9,15 @@
   text-decoration-thickness: 1px;
   text-underline-offset: 0.3em;
   transition:
-    color var(--duration-fast) var(--ease-standard),
-    text-decoration-color var(--duration-fast) var(--ease-standard);
+    color var(--duration-fast) var(--ease-out),
+    text-decoration-color var(--duration-fast) var(--ease-out),
+    text-underline-offset var(--duration-fast) var(--ease-out);
 }
 
 .link:hover {
   color: var(--color-primary);
   text-decoration-color: currentColor;
+  text-underline-offset: 0.2em;
 }
 
 /* Dentro de un párrafo, no forzar la altura táctil para no romper el interlineado. */

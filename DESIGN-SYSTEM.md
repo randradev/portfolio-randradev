@@ -55,20 +55,30 @@ seleccionados; no cubrir toda la interfaz con ellos.
 
 ## 3. Tipografía
 
--   **Manrope:** títulos y encabezados.
--   **Inter:** párrafos, navegación, controles y contenido general.
--   **JetBrains Mono:** etiquetas técnicas, fragmentos de stack,
-    metadatos breves.
+Familias del catálogo de Google Fonts, servidas desde el propio sitio con
+Fontsource (sin conexión a terceros). Fuente: `docs/REDESIGN-BRIEF.md` §3.4.
 
-### Jerarquía orientativa
+-   **Space Grotesk** (variable 300–700): titulares y encabezados.
+-   **Raleway** (variable): párrafos, navegación, controles y contenido
+    general. Peso mínimo 400 en texto de menos de 20px; usar siempre
+    `font-variant-numeric: lining-nums` (Raleway trae numerales de estilo
+    antiguo por defecto).
+-   **IBM Plex Mono** (400 y 500): etiquetas técnicas, stack, metadatos
+    breves y eyebrows. Uso selectivo.
 
--   H1 de escritorio: `clamp(2.8rem, 6vw, 5.5rem)`, interlineado
-    compacto.
--   H1 móvil: `clamp(2.4rem, 11vw, 3.5rem)`.
--   H2 de sección: `clamp(2rem, 4vw, 3.25rem)`.
+No usar Inter como tipografía principal ni texto con gradiente en los
+titulares: el contraste se construye con escala y peso.
+
+### Jerarquía (tokens en `app/styles/tokens.css`)
+
+-   Display del hero (`--text-display`): `clamp(3rem, 1.2rem + 6vw, 6rem)`,
+    interlineado `0.94`, tracking `-0.04em`.
+-   H2 ancla (`--text-h2-xl`, proyectos, perfil, contacto):
+    `clamp(2.5rem, 1.5rem + 4vw, 4.5rem)`.
+-   H2 de sección (`--text-h2`): `clamp(2rem, 1.4rem + 2.2vw, 3rem)`.
 -   H3 de tarjeta: `1.25rem–1.5rem`.
--   Cuerpo principal: `1rem–1.125rem`, line-height aproximado de `1.6`.
--   Metadatos: `0.75rem–0.875rem`, con contraste suficiente.
+-   Cuerpo principal: `1.0625rem`, line-height `1.65`.
+-   Metadatos: `0.8125rem` en mono, con contraste suficiente.
 
 Los tamaños son una guía inicial. Ajustar según contenido real y pruebas
 visuales. Evitar párrafos largos con ancho excesivo; mantener una medida
@@ -194,6 +204,25 @@ métricas o etiquetas como hechos si no están verificadas.
     que dificulten la usabilidad.
 
 ## 10. Superficies y efectos
+
+### Atmósfera
+
+-   Grano monocromo global (`--grain`) en una sola capa fija, opacidad
+    `0.04`, sin blend mode.
+-   Cada sección declara su luz con la prop `tone` de `Section`:
+    `base` (lectura), `deep` (superficie profunda con luz violeta),
+    `grid` (trama técnica enmascarada) y `horizon` (luz de cierre). El
+    hero tiene su propia luz y estrías de cristal.
+-   La luz azul y violeta se define con los tokens `--light-*`; no
+    repetir el mismo gradiente en todas las secciones.
+
+### Superficies
+
+-   Sólida: `--color-surface`, borde `--color-border`, sombra
+    `--highlight-edge` + `--shadow-raised`.
+-   Cristal (`Card surface="glass"` y panel de `Section`): `--glass-bg`,
+    `--glass-border` y `--glass-filter`, con fallback opaco. Solo en
+    cabecera, paneles de proyecto y contacto.
 
 -   Glassmorphism solo en elementos donde ayude a crear jerarquía.
 -   Desenfoques moderados y con fallback visual.

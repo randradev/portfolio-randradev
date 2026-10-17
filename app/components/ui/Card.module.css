@@ -7,21 +7,34 @@
   border: 1px solid var(--color-border);
   border-radius: var(--radius-lg);
   background-color: var(--color-surface);
-  box-shadow: var(--shadow-raised);
+  box-shadow: var(--highlight-edge), var(--shadow-raised);
+}
+
+/* Cristal: fallback opaco (--color-surface) donde no hay backdrop-filter. */
+.glass {
+  border-color: var(--glass-border);
+}
+
+@supports (backdrop-filter: blur(1px)) or (-webkit-backdrop-filter: blur(1px)) {
+  .glass {
+    background-color: var(--glass-bg);
+    -webkit-backdrop-filter: var(--glass-filter);
+    backdrop-filter: var(--glass-filter);
+  }
 }
 
 /* Tarjeta con enlace principal: hover y foco mínimos, sin depender de ellos. */
 .interactive {
   transition:
-    border-color var(--duration-base) var(--ease-standard),
-    box-shadow var(--duration-base) var(--ease-standard),
-    transform var(--duration-base) var(--ease-standard);
+    border-color var(--duration-base) var(--ease-out),
+    box-shadow var(--duration-base) var(--ease-out),
+    transform var(--duration-base) var(--ease-out);
 }
 
 .interactive:hover,
 .interactive:focus-within {
   border-color: color-mix(in srgb, var(--color-primary) 45%, var(--color-border));
-  box-shadow: var(--shadow-raised-hover);
+  box-shadow: var(--highlight-edge), var(--shadow-raised-hover);
 }
 
 @media (hover: hover) {
