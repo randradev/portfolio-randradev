@@ -17,6 +17,7 @@ export function Hero() {
           <p className={styles.eyebrow}>{site.name}</p>
           <h1 id={TITLE_ID} className={styles.title}>
             {hero.title.lead}{" "}
+            <br />
             <span className={styles.emphasis}>{hero.title.emphasis}</span>
           </h1>
           <p className={styles.summary}>{hero.summary}</p>

@@ -6,10 +6,10 @@ import type { HeroContent } from "./types";
  * definitivos de presentación (SPEC §13) antes de publicar.
  */
 export const hero: HeroContent = {
-  title: { lead: "Desarrollador Full Stack", emphasis: "con IA aplicada" },
+  title: { lead: "Construyo software.", emphasis: "Integro inteligencia." },
   summary:
-    "Construyo aplicaciones web completas, del frontend a la integración de sistemas, y uso IA cuando resuelve un problema concreto.",
+    "Desarrollador Full Stack con foco en Python e inteligencia artificial aplicada.",
   // Las secciones de destino se construyen en la Fase 3.
-  primaryCta: { label: "Ver proyectos", to: "/#proyectos" },
+  primaryCta: { label: "Explorar proyectos", to: "/#proyectos" },
   contactCta: { label: "Contacto", to: "/#contacto" },
 };
