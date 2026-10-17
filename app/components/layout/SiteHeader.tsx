@@ -79,7 +79,8 @@ export function SiteHeader() {
           onClick={() => setOpenAtKey(isOpen ? null : location.key)}
         >
           <span className={styles.toggleIcon} aria-hidden="true" />
-          {isOpen ? "Cerrar" : "Menú"}
+          {/* Solo icono a la vista; el nombre accesible sigue siendo texto. */}
+          <span className="visually-hidden">{isOpen ? "Cerrar menú" : "Abrir menú"}</span>
         </Button>
 
         <nav

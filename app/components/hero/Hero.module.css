@@ -67,13 +67,14 @@
   );
 }
 
-/* Móvil: el objeto, recortado, ocupa la esquina superior derecha detrás del
-   eyebrow; el titular empieza bajo su centro para que el CTA quepa sin scroll. */
+/* Móvil: composición vertical editorial (etiqueta, titular, objeto, resumen,
+   CTA). El objeto ocupa su propia fila; el orden visual sale de las áreas, el
+   del DOM no cambia (el visual es decorativo). */
 .inner {
   position: relative;
   display: grid;
   gap: var(--space-8);
-  padding-block: calc(var(--space-4) + 46vw) var(--space-16);
+  padding-block: var(--space-8) var(--space-12);
 }
 
 .head,
@@ -133,14 +134,68 @@
   font-weight: var(--weight-light);
 }
 
-/* `.hero` eleva la especificidad sobre HeroVisual.module.css. */
-.hero .visual {
-  position: absolute;
-  z-index: 0;
-  top: calc(-1 * var(--space-8));
-  right: -24vw;
-  width: 82vw;
-  margin: 0;
+/* Móvil y tablet: rejilla por áreas, objeto en flujo y titular a medida. */
+@media (max-width: 63.99rem) {
+  .hero {
+    --object-x: 50%;
+    --object-y: 40%;
+  }
+
+  .inner {
+    grid-template-areas:
+      "head"
+      "visual"
+      "foot";
+  }
+
+  .head {
+    grid-area: head;
+    /* El titular se dimensiona con el ancho de su columna (unidades cqi). */
+    container-type: inline-size;
+  }
+
+  .foot {
+    grid-area: foot;
+  }
+
+  /* Etiqueta en dos líneas equilibradas: sin "· APPLIED AI" huérfano. */
+  .head > :first-child {
+    text-wrap: balance;
+  }
+
+  /* Una frase por línea, siempre. La frase más ancha mide ~9,2em, así que
+     10.6cqi la ajusta a la columna; en tablet manda --text-display. */
+  .title {
+    font-size: min(var(--text-display), 10.6cqi);
+  }
+
+  .line {
+    white-space: nowrap;
+  }
+
+  /* El núcleo visible del objeto ocupa ~45 % de su caja; el resto es halo.
+     Los márgenes negativos recortan solo halo de la fila: el halo puede rozar
+     el titular (atmósfera deliberada, por detrás), el núcleo nunca. */
+  .hero .visual {
+    --visual-size: min(122vw, 28rem, 58svh);
+
+    grid-area: visual;
+    z-index: 0;
+    width: var(--visual-size);
+    margin-block: calc(var(--visual-size) * -0.25);
+    margin-inline: calc((100% - var(--visual-size)) / 2);
+  }
+
+  /* Los dos CTA en una fila a partes iguales; si no caben, se apilan. */
+  .actions {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(9.5rem, 1fr));
+    justify-self: stretch;
+  }
+
+  .hero .actions > * {
+    padding-inline: var(--space-4);
+  }
 }
 
 /* Entrada del titular: solo desplazamiento y una opacidad inicial distinta de
@@ -162,21 +217,41 @@
   }
 }
 
-/* Tablet: objeto arriba a la derecha, por encima del titular. */
-@media (min-width: 48rem) {
+/* Tablet: titular a todo el ancho; debajo, resumen y CTA a la izquierda y el
+   objeto a la derecha, en eco de la composición de escritorio. */
+@media (min-width: 48rem) and (max-width: 63.99rem) {
   .hero {
-    --object-x: 80%;
-    --object-y: 28%;
+    --object-x: 76%;
+    --object-y: 64%;
   }
 
   .inner {
-    padding-top: calc(var(--space-8) + 30vw);
+    /* La columna de texto, algo más ancha, para que ambos CTA quepan en fila. */
+    grid-template-columns: minmax(0, 6fr) minmax(0, 5fr);
+    grid-template-areas:
+      "head head"
+      "foot visual";
+    column-gap: var(--space-8);
+    row-gap: var(--space-10);
+    padding-block: var(--space-12) var(--space-16);
+  }
+
+  .foot {
+    align-self: center;
+  }
+
+  .actions {
+    display: flex;
+  }
+
+  .hero .actions > * {
+    padding-inline: var(--space-6);
   }
 
   .hero .visual {
-    top: calc(-1 * var(--space-4));
-    right: -12vw;
-    width: 58vw;
+    --visual-size: min(72vw, 40rem);
+
+    align-self: center;
   }
 }
 
@@ -214,7 +289,11 @@
     align-self: end;
   }
 
+  /* `.hero` eleva la especificidad sobre HeroVisual.module.css. */
   .hero .visual {
+    position: absolute;
+    z-index: 0;
+    margin: 0;
     top: 60%;
     right: calc(-1 * var(--container-gutter) - 14vw);
     width: min(60vw, 54rem);

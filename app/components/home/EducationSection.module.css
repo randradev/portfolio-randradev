@@ -37,7 +37,8 @@
   content: "";
   position: absolute;
   z-index: -1;
-  inset: -30% -10% -30% -20%;
+  /* A una columna no sobresale por la derecha: generaría scroll horizontal. */
+  inset: -30% 0 -30% -20%;
   background: radial-gradient(
     closest-side,
     var(--light-blue),
@@ -79,5 +80,9 @@
 
   .item[data-kind="degree"] {
     grid-row: span 2;
+  }
+
+  .item[data-kind="degree"]::before {
+    inset-inline-end: -10%;
   }
 }

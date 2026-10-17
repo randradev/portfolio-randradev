@@ -9,6 +9,12 @@ import { HeroVisual } from "./HeroVisual";
 const SECTION_ID = "inicio";
 const TITLE_ID = "hero-titulo";
 
+/** Une cada « · » a la palabra anterior: si la etiqueta se parte, ninguna línea
+ *  empieza con el separador. El texto visible no cambia. */
+function keepSeparatorsInline(text: string) {
+  return text.replaceAll(" · ", " · ");
+}
+
 /**
  * Hero de la página principal: titular a escala display que se solapa con el
  * objeto y, anclados abajo, el resumen y los CTA. El texto no depende del 3D.
@@ -18,7 +24,7 @@ export function Hero() {
     <section id={SECTION_ID} className={styles.hero} aria-labelledby={TITLE_ID}>
       <Container className={styles.inner}>
         <div className={styles.head}>
-          <Eyebrow>{hero.eyebrow}</Eyebrow>
+          <Eyebrow>{keepSeparatorsInline(hero.eyebrow)}</Eyebrow>
           <h1 id={TITLE_ID} className={styles.title}>
             <span className={styles.line}>{hero.title.lead}</span>{" "}
             <span className={`${styles.line} ${styles.emphasis}`}>

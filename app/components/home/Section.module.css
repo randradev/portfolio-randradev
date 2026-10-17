@@ -135,6 +135,34 @@
   max-width: 14rem;
 }
 
+/* Teléfono: la foto acompaña al texto en lugar de encabezarlo. Cabecera e
+   introducción ceden sus hijos a la rejilla (`display: contents`) para colocar
+   el retrato, más pequeño, entre los párrafos y el CTA. */
+@media (max-width: 47.99rem) {
+  .media {
+    row-gap: var(--space-4);
+  }
+
+  .media .header,
+  .media .intro {
+    display: contents;
+  }
+
+  .media .heading {
+    margin-bottom: var(--space-2);
+  }
+
+  .media .mediaSlot {
+    order: 1;
+    width: 9rem;
+    margin-block: var(--space-6);
+  }
+
+  .media .actions {
+    order: 2;
+  }
+}
+
 /* Cierre de página: panel de cristal sobre la luz de horizonte. */
 .panel {
   padding: clamp(var(--space-6), 6vw, var(--space-16));

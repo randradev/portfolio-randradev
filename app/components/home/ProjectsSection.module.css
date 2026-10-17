@@ -25,10 +25,37 @@
   background-color: var(--surface-deep);
 }
 
+/* Las capturas son interfaces claras: se atenúan para no deslumbrar sobre el
+   fondo oscuro, sin alterar la imagen. */
 .coverImage {
   width: 100%;
   height: 100%;
   object-fit: cover;
+  filter: brightness(0.8) saturate(0.92);
+}
+
+/* Velo tenue desde el borde: integra la captura con el cristal de la tarjeta. */
+.cover:not(.placeholder)::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    to top,
+    color-mix(in srgb, var(--color-bg) 28%, transparent),
+    transparent 45%
+  );
+  box-shadow: inset 0 0 0 1px var(--glass-border);
+  pointer-events: none;
+}
+
+@media (prefers-contrast: more) {
+  .coverImage {
+    filter: none;
+  }
+
+  .cover:not(.placeholder)::after {
+    content: none;
+  }
 }
 
 /* Portada abstracta: luz del proyecto sobre la trama técnica. */

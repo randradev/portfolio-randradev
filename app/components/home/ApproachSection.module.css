@@ -70,6 +70,31 @@
   background-color: var(--color-primary);
 }
 
+/* Tablet: cada área en dos columnas (texto | ficha), para que la ficha no se
+   estire a todo el ancho y las herramientas queden agrupadas. */
+@media (min-width: 48rem) and (max-width: 63.99rem) {
+  .list {
+    gap: var(--space-12);
+  }
+
+  .area {
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+    grid-template-rows: repeat(3, auto) 1fr;
+    column-gap: var(--space-10);
+  }
+
+  .area > :not(.tools) {
+    grid-column: 1;
+  }
+
+  .tools {
+    grid-column: 2;
+    grid-row: 1 / -1;
+    align-self: center;
+    margin-top: 0;
+  }
+}
+
 /* Escritorio: subgrid para que icono, título, descripción y ficha ocupen las
    mismas filas en las tres columnas; las fichas empiezan a la misma altura. */
 @media (min-width: 64rem) {
