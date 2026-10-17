@@ -1,3 +1,5 @@
+import profilePhoto from "~/assets/ricardo-andrade.webp";
+
 import type {
   AboutContent,
   ApproachContent,
@@ -47,11 +49,13 @@ export const approach: ApproachContent = {
   title: "Pensar, diseñar y construir software.",
   areas: [
     {
+      icon: "interfaces",
       title: "Interfaces",
       description: "Interfaces web claras, funcionales y adaptables.",
       technologies: ["JavaScript", "TypeScript", "React", "HTML5", "CSS3"],
     },
     {
+      icon: "systems",
       title: "Sistemas",
       description: "APIs, lógica de negocio e integración de datos.",
       technologies: [
@@ -66,6 +70,7 @@ export const approach: ApproachContent = {
       ],
     },
     {
+      icon: "ai",
       title: "IA aplicada",
       description: "Modelos y flujos inteligentes integrados en aplicaciones.",
       technologies: ["Gemini API", "LangGraph", "RAG"],
@@ -92,6 +97,8 @@ export const about: AboutContent = {
     "Mi experiencia en producción y coordinación también aporta a mi forma de trabajar: entender el objetivo, organizar el proceso y cuidar la ejecución.",
   ],
   cta: { label: "Ver trayectoria", to: "/#trayectoria" },
+  // Texto alternativo: necesario para accesibilidad, no forma parte del copy.
+  photo: { src: profilePhoto, alt: "Retrato de perfil de Ricardo Andrade" },
 };
 
 export const educationIntro: SectionIntro = {

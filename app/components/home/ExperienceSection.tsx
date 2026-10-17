@@ -10,6 +10,7 @@ export function ExperienceSection() {
   return (
     <Section
       intro={experienceIntro}
+      layout="sticky"
       actions={
         site.cvHref && (
           <ButtonLink href={site.cvHref} variant="secondary">
@@ -25,6 +26,7 @@ export function ExperienceSection() {
           title: item.organization,
           subtitle: item.role,
           description: item.description,
+          current: item.current,
         }))}
       />
     </Section>

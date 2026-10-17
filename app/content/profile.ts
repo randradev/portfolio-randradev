@@ -17,6 +17,7 @@ export const experience: ExperienceItem[] = [
     organization: "Planetario Chile",
     role: "Animador Digital / Optimización de Flujos de Producción",
     period: "Mayo de 2024 – actualidad",
+    current: true,
     description:
       "Gestión de flujos complejos. Optimización de procesos. Decisiones basadas en datos.",
   },

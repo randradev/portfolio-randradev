@@ -1,13 +1,98 @@
 .list {
   display: grid;
-  gap: var(--space-6);
+  gap: var(--space-8);
   padding: 0;
   list-style: none;
 }
 
-/* Tarjeta tipográfica: sin capturas reales todavía, el nombre lleva la jerarquía. */
-.card {
+/* `.list` eleva la especificidad sobre Card.module.css: el panel gestiona su
+   propio espaciado y recorta la portada a su radio. */
+.list .card {
+  display: block;
   height: 100%;
+  padding: 0;
+  overflow: hidden;
+}
+
+.layout {
+  display: grid;
+}
+
+.cover {
+  position: relative;
+  aspect-ratio: 16 / 9;
+  overflow: hidden;
+  background-color: var(--surface-deep);
+}
+
+.coverImage {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+/* Portada abstracta: luz del proyecto sobre la trama técnica. */
+.placeholder::before,
+.placeholder::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+}
+
+.placeholder::before {
+  background:
+    radial-gradient(
+      45% 70% at var(--light-x, 25%) 35%,
+      var(--cover-light),
+      transparent 70%
+    ),
+    radial-gradient(
+      70% 90% at var(--light-x, 25%) 35%,
+      var(--cover-light),
+      transparent 75%
+    );
+}
+
+.placeholder::after {
+  background-image:
+    linear-gradient(var(--grid-line) 1px, transparent 1px),
+    linear-gradient(90deg, var(--grid-line) 1px, transparent 1px);
+  background-size: calc(var(--grid-size) / 2) calc(var(--grid-size) / 2);
+  -webkit-mask-image: linear-gradient(to top, var(--color-bg), transparent 85%);
+  mask-image: linear-gradient(to top, var(--color-bg), transparent 85%);
+}
+
+[data-tone="blue"] {
+  --cover-light: var(--light-blue);
+  --light-x: 25%;
+}
+
+[data-tone="violet"] {
+  --cover-light: var(--light-violet);
+  --light-x: 75%;
+}
+
+/* Nombre en contorno, a gran escala y recortado: identifica sin parecer UI. */
+.watermark {
+  position: absolute;
+  z-index: 1;
+  bottom: -0.18em;
+  left: var(--space-6);
+  color: transparent;
+  font-family: var(--font-heading);
+  font-size: clamp(5rem, 18vw, 11rem);
+  font-weight: var(--weight-medium);
+  letter-spacing: var(--tracking-display);
+  line-height: 1;
+  white-space: nowrap;
+  -webkit-text-stroke: 1px var(--color-border-strong);
+}
+
+.body {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-4);
+  padding: clamp(var(--space-6), 4vw, var(--space-10));
 }
 
 .category {
@@ -28,7 +113,7 @@
   color: var(--color-text-muted);
 }
 
-/* Etiquetas y CTA al pie, alineados entre tarjetas de distinta altura. */
+/* Etiquetas y CTA al pie del texto. */
 .footer {
   display: grid;
   gap: var(--space-4);
@@ -36,8 +121,22 @@
   padding-top: var(--space-4);
 }
 
+/* Escritorio: portada y texto lado a lado; la portada alterna de lado. */
 @media (min-width: 64rem) {
-  .list {
-    grid-template-columns: repeat(2, minmax(0, 1fr));
+  .layout {
+    grid-template-columns: minmax(0, 7fr) minmax(0, 5fr);
+    align-items: stretch;
+  }
+
+  .layout[data-side="end"] {
+    grid-template-columns: minmax(0, 5fr) minmax(0, 7fr);
+  }
+
+  .layout[data-side="end"] .cover {
+    order: 2;
+  }
+
+  .body {
+    justify-content: center;
   }
 }

@@ -29,6 +29,26 @@ export function SiteHeader() {
     return () => window.removeEventListener("scroll", update);
   }, []);
 
+  // Sección que cruza el centro de la pantalla: su enlace se marca como actual.
+  const [activeId, setActiveId] = useState<string | null>(null);
+  const isHome = location.pathname === "/";
+
+  useEffect(() => {
+    if (!isHome) return;
+    const observer = new IntersectionObserver(
+      (entries) => {
+        for (const entry of entries) {
+          if (entry.isIntersecting) setActiveId(entry.target.id);
+        }
+      },
+      { rootMargin: "-45% 0px -50% 0px" },
+    );
+    document.querySelectorAll("main section[id]").forEach((section) => {
+      observer.observe(section);
+    });
+    return () => observer.disconnect();
+  }, [isHome]);
+
   useEffect(() => {
     if (!isOpen) return;
 
@@ -74,6 +94,9 @@ export function SiteHeader() {
                 <Link
                   to={item.to}
                   className={styles.navLink}
+                  aria-current={
+                    isHome && item.to === `/#${activeId}` ? "location" : undefined
+                  }
                   onClick={() => setOpenAtKey(null)}
                 >
                   {item.label}

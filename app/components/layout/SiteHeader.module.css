@@ -124,8 +124,31 @@
   transition: color var(--duration-fast) var(--ease-standard);
 }
 
-.navLink:hover {
+.navLink:hover,
+.navLink[aria-current] {
   color: var(--color-text);
+}
+
+/* Sección actual: filete azul bajo el enlace (además del cambio de color). */
+.navLink {
+  position: relative;
+}
+
+.navLink::after {
+  content: "";
+  position: absolute;
+  right: 0;
+  bottom: var(--space-2);
+  left: 0;
+  height: 1px;
+  background-color: var(--color-primary);
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform var(--duration-base) var(--ease-out);
+}
+
+.navLink[aria-current]::after {
+  transform: scaleX(1);
 }
 
 @media (min-width: 48rem) {

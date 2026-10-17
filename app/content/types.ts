@@ -49,6 +49,12 @@ export interface SectionIntro {
   description?: string[];
 }
 
+/** Imagen con texto alternativo descriptivo. */
+export interface ImageAsset {
+  src: string;
+  alt: string;
+}
+
 /** Proyecto destacado. Los casos de estudio completos llegan en la Fase 4. */
 export interface Project {
   slug: string;
@@ -62,6 +68,11 @@ export interface Project {
    * no muestra el CTA para no enlazar a un 404.
    */
   caseStudyTo: string | null;
+  /**
+   * Portada 16:9: captura real del proyecto. `null` mientras no exista; se
+   * muestra una portada abstracta que no imita una interfaz.
+   */
+  cover: ImageAsset | null;
 }
 
 export interface ProjectsContent extends SectionIntro {
@@ -72,6 +83,8 @@ export interface ProjectsContent extends SectionIntro {
 
 /** Área del bloque "Capacidades", con las tecnologías que la respaldan. */
 export interface ApproachArea {
+  /** Icono decorativo asociado al área. */
+  icon: "interfaces" | "systems" | "ai";
   title: string;
   description: string;
   technologies: string[];
@@ -86,6 +99,8 @@ export interface ExperienceItem {
   role: string;
   period: string;
   description: string;
+  /** Puesto vigente: se marca como estado activo en la línea de tiempo. */
+  current?: boolean;
 }
 
 export interface EducationItem {
@@ -101,6 +116,7 @@ export interface ExperienceContent extends SectionIntro {
 
 export interface AboutContent extends SectionIntro {
   cta: CtaLink;
+  photo: ImageAsset;
 }
 
 export interface ContactContent extends SectionIntro {

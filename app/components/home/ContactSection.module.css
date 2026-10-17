@@ -17,3 +17,11 @@
   padding: 0;
   list-style: none;
 }
+
+/* El correo es un dato técnico: mono, como los demás metadatos. `.details`
+   eleva la especificidad sobre TextLink.module.css. */
+.details .email {
+  font-family: var(--font-mono);
+  font-size: var(--text-small);
+  font-weight: var(--weight-regular);
+}

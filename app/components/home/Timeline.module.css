@@ -1,14 +1,48 @@
+/* Raíl vertical a la izquierda; se desvanece al final, sin tope. */
 .list {
-  padding: 0;
+  --node-size: 9px;
+
+  position: relative;
+  display: grid;
+  gap: var(--space-12);
+  padding: 0 0 0 var(--space-8);
   list-style: none;
-  border-bottom: 1px solid var(--color-border);
+}
+
+.list::before {
+  content: "";
+  position: absolute;
+  top: var(--space-2);
+  bottom: 0;
+  left: calc((var(--node-size) - 1px) / 2);
+  width: 1px;
+  background: linear-gradient(to bottom, var(--color-border-strong) 75%, transparent);
 }
 
 .item {
+  position: relative;
   display: grid;
   gap: var(--space-2);
-  padding-block: var(--space-6);
-  border-top: 1px solid var(--color-border);
+}
+
+/* Nodo alineado con la línea del periodo. */
+.item::before {
+  content: "";
+  position: absolute;
+  top: 0.45em;
+  left: calc(-1 * var(--space-8));
+  width: var(--node-size);
+  height: var(--node-size);
+  border: 1px solid var(--color-border-strong);
+  border-radius: 50%;
+  background-color: var(--color-bg);
+}
+
+/* Etapa vigente: teal como estado positivo (el texto dice «actualidad»). */
+.item[data-current]::before {
+  border-color: var(--color-positive);
+  background-color: var(--color-positive);
+  box-shadow: 0 0 0 4px color-mix(in srgb, var(--color-positive) 18%, transparent);
 }
 
 .period {
@@ -17,34 +51,18 @@
   font-size: var(--text-meta);
 }
 
-.body {
-  display: grid;
-  gap: var(--space-2);
-}
-
 .title {
-  font-size: var(--text-h3);
+  margin-top: var(--space-1);
+  font-size: clamp(1.5rem, 1.3rem + 0.6vw, 1.875rem);
 }
 
 .subtitle {
   color: var(--color-text);
-  font-size: var(--text-small);
-  font-weight: var(--weight-medium);
+  font-family: var(--font-mono);
+  font-size: var(--text-meta);
 }
 
 .description {
+  margin-top: var(--space-2);
   color: var(--color-text-muted);
-}
-
-/* Tablet en adelante: el periodo ocupa una columna fija a la izquierda. */
-@media (min-width: 48rem) {
-  .item {
-    grid-template-columns: 14rem minmax(0, 1fr);
-    gap: var(--space-8);
-    padding-block: var(--space-8);
-  }
-
-  .period {
-    padding-top: var(--space-1);
-  }
 }

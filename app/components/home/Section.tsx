@@ -11,10 +11,19 @@ type SectionProps = {
   /** Acciones bajo la introducción (CTA, enlaces). */
   actions?: ReactNode;
   /**
-   * `split`: título a la izquierda e introducción a la derecha en escritorio.
-   * `panel`: todo apilado dentro de una superficie elevada (cierre de página).
+   * Composición en escritorio; cada sección elige la suya para que la página no
+   * repita la misma rejilla.
+   * `split`: título a la izquierda e introducción a la derecha.
+   * `stack`: encabezado sobre el contenido, a una columna.
+   * `sticky`: encabezado fijo a la izquierda mientras el contenido avanza.
+   * `media`: imagen (`media`) junto al encabezado y el contenido.
+   * `panel`: todo dentro de una superficie de cristal (cierre de página).
    */
-  layout?: "split" | "panel";
+  layout?: "split" | "stack" | "sticky" | "media" | "panel";
+  /** Imagen o elemento visual para `layout="media"`. */
+  media?: ReactNode;
+  /** Cada frase del título en su línea (p. ej. «Full Stack. / Python. / …»). */
+  titleBySentence?: boolean;
   /** En `split`: `start` para introducciones largas, que desplazarían el título. */
   align?: "end" | "start";
   /**
@@ -33,12 +42,23 @@ export function Section({
   intro,
   actions,
   layout = "split",
+  media,
+  titleBySentence = false,
   align = "end",
   tone = "base",
   scale = "default",
   children,
 }: SectionProps) {
   const titleId = `${intro.id}-titulo`;
+  // Divide tras cada punto sin alterar el texto: los espacios se conservan.
+  const title = titleBySentence
+    ? intro.title.split(/(?<=\.)\s+/).map((sentence, index, all) => (
+        <span key={sentence} className={styles.titleLine}>
+          {sentence}
+          {index < all.length - 1 && " "}
+        </span>
+      ))
+    : intro.title;
 
   return (
     <section
@@ -48,12 +68,14 @@ export function Section({
       data-tone={tone}
     >
       <Container>
-        <div className={styles[layout]}>
+        <div className={`${styles.layout} ${styles[layout]}`}>
+          {layout === "media" && media && <div className={styles.mediaSlot}>{media}</div>}
+
           <header className={styles.header} data-align={align}>
             <div className={styles.heading}>
               <Eyebrow>{intro.eyebrow}</Eyebrow>
               <h2 id={titleId} className={styles.title} data-scale={scale}>
-                {intro.title}
+                {title}
               </h2>
             </div>
 
@@ -67,7 +89,7 @@ export function Section({
             )}
           </header>
 
-          {children}
+          {children && <div className={styles.content}>{children}</div>}
         </div>
       </Container>
     </section>

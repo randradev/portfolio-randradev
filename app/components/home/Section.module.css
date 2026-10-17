@@ -60,10 +60,28 @@
     radial-gradient(50% 45% at 75% 100%, var(--light-violet), transparent 72%);
 }
 
-.split,
-.panel {
+.layout {
   display: grid;
   gap: var(--space-12);
+}
+
+/* Entrada al aparecer en pantalla: solo CSS (view timeline). Donde no hay
+   soporte o se prefiere menos movimiento, el contenido está visible siempre. */
+@supports (animation-timeline: view()) {
+  @media (prefers-reduced-motion: no-preference) {
+    .layout {
+      animation: reveal linear both;
+      animation-timeline: view();
+      animation-range: entry 0% entry 35%;
+    }
+  }
+}
+
+@keyframes reveal {
+  from {
+    opacity: 0;
+    transform: translateY(var(--space-4));
+  }
 }
 
 .header {
@@ -86,6 +104,10 @@
   line-height: var(--leading-display);
 }
 
+.titleLine {
+  display: block;
+}
+
 .intro {
   display: grid;
   gap: var(--space-4);
@@ -93,11 +115,24 @@
   font-size: var(--text-body-lg);
 }
 
+/* El primer párrafo funciona como entrada; el resto, a tamaño de lectura. */
+.media .intro p + p {
+  font-size: var(--text-body);
+}
+
 .actions {
   display: flex;
   flex-wrap: wrap;
   gap: var(--space-3);
   padding-top: var(--space-2);
+}
+
+.content {
+  min-width: 0;
+}
+
+.media .mediaSlot {
+  max-width: 14rem;
 }
 
 /* Cierre de página: panel de cristal sobre la luz de horizonte. */
@@ -121,8 +156,8 @@
   max-width: var(--measure);
 }
 
-/* Escritorio: título e introducción en columnas, alineados por la base. */
 @media (min-width: 64rem) {
+  /* Título e introducción en columnas, alineados por la base. */
   .split .header {
     grid-template-columns: minmax(0, 7fr) minmax(0, 5fr);
     align-items: end;
@@ -133,7 +168,49 @@
     align-items: start;
   }
 
-  .split .intro {
+  .split .intro,
+  .sticky .intro {
     font-size: var(--text-body);
+  }
+
+  /* Encabezado fijo en su columna mientras el contenido avanza a la derecha. */
+  .sticky {
+    grid-template-columns: minmax(0, 4fr) minmax(0, 8fr);
+    align-items: start;
+    column-gap: var(--space-16);
+  }
+
+  .sticky .header {
+    position: sticky;
+    top: calc(var(--header-height) + var(--space-8));
+  }
+
+  /* Imagen a la izquierda; encabezado y contenido a la derecha. */
+  .media {
+    grid-template-columns: minmax(0, 5fr) minmax(0, 7fr);
+    grid-template-areas:
+      "media header"
+      "media content";
+    align-items: center;
+    column-gap: var(--space-16);
+  }
+
+  .media .mediaSlot {
+    grid-area: media;
+    justify-self: center;
+    width: 100%;
+    max-width: 26rem;
+  }
+
+  .media .header {
+    grid-area: header;
+  }
+
+  .media .content {
+    grid-area: content;
+  }
+
+  .media .intro {
+    max-width: 56ch;
   }
 }

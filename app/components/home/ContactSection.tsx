@@ -32,7 +32,9 @@ export function ContactSection() {
         <p className={styles.note}>{contact.note}</p>
         <ul className={styles.channels} aria-label="Canales de contacto">
           <li>
-            <TextLink href={`mailto:${email}`}>{email}</TextLink>
+            <TextLink href={`mailto:${email}`} className={styles.email}>
+              {email}
+            </TextLink>
           </li>
           {profiles.map((profile) => (
             <li key={profile.href}>

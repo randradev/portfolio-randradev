@@ -158,6 +158,15 @@ mínimo. - Foco visible por teclado. - En móvil, la información esencial
 debe estar siempre visible; no depender del hover. - No presentar
 métricas o etiquetas como hechos si no están verificadas.
 
+### Implementación actual (rediseño, iteración 3)
+
+-   Paneles anchos con portada 16:9 que alterna de lado entre proyectos
+    y luz propia (azul / violeta). Stack en mono con filetes, sin chips.
+-   Sin captura real (`cover: null`) se muestra una portada abstracta:
+    luz, trama técnica y el nombre en contorno. No imita una interfaz;
+    se sustituye en cuanto exista la captura.
+-   El hover con desplazamiento solo se activa si existe caso de estudio.
+
 ## 8. Objeto 3D
 
 ### Dirección
