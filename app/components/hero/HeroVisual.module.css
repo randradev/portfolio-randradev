@@ -7,24 +7,45 @@
   pointer-events: none;
 }
 
-/* Halo discreto detrás del objeto, común al 3D y al fallback. */
-.root::before {
+/* Bloom descentrado detrás del objeto, común al 3D y al render estático. Los
+   gradientes se agotan antes del borde de la caja: no se dibuja ningún disco. */
+.root::before,
+.root::after {
   content: "";
   position: absolute;
-  inset: 6%;
-  border-radius: 50%;
+}
+
+.root::before {
+  inset: -12%;
+  background:
+    radial-gradient(38% 34% at 58% 44%, var(--light-violet), transparent 72%),
+    radial-gradient(34% 38% at 40% 56%, var(--light-blue), transparent 72%);
+}
+
+/* Pozo de luz bajo el objeto: sugiere un suelo sin dibujarlo. */
+.root::after {
+  inset: auto 18% 2% 18%;
+  height: 16%;
   background: radial-gradient(
     closest-side,
-    color-mix(in srgb, var(--color-accent) 20%, transparent),
-    color-mix(in srgb, var(--color-primary) 7%, transparent) 65%,
+    var(--light-blue),
+    var(--light-violet-soft) 55%,
     transparent
   );
 }
 
+/* Por encima de ambos pseudoelementos (::after se pinta tras los hijos). */
 .layer {
   position: absolute;
+  z-index: 1;
   inset: 0;
+  width: 100%;
+  height: 100%;
   transition: opacity var(--duration-enter) var(--ease-standard);
+  /* El canvas es opaco (pinta su propio fondo de luz): sus bordes se funden con
+     la página. El render estático usa la misma máscara para que coincidan. */
+  -webkit-mask-image: radial-gradient(closest-side, var(--color-bg) 68%, transparent);
+  mask-image: radial-gradient(closest-side, var(--color-bg) 68%, transparent);
 }
 
 .scene {

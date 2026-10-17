@@ -1,5 +1,6 @@
 import "@fontsource-variable/space-grotesk";
 import "@fontsource-variable/raleway";
+import "@fontsource-variable/raleway/wght-italic.css";
 import "@fontsource/ibm-plex-mono/400.css";
 import "@fontsource/ibm-plex-mono/500.css";
 import "./styles/tokens.css";

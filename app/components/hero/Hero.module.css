@@ -1,7 +1,13 @@
+/* Posición del objeto: la luz y las estrías del fondo la siguen en cada tamaño. */
 .hero {
+  --object-x: 86%;
+  --object-y: 20%;
+
   position: relative;
   isolation: isolate;
-  overflow: clip;
+  /* Solo en horizontal: el halo del objeto puede sobresalir por arriba y por
+     abajo sin cortarse contra la cabecera o proyectos. */
+  overflow-x: clip;
 }
 
 /* Atmósfera del hero: luz azul del lado del objeto, contraluz violeta abajo
@@ -15,14 +21,31 @@
   pointer-events: none;
 }
 
-/* La capa se desvanece antes del borde inferior: el contraluz violeta "baja"
-   hacia proyectos, cuya luz violeta lo recoge en el mismo lado, sin corte. */
+/* La capa se desvanece en ambos bordes: arriba no se corta contra la cabecera
+   y abajo el contraluz violeta "baja" hacia proyectos, que lo recoge en el
+   mismo lado, sin corte. */
 .hero::before {
   background:
-    radial-gradient(45% 55% at 78% 45%, var(--light-blue), transparent 70%),
+    radial-gradient(
+      45% 55% at var(--object-x) var(--object-y),
+      var(--light-blue),
+      transparent 70%
+    ),
     radial-gradient(40% 50% at 8% 88%, var(--light-violet), transparent 70%);
-  -webkit-mask-image: linear-gradient(to bottom, var(--color-bg) 70%, transparent);
-  mask-image: linear-gradient(to bottom, var(--color-bg) 70%, transparent);
+  -webkit-mask-image: linear-gradient(
+    to bottom,
+    transparent,
+    var(--color-bg) 15%,
+    var(--color-bg) 70%,
+    transparent
+  );
+  mask-image: linear-gradient(
+    to bottom,
+    transparent,
+    var(--color-bg) 15%,
+    var(--color-bg) 70%,
+    transparent
+  );
 }
 
 .hero::after {
@@ -33,43 +56,64 @@
     transparent 48px
   );
   -webkit-mask-image: radial-gradient(
-    40% 45% at 78% 45%,
+    40% 38% at var(--object-x) var(--object-y),
     var(--color-bg),
     transparent 80%
   );
-  mask-image: radial-gradient(40% 45% at 78% 45%, var(--color-bg), transparent 80%);
+  mask-image: radial-gradient(
+    40% 38% at var(--object-x) var(--object-y),
+    var(--color-bg),
+    transparent 80%
+  );
 }
 
-/* Móvil: texto primero y objeto debajo, para que título y CTA no se desplacen. */
+/* Móvil: el objeto, recortado, ocupa la esquina superior derecha detrás del
+   eyebrow; el titular empieza bajo su centro para que el CTA quepa sin scroll. */
 .inner {
+  position: relative;
   display: grid;
-  align-items: center;
-  gap: var(--space-10);
-  padding-block: var(--space-12) var(--space-16);
+  gap: var(--space-8);
+  padding-block: calc(var(--space-4) + 46vw) var(--space-16);
 }
 
-.content {
+.head,
+.foot {
+  position: relative;
+  z-index: 1;
   display: grid;
   justify-items: start;
+}
+
+.head {
+  gap: var(--space-5);
+}
+
+.foot {
   gap: var(--space-6);
 }
 
-/* Escala propia, más contenida que --text-h1: el titular debe leerse completo
-   en la primera pantalla, también a 320px. */
 .title {
-  max-width: 22ch;
-  font-size: clamp(2rem, 7.5vw, 3rem);
+  /* Ancho completo: con `fit-content`, el sangrado de la línea 2 la partiría. */
+  justify-self: stretch;
+  max-width: none;
+  font-size: var(--text-display);
+  font-weight: var(--weight-semibold);
+  line-height: var(--leading-display);
+  letter-spacing: var(--tracking-display);
 }
 
-/* Segunda frase en su propia línea, sin <br> en el contenido. El contraste
-   entre las dos frases viene del peso, no de un gradiente de color. */
-.emphasis {
+/* Cada frase en su línea, sin <br> en el contenido. */
+.line {
   display: block;
+}
+
+/* El contraste entre las dos frases viene del peso, no de un gradiente. */
+.emphasis {
   font-weight: var(--weight-light);
 }
 
 .summary {
-  max-width: 44ch;
+  max-width: 34ch;
   color: var(--color-text-muted);
   font-size: var(--text-body-lg);
 }
@@ -78,38 +122,102 @@
   display: flex;
   flex-wrap: wrap;
   gap: var(--space-3);
-  padding-top: var(--space-2);
 }
 
+/* Microcopy: un detalle, no un argumento. Itálica ligera para separarla del
+   resumen; peso 300 permitido aquí porque es una línea breve y no esencial. */
 .note {
   color: var(--color-text-muted);
   font-size: var(--text-small);
+  font-style: italic;
+  font-weight: var(--weight-light);
 }
 
-.visual {
-  max-width: 22rem;
+/* `.hero` eleva la especificidad sobre HeroVisual.module.css. */
+.hero .visual {
+  position: absolute;
+  z-index: 0;
+  top: calc(-1 * var(--space-8));
+  right: -24vw;
+  width: 82vw;
+  margin: 0;
 }
 
+/* Entrada del titular: solo desplazamiento y una opacidad inicial distinta de
+   cero, para no retrasar el LCP. Sin preferencia de movimiento, no se anima. */
+@media (prefers-reduced-motion: no-preference) {
+  .line {
+    animation: line-in 640ms var(--ease-out) both;
+  }
+
+  .line + .line {
+    animation-delay: 80ms;
+  }
+
+  @keyframes line-in {
+    from {
+      opacity: 0.01;
+      transform: translateY(0.35em);
+    }
+  }
+}
+
+/* Tablet: objeto arriba a la derecha, por encima del titular. */
 @media (min-width: 48rem) {
-  .visual {
-    max-width: 28rem;
+  .hero {
+    --object-x: 80%;
+    --object-y: 28%;
+  }
+
+  .inner {
+    padding-top: calc(var(--space-8) + 30vw);
+  }
+
+  .hero .visual {
+    top: calc(-1 * var(--space-4));
+    right: -12vw;
+    width: 58vw;
   }
 }
 
-/* Escritorio: composición editorial en dos columnas. */
+/* Escritorio: rejilla de 12 columnas. El titular, alineado a la izquierda,
+   cruza casi todo el ancho y apenas roza el objeto; resumen y CTA quedan
+   anclados abajo a la izquierda. */
 @media (min-width: 64rem) {
+  .hero {
+    --object-x: 85%;
+    --object-y: 56%;
+  }
+
   .inner {
-    grid-template-columns: minmax(0, 7fr) minmax(0, 5fr);
-    gap: var(--space-12);
-    min-height: min(calc(100svh - var(--header-height)), 52rem);
-    padding-block: var(--space-16);
+    grid-template-columns: repeat(12, minmax(0, 1fr));
+    grid-template-rows: 1fr auto;
+    column-gap: var(--space-6);
+    row-gap: var(--space-12);
+    min-height: min(calc(100svh - var(--header-height)), 58rem);
+    padding-block: var(--space-16) var(--space-12);
   }
 
+  .head {
+    grid-column: 1 / -1;
+    align-self: center;
+  }
+
+  /* Sombra amplia y difusa: separa el titular de los brillos del objeto cuando
+     pasa por delante, sin contorno visible. */
   .title {
-    font-size: clamp(2.5rem, 3.5vw, 3.375rem);
+    text-shadow: 0 2px 28px color-mix(in srgb, var(--color-bg) 70%, transparent);
   }
 
-  .visual {
-    max-width: none;
+  .foot {
+    grid-column: 1 / span 5;
+    align-self: end;
+  }
+
+  .hero .visual {
+    top: 60%;
+    right: calc(-1 * var(--container-gutter) - 14vw);
+    width: min(60vw, 54rem);
+    transform: translateY(-50%);
   }
 }

@@ -2,12 +2,20 @@
   position: sticky;
   top: 0;
   z-index: var(--z-header);
-  border-bottom: 1px solid var(--color-border);
+  border-bottom: 1px solid transparent;
+  transition:
+    background-color var(--duration-base) var(--ease-out),
+    border-color var(--duration-base) var(--ease-out);
+}
+
+/* Con scroll (o con el menú abierto): cristal sobre el contenido. */
+.header[data-scrolled="true"] {
+  border-bottom-color: var(--glass-border);
   background-color: var(--color-overlay);
 }
 
 @supports (backdrop-filter: blur(1px)) or (-webkit-backdrop-filter: blur(1px)) {
-  .header {
+  .header[data-scrolled="true"] {
     -webkit-backdrop-filter: var(--glass-filter);
     backdrop-filter: var(--glass-filter);
   }

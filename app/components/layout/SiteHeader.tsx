@@ -19,6 +19,16 @@ export function SiteHeader() {
   const [openAtKey, setOpenAtKey] = useState<string | null>(null);
   const isOpen = openAtKey === location.key;
 
+  // Transparente sobre el inicio de la página; superficie de cristal al desplazarse.
+  const [scrolled, setScrolled] = useState(false);
+
+  useEffect(() => {
+    const update = () => setScrolled(window.scrollY > 8);
+    update();
+    window.addEventListener("scroll", update, { passive: true });
+    return () => window.removeEventListener("scroll", update);
+  }, []);
+
   useEffect(() => {
     if (!isOpen) return;
 
@@ -34,7 +44,7 @@ export function SiteHeader() {
   }, [isOpen]);
 
   return (
-    <header className={styles.header}>
+    <header className={styles.header} data-scrolled={scrolled || isOpen}>
       <Container className={styles.inner}>
         <Link to="/" className={styles.wordmark}>
           {site.name}

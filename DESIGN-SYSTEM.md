@@ -185,6 +185,22 @@ métricas o etiquetas como hechos si no están verificadas.
     hero debe seguir viéndose intencional y completo.
 -   No depender de WebGL para exponer información textual.
 
+### Implementación actual (rediseño, iteración 2)
+
+-   Pieza: metaforma orgánica, una esfera deformada en el vertex shader
+    con ruido simplex animado (`HeroScene.tsx` + `blobShader.ts`), en metal
+    holográfico (cromo con iridiscencia de lámina fina). Respira de forma
+    constante; con puntero fino se inclina como máximo 4° y, con el
+    puntero encima, se agita (más amplitud, frecuencia y velocidad) y
+    vuelve a la calma al salir.
+-   El canvas es opaco y pinta su propio fondo de luz azul-violeta, el
+    mismo halo que lleva el render estático. Una máscara radial CSS funde
+    sus bordes con la página. Los reflejos salen del entorno procedural.
+-   Render pre-producido (`app/assets/hero-render.webp`, mismo encuadre y
+    máscara) como fallback, durante la carga y en móvil (< 48rem). Si
+    cambia la escena, regenerarlo capturando el canvas.
+-   `dpr` limitado a 1.5; sin frames fuera de pantalla.
+
 ### Validación
 
 -   Revisar en móvil real o emulación razonable.
