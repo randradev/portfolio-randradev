@@ -1,21 +1,35 @@
 import type { SiteConfig } from "./types";
 
+/** Textos de navegación y metadatos: docs/COPY-HOME.md §1 y §12. */
 export const site: SiteConfig = {
   name: "Ricardo Andrade",
   lang: "es",
   meta: {
-    title: "Ricardo Andrade",
-    // PENDIENTE: descripción definitiva (textos de presentación sin confirmar).
-    description: "Portafolio de Ricardo Andrade.",
+    title: "Ricardo Andrade — Desarrollador Full Stack | IA aplicada",
+    description:
+      "Portafolio de Ricardo Andrade, desarrollador Full Stack interesado en crear productos digitales, integrar APIs y explorar soluciones prácticas con inteligencia artificial.",
   },
-  // Las secciones de destino se construyen en la Fase 3.
   nav: [
+    { label: "Inicio", to: "/#inicio" },
     { label: "Proyectos", to: "/#proyectos" },
+    { label: "Trayectoria", to: "/#trayectoria" },
     { label: "Sobre mí", to: "/#sobre-mi" },
-    { label: "Experiencia", to: "/#experiencia" },
     { label: "Contacto", to: "/#contacto" },
   ],
-  // PENDIENTE: activar cuando el PDF esté en public/cv/ (p. ej. "/cv/ricardo-andrade-cv.pdf").
+  navCta: { label: "Ver proyectos", to: "/#proyectos" },
+  // PENDIENTE: el PDF actual incluye el teléfono. Activar ("/cv/ricardo-andrade-cv.pdf")
+  // cuando el usuario sustituya el archivo por una versión sin teléfono.
   cvHref: null,
-  cvLabel: "Ver CV",
+  // Datos del CV. GitHub verificado (HTTP 200). PENDIENTE: confirmar la URL de
+  // LinkedIn a mano; LinkedIn bloquea las comprobaciones automáticas.
+  contact: {
+    email: "randradev.dev@gmail.com",
+    profiles: [
+      { label: "GitHub", href: "https://github.com/randradev" },
+      {
+        label: "LinkedIn",
+        href: "https://www.linkedin.com/in/ricardo-andrade-valderrama/",
+      },
+    ],
+  },
 };

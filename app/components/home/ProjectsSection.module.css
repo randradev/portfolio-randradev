@@ -1,0 +1,49 @@
+.list {
+  display: grid;
+  gap: var(--space-6);
+  padding: 0;
+  list-style: none;
+}
+
+/* Tarjeta tipográfica: sin capturas reales todavía, el nombre lleva la jerarquía. */
+.card {
+  height: 100%;
+}
+
+.category {
+  color: var(--color-text-muted);
+  font-family: var(--font-mono);
+  font-size: var(--text-meta);
+  letter-spacing: 0.08em;
+}
+
+.name {
+  font-size: clamp(2rem, 1.5rem + 2vw, 2.75rem);
+  font-weight: var(--weight-extrabold);
+  line-height: var(--leading-tight);
+}
+
+.summary {
+  color: var(--color-text-muted);
+}
+
+.tagline {
+  padding-left: var(--space-4);
+  border-left: 2px solid var(--color-accent);
+  color: var(--color-text);
+  font-weight: var(--weight-medium);
+}
+
+/* Etiquetas y CTA al pie, alineados entre tarjetas de distinta altura. */
+.footer {
+  display: grid;
+  gap: var(--space-4);
+  margin-top: auto;
+  padding-top: var(--space-4);
+}
+
+@media (min-width: 64rem) {
+  .list {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}

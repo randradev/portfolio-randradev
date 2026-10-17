@@ -1,0 +1,50 @@
+.list {
+  padding: 0;
+  list-style: none;
+  border-bottom: 1px solid var(--color-border);
+}
+
+.item {
+  display: grid;
+  gap: var(--space-2);
+  padding-block: var(--space-6);
+  border-top: 1px solid var(--color-border);
+}
+
+.period {
+  color: var(--color-text-muted);
+  font-family: var(--font-mono);
+  font-size: var(--text-meta);
+}
+
+.body {
+  display: grid;
+  gap: var(--space-2);
+}
+
+.title {
+  font-size: var(--text-h3);
+}
+
+.subtitle {
+  color: var(--color-text);
+  font-size: var(--text-small);
+  font-weight: var(--weight-medium);
+}
+
+.description {
+  color: var(--color-text-muted);
+}
+
+/* Tablet en adelante: el periodo ocupa una columna fija a la izquierda. */
+@media (min-width: 48rem) {
+  .item {
+    grid-template-columns: 14rem minmax(0, 1fr);
+    gap: var(--space-8);
+    padding-block: var(--space-8);
+  }
+
+  .period {
+    padding-top: var(--space-1);
+  }
+}

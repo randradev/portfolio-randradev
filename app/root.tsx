@@ -15,6 +15,7 @@ import {
 } from "react-router";
 
 import type { Route } from "./+types/root";
+import { SiteFooter } from "./components/layout/SiteFooter";
 import { SiteHeader } from "./components/layout/SiteHeader";
 import { MAIN_CONTENT_ID, SkipLink } from "./components/layout/SkipLink";
 import { Container } from "./components/ui/Container";
@@ -38,6 +39,7 @@ export function Layout({ children }: { children: ReactNode }) {
         <main id={MAIN_CONTENT_ID} tabIndex={-1}>
           {children}
         </main>
+        <SiteFooter />
         <ScrollRestoration />
         <Scripts />
       </body>

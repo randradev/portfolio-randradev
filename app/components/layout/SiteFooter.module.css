@@ -1,0 +1,66 @@
+.footer {
+  border-top: 1px solid var(--color-border);
+}
+
+.inner {
+  display: grid;
+  gap: var(--space-6);
+  padding-block: var(--space-12);
+}
+
+.identity {
+  display: grid;
+  gap: var(--space-1);
+}
+
+.wordmark {
+  justify-self: start;
+  font-family: var(--font-heading);
+  font-size: 1.125rem;
+  font-weight: var(--weight-extrabold);
+  letter-spacing: var(--tracking-tight);
+  text-decoration: none;
+}
+
+.descriptor,
+.credit {
+  color: var(--color-text-muted);
+  font-size: var(--text-small);
+}
+
+.descriptor {
+  font-family: var(--font-mono);
+  font-size: var(--text-meta);
+}
+
+.list {
+  display: flex;
+  flex-wrap: wrap;
+  column-gap: var(--space-6);
+  padding: 0;
+  list-style: none;
+}
+
+/* `.footer` eleva la especificidad sobre TextLink.module.css. */
+.footer .link {
+  color: var(--color-text-muted);
+  font-size: var(--text-small);
+  font-weight: var(--weight-regular);
+}
+
+.footer .link:hover {
+  color: var(--color-text);
+}
+
+/* Escritorio: identidad y crédito a la izquierda, enlaces a la derecha. */
+@media (min-width: 64rem) {
+  .inner {
+    grid-template-columns: minmax(0, 1fr) auto auto;
+    align-items: center;
+    column-gap: var(--space-12);
+  }
+
+  .credit {
+    grid-column: 1 / -1;
+  }
+}

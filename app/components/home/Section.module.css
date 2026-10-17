@@ -1,0 +1,67 @@
+.section {
+  padding-block: calc(var(--section-gap) / 2);
+}
+
+.split,
+.panel {
+  display: grid;
+  gap: var(--space-12);
+}
+
+.header {
+  display: grid;
+  gap: var(--space-6);
+}
+
+.heading {
+  display: grid;
+  gap: var(--space-4);
+}
+
+.title {
+  max-width: 20ch;
+}
+
+.intro {
+  display: grid;
+  gap: var(--space-4);
+  color: var(--color-text-muted);
+  font-size: var(--text-body-lg);
+}
+
+.actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-3);
+  padding-top: var(--space-2);
+}
+
+/* Cierre de página: superficie elevada que agrupa título, texto y CTA. */
+.panel {
+  padding: clamp(var(--space-6), 6vw, var(--space-16));
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-lg);
+  background-color: var(--color-surface);
+  box-shadow: var(--shadow-raised);
+}
+
+.panel .intro {
+  max-width: var(--measure);
+}
+
+/* Escritorio: título e introducción en columnas, alineados por la base. */
+@media (min-width: 64rem) {
+  .split .header {
+    grid-template-columns: minmax(0, 7fr) minmax(0, 5fr);
+    align-items: end;
+    gap: var(--space-12);
+  }
+
+  .split .header[data-align="start"] {
+    align-items: start;
+  }
+
+  .split .intro {
+    font-size: var(--text-body);
+  }
+}

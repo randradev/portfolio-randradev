@@ -1,0 +1,19 @@
+.details {
+  display: grid;
+  gap: var(--space-4);
+  padding-top: var(--space-8);
+  border-top: 1px solid var(--color-border);
+}
+
+.note {
+  color: var(--color-text-muted);
+  font-size: var(--text-small);
+}
+
+.channels {
+  display: flex;
+  flex-wrap: wrap;
+  column-gap: var(--space-6);
+  padding: 0;
+  list-style: none;
+}

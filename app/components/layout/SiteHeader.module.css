@@ -131,7 +131,7 @@
     display: flex;
     flex-direction: row;
     align-items: center;
-    gap: var(--space-8);
+    gap: var(--space-5);
     padding: 0;
     border: 0;
     background: none;
@@ -140,10 +140,22 @@
 
   .list {
     flex-direction: row;
-    gap: var(--space-6);
+    gap: var(--space-4);
   }
 
   .navLink {
     font-size: var(--text-small);
+    white-space: nowrap;
+  }
+}
+
+@media (min-width: 64rem) {
+  .panel,
+  .panel[data-open="true"] {
+    gap: var(--space-8);
+  }
+
+  .list {
+    gap: var(--space-6);
   }
 }

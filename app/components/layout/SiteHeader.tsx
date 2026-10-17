@@ -72,11 +72,13 @@ export function SiteHeader() {
             ))}
           </ul>
 
-          {site.cvHref && (
-            <ButtonLink href={site.cvHref} variant="secondary">
-              {site.cvLabel}
-            </ButtonLink>
-          )}
+          <ButtonLink
+            to={site.navCta.to}
+            variant="secondary"
+            onClick={() => setOpenAtKey(null)}
+          >
+            {site.navCta.label}
+          </ButtonLink>
         </nav>
       </Container>
     </header>

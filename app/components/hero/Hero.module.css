@@ -16,19 +16,11 @@
   gap: var(--space-6);
 }
 
-.eyebrow {
-  color: var(--color-text-muted);
-  font-family: var(--font-mono);
-  font-size: var(--text-meta);
-  letter-spacing: 0.08em;
-  text-transform: uppercase;
-}
-
-/* Escala propia, algo más contenida que --text-h1: "Desarrollador" debe caber
-   sin cortarse a 320px y en la columna de escritorio. */
+/* Escala propia, más contenida que --text-h1: el titular es una frase larga y
+   debe leerse completo en la primera pantalla, también a 320px. */
 .title {
-  max-width: 14ch;
-  font-size: clamp(2.25rem, 10vw, 3.5rem);
+  max-width: 22ch;
+  font-size: clamp(2rem, 7.5vw, 3rem);
 }
 
 .emphasis {
@@ -66,6 +58,11 @@
   padding-top: var(--space-2);
 }
 
+.note {
+  color: var(--color-text-muted);
+  font-size: var(--text-small);
+}
+
 .visual {
   max-width: 22rem;
 }
@@ -86,7 +83,7 @@
   }
 
   .title {
-    font-size: clamp(3.25rem, 5vw, 4.75rem);
+    font-size: clamp(2.5rem, 3.5vw, 3.375rem);
   }
 
   .visual {
