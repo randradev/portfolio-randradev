@@ -33,16 +33,19 @@ export const experience: ExperienceItem[] = [
 /** Formación: docs/COPY-HOME-FINAL.md §9, confirmada por el usuario. Sin promedio. */
 export const education: EducationItem[] = [
   {
+    kind: "degree",
     title: "Técnico Universitario en Programación Computacional",
     institution: "Universidad Mayor",
     period: "2024–2026",
   },
   {
-    title: "AI Fundamentals for Industry",
+    kind: "course",
+    title: "Fundamentos de Inteligencia Artificial para la Industria",
     institution: "Universidad de Santiago de Chile",
     period: "2026",
   },
   {
+    kind: "course",
     title: "Bootcamp Full Stack JavaScript",
     institution: "Generation Chile",
     period: "2023",

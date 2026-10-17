@@ -1,24 +1,32 @@
 .list {
   display: grid;
-  gap: var(--space-12);
+  gap: var(--space-16);
   padding: 0;
   list-style: none;
 }
 
-/* Las tres capas del sistema, separadas por un filete superior en vez de
-   tarjetas; el icono se apoya sobre el filete como marca técnica. */
 .area {
-  display: flex;
-  flex-direction: column;
-  gap: var(--space-3);
-  padding-top: var(--space-6);
-  border-top: 1px solid var(--color-border-strong);
+  display: grid;
+  align-content: start;
+  gap: var(--space-4);
+}
+
+/* Marco del icono con una luz azul interior: marca técnica, no relleno. */
+.iconFrame {
+  display: grid;
+  place-items: center;
+  width: var(--space-12);
+  height: var(--space-12);
+  margin-bottom: var(--space-2);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  background: radial-gradient(circle at 30% 20%, var(--light-blue), transparent 75%);
+  box-shadow: var(--highlight-edge);
 }
 
 .icon {
-  width: var(--space-8);
-  height: var(--space-8);
-  margin-bottom: var(--space-3);
+  width: var(--space-6);
+  height: var(--space-6);
   color: var(--color-primary);
 }
 
@@ -31,14 +39,50 @@
   color: var(--color-text-muted);
 }
 
-.area > :last-child {
-  margin-top: auto;
-  padding-top: var(--space-4);
+/* Ficha técnica: dos columnas, una herramienta por fila. Sin filetes: la
+   trama de fondo ya aporta la estructura. */
+.tools {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  align-content: start;
+  column-gap: var(--space-6);
+  row-gap: var(--space-1);
+  margin-top: var(--space-2);
+  padding: 0;
+  list-style: none;
 }
 
+.tool {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  padding-block: var(--space-1);
+  color: var(--color-text);
+  font-family: var(--font-mono);
+  font-size: var(--text-small);
+}
+
+.tool::before {
+  content: "";
+  flex: none;
+  width: 4px;
+  height: 4px;
+  background-color: var(--color-primary);
+}
+
+/* Escritorio: subgrid para que icono, título, descripción y ficha ocupen las
+   mismas filas en las tres columnas; las fichas empiezan a la misma altura. */
 @media (min-width: 64rem) {
   .list {
     grid-template-columns: repeat(3, minmax(0, 1fr));
-    gap: var(--space-10);
+    grid-template-rows: repeat(4, auto);
+    column-gap: var(--space-10);
+    row-gap: 0;
+  }
+
+  .area {
+    grid-row: span 4;
+    grid-template-rows: subgrid;
+    row-gap: var(--space-4);
   }
 }

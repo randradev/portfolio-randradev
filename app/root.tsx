@@ -24,6 +24,13 @@ import { Container } from "./components/ui/Container";
 import { TextLink } from "./components/ui/TextLink";
 import { site } from "./content/site";
 
+/** Iconos del sitio (public/): «RA» en Space Grotesk sobre la luz del fondo. */
+export const links: Route.LinksFunction = () => [
+  { rel: "icon", type: "image/png", sizes: "32x32", href: "/favicon-32.png" },
+  { rel: "icon", type: "image/png", sizes: "192x192", href: "/favicon-192.png" },
+  { rel: "apple-touch-icon", sizes: "180x180", href: "/apple-touch-icon.png" },
+];
+
 export function Layout({ children }: { children: ReactNode }) {
   return (
     <html lang={site.lang}>

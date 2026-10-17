@@ -121,7 +121,7 @@ Mi experiencia en producción y coordinación también aporta a mi forma de trab
 ## Formación técnica.
 
 - **Técnico Universitario en Programación Computacional** — Universidad Mayor, 2024–2026.
-- **AI Fundamentals for Industry** — Universidad de Santiago de Chile, 2026.
+- **Fundamentos de Inteligencia Artificial para la Industria** — Universidad de Santiago de Chile, 2026.
 - **Bootcamp Full Stack JavaScript** — Generation Chile, 2023.
 
 ## 10. Contacto

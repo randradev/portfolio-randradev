@@ -104,6 +104,8 @@ export interface ExperienceItem {
 }
 
 export interface EducationItem {
+  /** `degree`: carrera (se destaca). `course`: curso o programa complementario. */
+  kind: "degree" | "course";
   title: string;
   institution: string;
   period: string;

@@ -1,6 +1,5 @@
 import { approach } from "~/content/home";
 
-import { TagList } from "../ui/Tag";
 import styles from "./ApproachSection.module.css";
 import { CapabilityIcon } from "./CapabilityIcon";
 import { Section } from "./Section";
@@ -11,10 +10,19 @@ export function ApproachSection() {
       <ul className={styles.list}>
         {approach.areas.map((area) => (
           <li key={area.title} className={styles.area}>
-            <CapabilityIcon icon={area.icon} className={styles.icon} />
+            <span className={styles.iconFrame}>
+              <CapabilityIcon icon={area.icon} className={styles.icon} />
+            </span>
             <h3 className={styles.title}>{area.title}</h3>
             <p className={styles.description}>{area.description}</p>
-            <TagList items={area.technologies} label={`Tecnologías: ${area.title}`} />
+            {/* Ficha técnica: una herramienta por fila, en dos columnas. */}
+            <ul className={styles.tools} aria-label={`Tecnologías: ${area.title}`}>
+              {area.technologies.map((technology) => (
+                <li key={technology} className={styles.tool}>
+                  {technology}
+                </li>
+              ))}
+            </ul>
           </li>
         ))}
       </ul>
