@@ -1,0 +1,182 @@
+/* Cabecera del caso: misma luz que el hero de la página principal (azul del
+   lado derecho, contraluz violeta abajo) y estrías de cristal, sin objeto 3D. */
+.hero {
+  position: relative;
+  isolation: isolate;
+  overflow-x: clip;
+}
+
+.hero::before,
+.hero::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+}
+
+.hero::before {
+  background:
+    radial-gradient(45% 60% at 88% 30%, var(--light-blue), transparent 70%),
+    radial-gradient(40% 50% at 6% 92%, var(--light-violet), transparent 70%);
+  -webkit-mask-image: linear-gradient(
+    to bottom,
+    transparent,
+    var(--color-bg) 12%,
+    var(--color-bg) 72%,
+    transparent
+  );
+  mask-image: linear-gradient(
+    to bottom,
+    transparent,
+    var(--color-bg) 12%,
+    var(--color-bg) 72%,
+    transparent
+  );
+}
+
+.hero::after {
+  background-image: repeating-linear-gradient(
+    90deg,
+    transparent 0,
+    var(--flute-line) 36px,
+    transparent 48px
+  );
+  -webkit-mask-image: radial-gradient(
+    40% 45% at 88% 30%,
+    var(--color-bg),
+    transparent 80%
+  );
+  mask-image: radial-gradient(40% 45% at 88% 30%, var(--color-bg), transparent 80%);
+}
+
+.inner {
+  display: grid;
+  gap: var(--space-12);
+  padding-block: var(--space-8) var(--space-16);
+}
+
+.head {
+  display: grid;
+  justify-items: start;
+  gap: var(--space-5);
+}
+
+.back {
+  gap: var(--space-2);
+  color: var(--color-text-muted);
+  font-size: var(--text-small);
+}
+
+.title {
+  display: grid;
+  gap: var(--space-3);
+  max-width: none;
+}
+
+.name {
+  font-size: var(--text-display);
+  font-weight: var(--weight-semibold);
+  line-height: var(--leading-display);
+  letter-spacing: var(--tracking-display);
+}
+
+/* La propuesta, en peso ligero: el contraste viene del peso, no del color. */
+.emphasis {
+  max-width: 18ch;
+  font-size: var(--text-h2);
+  font-weight: var(--weight-light);
+  line-height: var(--leading-tight);
+  letter-spacing: var(--tracking-tight);
+}
+
+.lead {
+  display: grid;
+  justify-items: start;
+  gap: var(--space-6);
+}
+
+.summary {
+  max-width: 44ch;
+  color: var(--color-text-muted);
+  font-size: var(--text-body-lg);
+}
+
+.actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-3);
+  padding-top: var(--space-2);
+}
+
+/* Ficha técnica: filetes horizontales, etiquetas en mono. */
+.facts {
+  display: grid;
+  align-content: start;
+  border-top: 1px solid var(--color-border);
+}
+
+.fact {
+  display: grid;
+  gap: var(--space-1);
+  padding-block: var(--space-4);
+  border-bottom: 1px solid var(--color-border);
+}
+
+.factLabel {
+  color: var(--color-text-muted);
+  font-family: var(--font-mono);
+  font-size: var(--text-meta);
+  letter-spacing: var(--tracking-mono);
+  text-transform: uppercase;
+}
+
+.factValue {
+  max-width: 48ch;
+  font-size: var(--text-small);
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .name,
+  .emphasis {
+    animation: line-in 640ms var(--ease-out) both;
+  }
+
+  .emphasis {
+    animation-delay: 80ms;
+  }
+
+  @keyframes line-in {
+    from {
+      opacity: 0.01;
+      transform: translateY(0.35em);
+    }
+  }
+}
+
+/* Escritorio: resumen y CTA a la izquierda; la ficha, a la derecha. */
+@media (min-width: 64rem) {
+  .inner {
+    grid-template-columns: repeat(12, minmax(0, 1fr));
+    column-gap: var(--space-6);
+    row-gap: var(--space-16);
+    padding-block: var(--space-16);
+  }
+
+  .head {
+    grid-column: 1 / -1;
+  }
+
+  .lead {
+    grid-column: 1 / span 6;
+  }
+
+  .facts {
+    grid-column: 8 / -1;
+  }
+
+  .fact {
+    grid-template-columns: 8rem minmax(0, 1fr);
+    gap: var(--space-4);
+  }
+}

@@ -133,6 +133,70 @@ export interface FooterContent {
   cvLabel: string;
 }
 
+/* ── Casos de estudio ───────────────────────────────────────────────────── */
+
+/** Dato breve de la ficha del caso (rol, tipo, entorno, repositorio). */
+export interface CaseStudyFact {
+  label: string;
+  value: string;
+  /** Enlace verificado asociado al valor (p. ej. el repositorio). */
+  href?: string;
+}
+
+/** Cabecera de un caso de estudio. */
+export interface CaseStudyHeroContent {
+  /** Vuelta al listado de proyectos. */
+  backLink: CtaLink;
+  eyebrow: string;
+  /** El `h1` se compone como `lead` + `emphasis` (nombre + propuesta). */
+  title: { lead: string; emphasis: string };
+  summary: string;
+  /** Tecnologías destacadas, solo verificadas en el código. */
+  highlights: string[];
+  primaryCta: CtaLink;
+  /** Enlace a la demostración en video. `null` mientras no haya un video publicado. */
+  demoCta: CtaLink | null;
+  facts: CaseStudyFact[];
+}
+
+/** Idea o responsabilidad breve, con título y explicación. */
+export interface CaseStudyPoint {
+  title: string;
+  description: string;
+}
+
+export interface CaseStudyContextContent extends SectionIntro {
+  /** Responsabilidades que el sistema debía mantener separadas. */
+  points: CaseStudyPoint[];
+}
+
+/** Capa del diagrama de arquitectura, derivada del código. */
+export interface ArchitectureLayer {
+  name: string;
+  description: string;
+  /** Módulos o piezas del repositorio que implementan la capa. */
+  modules: string[];
+  /** `ai`: capa de modelos y conocimiento; se distingue con el acento violeta. */
+  kind?: "ai";
+}
+
+export interface ArchitectureContent extends SectionIntro {
+  /** Procedencia del diagrama (versión del código). */
+  caption: string;
+  layers: ArchitectureLayer[];
+  services: { title: string; items: CaseStudyPoint[] };
+  /** Recorrido de un turno de conversación, en orden. */
+  turn: { title: string; steps: string[] };
+}
+
+/** Contenido completo de la página de un caso de estudio. */
+export interface CaseStudyContent {
+  meta: RouteMeta;
+  hero: CaseStudyHeroContent;
+  context: CaseStudyContextContent;
+  architecture: ArchitectureContent;
+}
+
 /** Canales de contacto públicos, verificados contra el CV. */
 export interface ContactChannels {
   email: string;
