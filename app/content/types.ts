@@ -180,10 +180,50 @@ export interface ArchitectureLayer {
   kind?: "ai";
 }
 
+/** Regla del ruteo de entrada, evaluada en orden; la primera que se cumple decide. */
+export interface RoutingRule {
+  priority: string;
+  condition: string;
+  destination: string;
+  /** Matiz breve del destino (p. ej. qué pasa si falla la validación). */
+  detail?: string;
+}
+
+/** Decisión del diagrama de flujo. En los textos, «\n» marca el salto de línea. */
+export interface RoutingDecision {
+  priority: string;
+  question: string;
+  destination: string;
+}
+
+export interface RoutingDiagramContent {
+  /** Descripción accesible del diagrama completo. */
+  label: string;
+  start: string;
+  yes: string;
+  no: string;
+  decisions: RoutingDecision[];
+  /** Salida cuando ninguna decisión se cumple: el clasificador LLM. */
+  fallback: { priority: string; title: string; node: string; outcomes: string[] };
+}
+
+export interface RoutingContent {
+  title: string;
+  description: string;
+  /** Función del código que implementa el ruteo. */
+  source: string;
+  diagram: RoutingDiagramContent;
+  /** Etiqueta del desplegable con las reglas en texto. */
+  textToggle: string;
+  /** Las mismas reglas, en texto completo. */
+  rules: RoutingRule[];
+}
+
 export interface ArchitectureContent extends SectionIntro {
   /** Procedencia del diagrama (versión del código). */
   caption: string;
   layers: ArchitectureLayer[];
+  routing: RoutingContent;
   services: { title: string; items: CaseStudyPoint[] };
   /** Recorrido de un turno de conversación, en orden. */
   turn: { title: string; steps: string[] };

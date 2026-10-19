@@ -148,6 +148,84 @@ export const flux: CaseStudyContent = {
         { title: "Resend", description: "Envío del código OTP por correo electrónico." },
       ],
     },
+    // graph/edges.py · route_after_welcome (jerarquía P0–P4) y route_after_intent.
+    routing: {
+      title: "Cómo decide cada turno",
+      description:
+        "Todos los mensajes entran por el mismo nodo. Sus reglas se evalúan en orden y la primera que se cumple decide el destino; el modelo de lenguaje solo interviene si ninguna aplica.",
+      source: "graph/edges.py · route_after_welcome",
+      // Textos del diagrama: «\n» marca el salto de línea dentro de cada figura.
+      diagram: {
+        label:
+          "Diagrama de flujo del ruteo de entrada: cuatro decisiones en cascada, cada una con su destino si se cumple; si ninguna se cumple, el clasificador LLM decide entre crédito, cuenta corriente, depósito a plazo o respuesta general.",
+        start: "Mensaje nuevo",
+        yes: "Sí",
+        no: "No",
+        decisions: [
+          {
+            priority: "P0",
+            question: "¿Cambió de\nproducto?",
+            destination: "Inicio del\nnuevo producto",
+          },
+          {
+            priority: "P1",
+            question: "¿Paso actual\ncompletado?",
+            destination: "Siguiente\netapa",
+          },
+          {
+            priority: "P2",
+            question: "¿Hay una etapa\nen curso?",
+            destination: "Reanudar\nesa etapa",
+          },
+          {
+            priority: "P3",
+            question: "¿Eligió producto\ncon un botón?",
+            destination: "Inicio de\nese producto",
+          },
+        ],
+        fallback: {
+          priority: "P4",
+          title: "Clasificador LLM",
+          node: "intent_router",
+          outcomes: [
+            "Crédito",
+            "Cuenta corriente",
+            "Depósito a plazo",
+            "Respuesta general",
+          ],
+        },
+      },
+      textToggle: "Leer las reglas como texto",
+      rules: [
+        {
+          priority: "P0",
+          condition: "El usuario eligió otro producto mientras tenía uno en curso.",
+          destination: "Inicio del nuevo producto",
+        },
+        {
+          priority: "P1",
+          condition: "El paso actual ya figura como completado en el progreso.",
+          destination: "Siguiente etapa del flujo",
+          detail: "Si el destino no está registrado en el grafo, vuelve al clasificador.",
+        },
+        {
+          priority: "P2",
+          condition: "Hay una etapa en curso guardada.",
+          destination: "Reanudar esa etapa",
+        },
+        {
+          priority: "P3",
+          condition: "Llegó un producto elegido con un botón.",
+          destination: "Inicio de ese producto",
+        },
+        {
+          priority: "P4",
+          condition: "No hay ninguna señal.",
+          destination: "El clasificador decide",
+          detail: "Crédito, cuenta corriente, depósito a plazo o respuesta general.",
+        },
+      ],
+    },
     turn: {
       title: "Un turno, de extremo a extremo",
       steps: [
@@ -606,6 +684,7 @@ export const flux: CaseStudyContent = {
           "El modelo funciona mejor como intérprete que como decisor: lo que debe cumplirse siempre va en código.",
           "Una conversación no es lineal. Las preguntas, los cambios de producto y las reanudaciones tienen que ser rutas del grafo, no excepciones.",
           "El estado conversacional necesita una estructura explícita para crecer a varios productos.",
+          "Toda decisión de arquitectura tiene un costo: en Flux prioricé preservar el contexto y la continuidad del flujo, aunque eso implicara duplicar parte de la lógica.",
         ],
       },
     ],

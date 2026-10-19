@@ -1,0 +1,167 @@
+.routing {
+  display: grid;
+  gap: var(--space-8);
+  margin-top: var(--space-16);
+}
+
+.head {
+  display: grid;
+  gap: var(--space-3);
+}
+
+.title {
+  font-size: var(--text-h3);
+}
+
+.description {
+  color: var(--color-text-muted);
+}
+
+.figure {
+  display: grid;
+  gap: var(--space-4);
+}
+
+.canvas {
+  padding: clamp(var(--space-4), 3vw, var(--space-8));
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-lg);
+  background-color: color-mix(in srgb, var(--surface-deep) 70%, transparent);
+}
+
+.svg {
+  width: 100%;
+  height: auto;
+  overflow: visible;
+}
+
+/* Móvil y tablet: columna, con un ancho máximo para no agrandar el texto. */
+.row {
+  display: none;
+}
+
+.column {
+  max-width: 26rem;
+  margin-inline: auto;
+}
+
+@media (min-width: 64rem) {
+  .row {
+    display: block;
+  }
+
+  .column {
+    display: none;
+  }
+}
+
+/* ── Figuras ───────────────────────────────────────────────────────────── */
+
+.start,
+.destination,
+.chip {
+  fill: var(--color-surface);
+  stroke: var(--color-border-strong);
+  stroke-width: 1;
+}
+
+.start {
+  fill: var(--color-surface-raised);
+}
+
+.decision {
+  fill: var(--color-bg);
+  stroke: var(--color-primary);
+  stroke-width: 1.25;
+}
+
+/* El clasificador es la única pieza que decide con el modelo: violeta. */
+.fallback {
+  fill: color-mix(in srgb, var(--color-accent) 16%, var(--color-surface));
+  stroke: var(--color-accent);
+  stroke-width: 1.25;
+}
+
+.group {
+  fill: none;
+  stroke: color-mix(in srgb, var(--color-accent) 50%, var(--color-border-strong));
+  stroke-dasharray: 4 4;
+}
+
+.arrow {
+  stroke: var(--color-border-strong);
+  stroke-width: 1.25;
+}
+
+.arrowHead {
+  fill: var(--color-border-strong);
+}
+
+/* ── Textos ────────────────────────────────────────────────────────────── */
+
+.text,
+.chipText {
+  fill: var(--color-text);
+  font-family: var(--font-body);
+  font-size: 14px;
+  font-variant-numeric: lining-nums;
+}
+
+.chipText {
+  fill: var(--color-text-muted);
+  font-size: 13px;
+}
+
+.priority,
+.code,
+.arrowLabel {
+  font-family: var(--font-mono);
+  font-size: 12px;
+  letter-spacing: 0.06em;
+}
+
+.priority {
+  fill: var(--color-primary);
+}
+
+.code,
+.arrowLabel {
+  fill: var(--color-text-muted);
+}
+
+.fallbackTitle {
+  fill: var(--color-text);
+  font-family: var(--font-heading);
+  font-size: 15px;
+  font-weight: var(--weight-medium);
+}
+
+/* ── Pie y versión en texto ────────────────────────────────────────────── */
+
+.caption {
+  color: var(--color-text-muted);
+  font-size: var(--text-meta);
+}
+
+.details {
+  color: var(--color-text-muted);
+  font-size: var(--text-small);
+}
+
+.summary {
+  width: fit-content;
+  min-height: var(--tap-target);
+  align-content: center;
+  color: var(--color-text);
+  cursor: pointer;
+  text-decoration: underline;
+  text-decoration-color: color-mix(in srgb, var(--color-primary) 60%, transparent);
+  text-underline-offset: 0.3em;
+}
+
+.rules {
+  display: grid;
+  gap: var(--space-2);
+  margin-top: var(--space-3);
+  padding-left: var(--space-5);
+}

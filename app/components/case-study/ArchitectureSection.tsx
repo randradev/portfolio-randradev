@@ -2,6 +2,7 @@ import type { ArchitectureContent } from "~/content/types";
 
 import { Section } from "../home/Section";
 import styles from "./ArchitectureSection.module.css";
+import { RoutingDiagram } from "./RoutingDiagram";
 import shared from "./shared.module.css";
 
 const CAPTION_ID = "arquitectura-fuente";
@@ -64,6 +65,8 @@ export function ArchitectureSection({ content }: { content: ArchitectureContent 
           {content.caption}
         </figcaption>
       </figure>
+
+      <RoutingDiagram content={content.routing} />
 
       <div className={styles.turn}>
         <h3 className={styles.turnTitle}>{content.turn.title}</h3>
