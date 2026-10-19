@@ -1,0 +1,21 @@
+/* Piezas comunes a las secciones del caso de estudio. */
+
+/* Encabezado de bloque secundario (servicios, notas, salidas, motor):
+   mono en mayúsculas, como una etiqueta técnica. */
+.label {
+  color: var(--color-text-muted);
+  font-family: var(--font-mono);
+  font-size: var(--text-meta);
+  font-weight: var(--weight-medium);
+  letter-spacing: var(--tracking-mono);
+  text-transform: uppercase;
+}
+
+/* Panel punteado: información de apoyo o externa al flujo principal. */
+.dashedPanel {
+  display: grid;
+  gap: var(--space-5);
+  padding: clamp(var(--space-5), 4vw, var(--space-8));
+  border: 1px dashed var(--color-border-strong);
+  border-radius: var(--radius-lg);
+}

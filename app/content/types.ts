@@ -189,12 +189,93 @@ export interface ArchitectureContent extends SectionIntro {
   turn: { title: string; steps: string[] };
 }
 
+/**
+ * Tipo de evidencia, para distinguir qué demuestra cada recurso
+ * (FLUX-CASE-STUDY.md §6.10): `recording` grabación de la interfaz,
+ * `log` registro de consola de una ejecución, `capture` captura de pantalla.
+ */
+export type EvidenceKind = "recording" | "log" | "capture";
+
+interface EvidenceBase {
+  /** Ancla del recurso (p. ej. destino del CTA «Ver demostración»). */
+  id?: string;
+  kind: EvidenceKind;
+  /** Fecha de la ejecución, legible («17 oct 2026»). */
+  date: string;
+  /** Qué muestra y cómo leerlo; también sirve de descripción accesible. */
+  caption: string;
+  width: number;
+  height: number;
+}
+
+export interface EvidenceImage extends EvidenceBase {
+  type: "image";
+  src: string;
+  alt: string;
+}
+
+export interface EvidenceVideo extends EvidenceBase {
+  type: "video";
+  src: string;
+  poster: string;
+  /** Nombre accesible del reproductor. */
+  title: string;
+  /** Duración legible («1:15»). */
+  duration: string;
+}
+
+export type EvidenceMedia = EvidenceImage | EvidenceVideo;
+
+export interface RagContent extends SectionIntro {
+  /** Secuencia de la consulta, en orden. */
+  steps: CaseStudyPoint[];
+  evidence: EvidenceMedia[];
+  /** Aclaraciones para leer la evidencia sin sobreinterpretarla. */
+  notes: { title: string; items: string[] };
+  /** El mismo mecanismo en otro producto. */
+  secondary: { title: string; description: string; evidence: EvidenceMedia[] };
+}
+
+/** Etapa de un flujo de producto, ligada a su nodo del grafo. */
+export interface FlowStage {
+  name: string;
+  node: string;
+  description: string;
+  /** Se ejecuta sin esperar un mensaje del usuario (motor, formalización). */
+  automatic?: boolean;
+}
+
+/** Salida alternativa del flujo. */
+export interface FlowExit {
+  name: string;
+  trigger: string;
+  /** Nodo terminal; ausente si el flujo se detiene sin uno. */
+  node?: string;
+}
+
+export interface ProductFlowContent extends SectionIntro {
+  stages: FlowStage[];
+  /** Leyenda de los dos tipos de etapa. */
+  legend: { conversational: string; automatic: string };
+  exits: { title: string; items: FlowExit[] };
+  engine: {
+    title: string;
+    module: string;
+    rules: { label: string; value: string }[];
+    note: string;
+  };
+  demo: EvidenceVideo;
+}
+
 /** Contenido completo de la página de un caso de estudio. */
 export interface CaseStudyContent {
   meta: RouteMeta;
   hero: CaseStudyHeroContent;
   context: CaseStudyContextContent;
   architecture: ArchitectureContent;
+  rag: RagContent;
+  credit: ProductFlowContent;
+  deposit: ProductFlowContent;
 }
 
 /** Canales de contacto públicos, verificados contra el CV. */

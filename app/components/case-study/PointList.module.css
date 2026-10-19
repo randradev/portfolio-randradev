@@ -1,0 +1,93 @@
+.list {
+  display: grid;
+  padding: 0;
+  list-style: none;
+}
+
+.point {
+  position: relative;
+  display: grid;
+  align-content: start;
+  gap: var(--space-3);
+}
+
+.index {
+  color: var(--color-primary);
+  font-family: var(--font-mono);
+  font-size: var(--text-meta);
+  letter-spacing: var(--tracking-mono);
+}
+
+.title {
+  font-size: var(--text-h3);
+}
+
+.description {
+  color: var(--color-text-muted);
+}
+
+/* ── Columnas: filete superior con un tramo azul corto (marca del eyebrow). ── */
+
+.columns {
+  gap: var(--space-8);
+}
+
+.columns .point {
+  padding-top: var(--space-5);
+  border-top: 1px solid var(--color-border);
+}
+
+.columns .point::before {
+  content: "";
+  position: absolute;
+  top: -1px;
+  left: 0;
+  width: var(--space-6);
+  height: 1px;
+  background-color: var(--color-primary);
+}
+
+@media (min-width: 48rem) {
+  .columns {
+    grid-template-columns: repeat(auto-fit, minmax(12rem, 1fr));
+    column-gap: var(--space-8);
+  }
+}
+
+/* ── Secuencia: índice en la columna del riel; el riel une los pasos. ── */
+
+.sequence {
+  --rail: var(--space-10);
+}
+
+.sequence .point {
+  grid-template-columns: var(--rail) minmax(0, 1fr);
+  column-gap: var(--space-4);
+  row-gap: var(--space-2);
+  padding-bottom: var(--space-8);
+}
+
+.sequence .point:last-child {
+  padding-bottom: 0;
+}
+
+.sequence .index {
+  grid-row: 1 / span 2;
+  line-height: 1.9;
+}
+
+.sequence .title,
+.sequence .description {
+  grid-column: 2;
+}
+
+/* Riel: desde bajo el índice hasta el paso siguiente. */
+.sequence .point:not(:last-child)::after {
+  content: "";
+  position: absolute;
+  top: var(--space-8);
+  bottom: var(--space-2);
+  left: calc(var(--space-3) - 0.5px);
+  width: 1px;
+  background-color: var(--color-border-strong);
+}

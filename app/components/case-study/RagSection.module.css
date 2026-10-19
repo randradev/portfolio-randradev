@@ -1,0 +1,80 @@
+.main {
+  display: grid;
+  gap: var(--space-12);
+  margin-top: var(--space-16);
+}
+
+.aside {
+  display: grid;
+  align-content: start;
+  gap: var(--space-8);
+}
+
+/* Aclaraciones: panel punteado (shared.module.css), nota de lectura. */
+.notesList {
+  display: grid;
+  gap: var(--space-3);
+  padding: 0;
+  list-style: none;
+  color: var(--color-text-muted);
+  font-size: var(--text-small);
+}
+
+.notesList li {
+  display: flex;
+  gap: var(--space-3);
+}
+
+.notesList li::before {
+  content: "";
+  flex: none;
+  width: 4px;
+  height: 4px;
+  margin-top: 0.6em;
+  background-color: var(--color-primary);
+}
+
+/* ── El mismo mecanismo en otro producto ───────────────────────────────── */
+
+.secondary {
+  display: grid;
+  gap: var(--space-8);
+  margin-top: var(--space-20);
+  padding-top: var(--space-12);
+  border-top: 1px solid var(--color-border);
+}
+
+.secondaryIntro {
+  display: grid;
+  gap: var(--space-3);
+}
+
+.secondaryTitle {
+  font-size: var(--text-h3);
+}
+
+.secondaryText {
+  color: var(--color-text-muted);
+}
+
+.secondaryEvidence {
+  display: grid;
+  gap: var(--space-8);
+}
+
+/* Escritorio: secuencia a la izquierda, evidencia a la derecha. */
+@media (min-width: 64rem) {
+  .main {
+    grid-template-columns: minmax(0, 5fr) minmax(0, 7fr);
+    column-gap: var(--space-16);
+  }
+
+  .secondaryIntro {
+    max-width: var(--measure);
+  }
+
+  .secondaryEvidence {
+    grid-template-columns: minmax(0, 7fr) minmax(0, 5fr);
+    column-gap: var(--space-8);
+  }
+}

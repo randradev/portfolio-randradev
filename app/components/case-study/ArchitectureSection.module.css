@@ -111,22 +111,9 @@
 
 /* ── Servicios externos ────────────────────────────────────────────────── */
 
+/* Panel y título: shared.module.css. Aquí solo el fondo propio. */
 .services {
-  display: grid;
-  gap: var(--space-5);
-  padding: clamp(var(--space-5), 4vw, var(--space-8));
-  border: 1px dashed var(--color-border-strong);
-  border-radius: var(--radius-lg);
   background-color: color-mix(in srgb, var(--color-surface) 60%, transparent);
-}
-
-.servicesTitle {
-  color: var(--color-text-muted);
-  font-family: var(--font-mono);
-  font-size: var(--text-meta);
-  font-weight: var(--weight-medium);
-  letter-spacing: var(--tracking-mono);
-  text-transform: uppercase;
 }
 
 .serviceList {

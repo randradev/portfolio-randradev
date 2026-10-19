@@ -1,0 +1,234 @@
+/* ── Etapas ────────────────────────────────────────────────────────────── */
+
+.flow {
+  --rail: var(--space-8);
+  /* Centro del nodo, alineado con el nombre de la etapa. */
+  --node-y: 0.8rem;
+
+  display: grid;
+  gap: var(--space-6);
+}
+
+.stages {
+  display: grid;
+  padding: 0;
+  list-style: none;
+}
+
+/* Móvil y tablet: lista vertical con el riel a la izquierda. */
+.stage {
+  position: relative;
+  display: grid;
+  grid-template-columns: var(--rail) minmax(0, 1fr);
+  column-gap: var(--space-4);
+  row-gap: var(--space-1);
+  padding-bottom: var(--space-6);
+}
+
+.stage > :not(.node) {
+  grid-column: 2;
+}
+
+.stage:not(:last-child)::before {
+  content: "";
+  position: absolute;
+  top: var(--node-y);
+  bottom: calc(-1 * var(--node-y));
+  left: calc(var(--rail) / 2);
+  width: 1px;
+  background-color: var(--color-border-strong);
+}
+
+/* Nodo: rombo hueco si la etapa espera al usuario; relleno si es automática. */
+.node,
+.legendNode {
+  width: 9px;
+  height: 9px;
+  border: 1px solid var(--color-primary);
+  background-color: var(--color-bg);
+  transform: rotate(45deg);
+}
+
+.node {
+  position: absolute;
+  top: var(--node-y);
+  left: calc(var(--rail) / 2);
+  translate: -50% -50%;
+}
+
+.stage[data-automatic] .node,
+.legend [data-automatic] .legendNode {
+  background-color: var(--color-primary);
+}
+
+.stageName {
+  font-size: var(--text-body-lg);
+  line-height: 1.6;
+}
+
+.stageNode {
+  color: var(--color-text-muted);
+  font-size: var(--text-meta);
+  overflow-wrap: anywhere;
+}
+
+.stageDescription {
+  padding-top: var(--space-1);
+  color: var(--color-text-muted);
+  font-size: var(--text-small);
+}
+
+.legend {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-2) var(--space-8);
+  padding: 0;
+  list-style: none;
+  color: var(--color-text-muted);
+  font-size: var(--text-meta);
+}
+
+.legend li {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+}
+
+/* ── Salidas alternativas ──────────────────────────────────────────────── */
+
+.exits {
+  display: grid;
+  gap: var(--space-5);
+  margin-top: var(--space-12);
+}
+
+.exitList {
+  display: grid;
+  gap: var(--space-6);
+  padding: 0;
+  list-style: none;
+}
+
+/* Filete punteado: una rama que sale del flujo principal. */
+.exit {
+  display: grid;
+  align-content: start;
+  gap: var(--space-1);
+  padding-left: var(--space-4);
+  border-left: 1px dashed var(--color-border-strong);
+}
+
+.exitName {
+  font-family: var(--font-heading);
+  font-weight: var(--weight-medium);
+}
+
+.exitTrigger {
+  color: var(--color-text-muted);
+  font-size: var(--text-small);
+}
+
+.exitNode {
+  padding-top: var(--space-1);
+  color: var(--color-text-muted);
+  font-size: var(--text-meta);
+  overflow-wrap: anywhere;
+}
+
+/* ── Motor y demostración ──────────────────────────────────────────────── */
+
+.detail {
+  display: grid;
+  gap: var(--space-10);
+  margin-top: var(--space-16);
+}
+
+.engineHead {
+  display: grid;
+  gap: var(--space-1);
+}
+
+.engineModule {
+  color: var(--color-text);
+  font-size: var(--text-meta);
+}
+
+.rules {
+  display: grid;
+}
+
+.rule {
+  display: grid;
+  gap: var(--space-1);
+  padding-block: var(--space-3);
+  border-top: 1px solid var(--color-border);
+  font-size: var(--text-small);
+}
+
+.ruleLabel {
+  color: var(--color-text-muted);
+  font-family: var(--font-mono);
+  font-size: var(--text-meta);
+}
+
+.engineNote {
+  color: var(--color-text-muted);
+  font-size: var(--text-small);
+  font-style: italic;
+}
+
+@media (min-width: 48rem) {
+  .exitList {
+    grid-template-columns: repeat(auto-fit, minmax(13rem, 1fr));
+    column-gap: var(--space-8);
+  }
+}
+
+/* Escritorio: etapas en fila, unidas por un riel horizontal. */
+@media (min-width: 64rem) {
+  .flow {
+    --node-y: 4px;
+  }
+
+  .stages {
+    grid-template-columns: repeat(var(--stage-count), minmax(0, 1fr));
+    column-gap: var(--space-4);
+  }
+
+  .stage {
+    grid-template-columns: none;
+    align-content: start;
+    padding-top: var(--space-8);
+    padding-bottom: 0;
+  }
+
+  .stage > :not(.node) {
+    grid-column: auto;
+  }
+
+  .stage:not(:last-child)::before {
+    top: var(--node-y);
+    right: calc(-1 * var(--space-4));
+    bottom: auto;
+    left: 0;
+    width: auto;
+    height: 1px;
+  }
+
+  .node {
+    left: 0;
+    translate: 0 -50%;
+  }
+
+  .detail {
+    grid-template-columns: minmax(0, 5fr) minmax(0, 7fr);
+    align-items: start;
+    column-gap: var(--space-10);
+  }
+
+  /* El video acompaña la lectura de las reglas, que ocupan más alto. */
+  .demo {
+    position: sticky;
+    top: calc(var(--header-height) + var(--space-8));
+  }
+}

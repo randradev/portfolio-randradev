@@ -2,6 +2,7 @@ import type { ArchitectureContent } from "~/content/types";
 
 import { Section } from "../home/Section";
 import styles from "./ArchitectureSection.module.css";
+import shared from "./shared.module.css";
 
 const CAPTION_ID = "arquitectura-fuente";
 const SERVICES_ID = "arquitectura-servicios";
@@ -42,8 +43,11 @@ export function ArchitectureSection({ content }: { content: ArchitectureContent 
           ))}
         </ol>
 
-        <section className={styles.services} aria-labelledby={SERVICES_ID}>
-          <h3 id={SERVICES_ID} className={styles.servicesTitle}>
+        <section
+          className={`${shared.dashedPanel} ${styles.services}`}
+          aria-labelledby={SERVICES_ID}
+        >
+          <h3 id={SERVICES_ID} className={shared.label}>
             {content.services.title}
           </h3>
           <dl className={styles.serviceList}>
