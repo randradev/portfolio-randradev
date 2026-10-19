@@ -1,0 +1,37 @@
+.layout {
+  display: grid;
+  gap: var(--space-12);
+}
+
+.blocks {
+  display: grid;
+  align-content: start;
+  gap: var(--space-10);
+}
+
+.block {
+  display: grid;
+  gap: var(--space-4);
+}
+
+.blockTitle {
+  font-size: var(--text-h3);
+}
+
+/* El contrato es vertical: en móvil no ocupa toda la pantalla. */
+.contract {
+  max-width: 26rem;
+}
+
+/* Escritorio: explicación a la izquierda; el contrato, a la derecha. */
+@media (min-width: 64rem) {
+  .layout {
+    grid-template-columns: minmax(0, 7fr) minmax(0, 5fr);
+    align-items: start;
+    column-gap: var(--space-16);
+  }
+
+  .contract {
+    max-width: none;
+  }
+}

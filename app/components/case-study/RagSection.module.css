@@ -10,30 +10,6 @@
   gap: var(--space-8);
 }
 
-/* Aclaraciones: panel punteado (shared.module.css), nota de lectura. */
-.notesList {
-  display: grid;
-  gap: var(--space-3);
-  padding: 0;
-  list-style: none;
-  color: var(--color-text-muted);
-  font-size: var(--text-small);
-}
-
-.notesList li {
-  display: flex;
-  gap: var(--space-3);
-}
-
-.notesList li::before {
-  content: "";
-  flex: none;
-  width: 4px;
-  height: 4px;
-  margin-top: 0.6em;
-  background-color: var(--color-primary);
-}
-
 /* ── El mismo mecanismo en otro producto ───────────────────────────────── */
 
 .secondary {

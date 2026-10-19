@@ -84,13 +84,6 @@
   gap: var(--space-3);
 }
 
-.index {
-  color: var(--color-primary);
-  font-family: var(--font-mono);
-  font-size: var(--text-meta);
-  letter-spacing: var(--tracking-mono);
-}
-
 .layerName {
   font-size: var(--text-h3);
 }

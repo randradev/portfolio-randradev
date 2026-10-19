@@ -231,7 +231,7 @@ export interface RagContent extends SectionIntro {
   steps: CaseStudyPoint[];
   evidence: EvidenceMedia[];
   /** Aclaraciones para leer la evidencia sin sobreinterpretarla. */
-  notes: { title: string; items: string[] };
+  notes: CaseStudyList;
   /** El mismo mecanismo en otro producto. */
   secondary: { title: string; description: string; evidence: EvidenceMedia[] };
 }
@@ -267,6 +267,42 @@ export interface ProductFlowContent extends SectionIntro {
   demo: EvidenceVideo;
 }
 
+/** Bloque con título y una lista de afirmaciones breves. */
+export interface CaseStudyList {
+  title: string;
+  items: string[];
+}
+
+export interface SecurityContent extends SectionIntro {
+  blocks: CaseStudyList[];
+  evidence: EvidenceImage;
+  /** Aclaración sobre el alcance del hash (no es una firma con validez legal). */
+  note: CaseStudyList;
+}
+
+/** Decisión de ingeniería: FLUX-CASE-STUDY.md §6.8. */
+export interface EngineeringDecision {
+  title: string;
+  reason: string;
+  implementation: string;
+  tradeoff: string;
+}
+
+export interface DecisionsContent extends SectionIntro {
+  labels: { reason: string; implementation: string; tradeoff: string };
+  decisions: EngineeringDecision[];
+}
+
+export interface OutcomesContent extends SectionIntro {
+  columns: CaseStudyList[];
+}
+
+/** Cierre del caso: vuelta al portafolio y enlaces verificados. */
+export interface CaseStudyClosingContent extends SectionIntro {
+  primaryCta: CtaLink;
+  secondaryLink: ExternalLink;
+}
+
 /** Contenido completo de la página de un caso de estudio. */
 export interface CaseStudyContent {
   meta: RouteMeta;
@@ -276,6 +312,10 @@ export interface CaseStudyContent {
   rag: RagContent;
   credit: ProductFlowContent;
   deposit: ProductFlowContent;
+  security: SecurityContent;
+  decisions: DecisionsContent;
+  outcomes: OutcomesContent;
+  closing: CaseStudyClosingContent;
 }
 
 /** Canales de contacto públicos, verificados contra el CV. */

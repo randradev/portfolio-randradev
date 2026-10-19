@@ -3,12 +3,16 @@ import creditFlowPoster from "~/assets/projects/flux/credit-flow-poster.webp";
 import dapFlowPoster from "~/assets/projects/flux/dap-flow-poster.webp";
 import ragAccountConsole from "~/assets/projects/flux/rag-account-console.webp";
 import ragAccountPoster from "~/assets/projects/flux/rag-account-poster.webp";
+import contractDap from "~/assets/projects/flux/contract-dap.webp";
 import ragCaeConsole from "~/assets/projects/flux/rag-cae-console.webp";
 
 import type { CaseStudyContent } from "../types";
 
 /** Videos optimizados, servidos desde `public/` (docs/flux/ASSETS.md). */
 const VIDEOS = "/media/projects/flux/videos";
+
+/** Repositorio público, verificado (HTTP 200) el 2026-10-19. */
+const REPOSITORY_URL = "https://github.com/randradev/flux-project";
 
 /**
  * Caso de estudio de Flux. Fuente editorial: FLUX-CASE-STUDY.md.
@@ -48,7 +52,7 @@ export const flux: CaseStudyContent = {
       {
         label: "Repositorio",
         value: "randradev/flux-project",
-        href: "https://github.com/randradev/flux-project",
+        href: REPOSITORY_URL,
       },
     ],
   },
@@ -474,5 +478,144 @@ export const flux: CaseStudyContent = {
       caption:
         "Datos, oferta de 500 USD a 300 días (tasa del período 7 %, ganancia estimada 35 USD), aceptación, OTP y contrato PDF. Un consejo de la interfaz habla de «encriptación SHA‑256»: es impreciso, porque SHA‑256 es una función hash, no un cifrado. Sin audio. Datos de prueba.",
     },
+  },
+
+  security: {
+    id: "seguridad",
+    eyebrow: "SEGURIDAD Y DOCUMENTOS",
+    title: "La conversación también debe cerrar correctamente",
+    description: [
+      "Aceptar una oferta no basta para formalizarla. El flujo exige un código de un solo uso y genera un contrato con un sello de integridad de sus datos.",
+    ],
+    blocks: [
+      {
+        title: "Validación OTP",
+        items: [
+          "Al aceptar la oferta se genera un código de 6 dígitos y se envía por correo con Resend. Sin una clave configurada, el código se muestra en la consola como modo de prueba.",
+          "El nodo compara el código ingresado y cuenta los intentos fallidos. Una pregunta durante la espera se responde con el consultor RAG sin consumir un intento.",
+          "Al tercer fallo, el flujo termina en el nodo de bloqueo y el usuario queda marcado como BLOCKED_SECURITY: la API rechaza sus siguientes solicitudes con un 403.",
+        ],
+      },
+      {
+        title: "Contrato PDF",
+        items: [
+          "ReportLab genera un contrato por producto con las condiciones aceptadas.",
+          "Se calcula un hash SHA‑256 de los datos del contrato (un JSON con las claves ordenadas) y se imprime en el documento.",
+          "El PDF se sube al bucket contracts de Supabase Storage y su enlace se entrega al cerrar el flujo.",
+        ],
+      },
+    ],
+    evidence: {
+      type: "image",
+      kind: "capture",
+      date: "17 oct 2026",
+      src: contractDap,
+      width: 649,
+      height: 843,
+      alt: "Contrato de depósito a plazo de Flux: titular ficticio, resumen de condiciones (500 USD, 300 días, tasa mensual 0,700 %, ganancia estimada 35 USD, total 535 USD), consideraciones legales y el hash de integridad al pie.",
+      caption:
+        "Contrato generado en la ejecución del video de depósito a plazo. Datos del titular ficticios.",
+    },
+    note: {
+      title: "Alcance del hash",
+      items: [
+        "El hash permite comprobar que los datos del contrato no cambiaron. No es una firma electrónica con validez legal.",
+        "La leyenda «Documento firmado electrónicamente» es texto de la plantilla del prototipo.",
+      ],
+    },
+  },
+
+  // Motivos: confirmados por el autor (2026-10-19). Implementación y costos:
+  // verificados en el código de `main`.
+  decisions: {
+    id: "decisiones",
+    eyebrow: "DECISIONES DE INGENIERÍA",
+    title: "Cuatro decisiones y sus trade‑offs",
+    labels: { reason: "Por qué", implementation: "Cómo", tradeoff: "Trade‑off" },
+    decisions: [
+      {
+        title: "Un grafo explícito gobierna el flujo",
+        reason:
+          "Los procesos financieros tienen etapas, validaciones y esperas que deben seguir un orden controlado. El modelo interpreta los mensajes; el grafo decide la transición.",
+        implementation:
+          "Un nodo de entrada enruta por prioridades: cambio de producto, salto tras un paso completado, reanudación del nodo guardado o clasificación de la intención. El estado y el nodo actual se guardan en cada turno para continuar más tarde.",
+        tradeoff:
+          "Cada producto añade entradas a los mapas de ruteo, que hay que mantener sincronizados. Además conviven dos mecanismos de persistencia: el snapshot que rehidrata cada turno y el checkpointer de LangGraph.",
+      },
+      {
+        title: "Estado organizado en namespaces",
+        reason:
+          "Separar datos recopilados, evaluaciones, ofertas, autenticación y progreso por producto hace legible el estado global y evita mezclar información entre flujos.",
+        implementation:
+          "FluxState es un TypedDict con un namespace por responsabilidad; los datos recopilados se separan por producto. El repositorio incluye pruebas con pytest que comprueban que cada nodo de motor escribe solo en su namespace.",
+        tradeoff:
+          "Más estructura que mantener: un producto nuevo amplía varios namespaces a la vez.",
+      },
+      {
+        title: "El modelo extrae; el código decide",
+        reason:
+          "Los cálculos financieros y las reglas de negocio no se delegan a una respuesta probabilística. Así los motores se pueden probar y depurar por separado.",
+        implementation:
+          "Cada nodo pide al modelo una salida estructurada, validada con Pydantic. Los motores son clases de Python que calculan o lanzan excepciones de política, y el nodo enruta según el resultado.",
+        tradeoff:
+          "La calidad de los datos depende de la extracción. Se mitiga ignorando valores centinela y volviendo a pedir los campos que faltan, pero no se elimina.",
+      },
+      {
+        title: "El RAG como desvío dentro de cada nodo",
+        reason:
+          "El usuario debía poder resolver dudas durante un trámite sin perder el paso en el que estaba.",
+        implementation:
+          "Los nodos de recolección, oferta y OTP detectan la intención PREGUNTA, responden con el consultor RAG y se quedan en el mismo paso, en lugar de depender solo de un router global previo.",
+        tradeoff:
+          "La lógica de desvío se repite en los nodos de los tres productos: un equilibrio pragmático entre reutilización y una implementación funcional dentro del plazo.",
+      },
+    ],
+  },
+
+  outcomes: {
+    id: "resultados",
+    eyebrow: "RESULTADOS",
+    title: "Resultados, límites y aprendizajes",
+    description: [
+      "Flux es un prototipo académico y no tiene métricas de uso ni de rendimiento. Los resultados son funcionales y están respaldados por el código y las grabaciones.",
+    ],
+    columns: [
+      {
+        title: "Resultados",
+        items: [
+          "Crédito y depósito a plazo funcionan de extremo a extremo, de la conversación al contrato, como muestran las grabaciones.",
+          "La cuenta corriente sigue el mismo patrón de grafo, con su propio motor.",
+          "Las preguntas informativas se responden con RAG sin perder el paso del flujo.",
+          "Los motores financieros están separados de la orquestación conversacional.",
+        ],
+      },
+      {
+        title: "Límites",
+        items: [
+          "Demostrado solo en ejecución local; no hay una demo pública enlazada.",
+          "El OTP se genera con random en lugar de un generador criptográfico, no expira y se guarda en el estado de la conversación.",
+          "El umbral de respaldo del RAG (0,45) está definido, pero solo actúa cuando no se recupera ningún fragmento.",
+          "El motor de depósito usa valores fijos para la UF, el dólar y el IPC, y acepta cualquier plazo entre 7 y 360 días aunque define una lista de plazos válidos.",
+          "Si falla la generación del contrato, el flujo se detiene sin una ruta de recuperación.",
+          "Los contratos se guardan en un bucket con URL pública.",
+        ],
+      },
+      {
+        title: "Aprendizajes",
+        items: [
+          "El modelo funciona mejor como intérprete que como decisor: lo que debe cumplirse siempre va en código.",
+          "Una conversación no es lineal. Las preguntas, los cambios de producto y las reanudaciones tienen que ser rutas del grafo, no excepciones.",
+          "El estado conversacional necesita una estructura explícita para crecer a varios productos.",
+        ],
+      },
+    ],
+  },
+
+  closing: {
+    id: "seguir",
+    eyebrow: "PROYECTOS",
+    title: "Seguir explorando",
+    primaryCta: { label: "Volver a proyectos", to: "/#proyectos" },
+    secondaryLink: { label: "Ver el repositorio", href: REPOSITORY_URL },
   },
 };

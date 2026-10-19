@@ -26,7 +26,7 @@ export function ArchitectureSection({ content }: { content: ArchitectureContent 
             <li key={layer.name} className={styles.layer} data-kind={layer.kind}>
               <span className={styles.node} aria-hidden="true" />
               <div className={styles.layerHead}>
-                <span className={styles.index} aria-hidden="true">
+                <span className={`${shared.index} ${styles.index}`} aria-hidden="true">
                   {pad(index)}
                 </span>
                 <h3 className={styles.layerName}>{layer.name}</h3>

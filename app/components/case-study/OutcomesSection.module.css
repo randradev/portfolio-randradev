@@ -1,0 +1,25 @@
+.columns {
+  display: grid;
+  gap: var(--space-12);
+}
+
+/* Filete superior por columna, como las ideas del contexto. */
+.column {
+  display: grid;
+  align-content: start;
+  gap: var(--space-5);
+  padding-top: var(--space-5);
+  border-top: 1px solid var(--color-border-strong);
+}
+
+.title {
+  font-size: var(--text-h3);
+}
+
+/* Escritorio: los límites, la columna más larga, tienen más ancho. */
+@media (min-width: 64rem) {
+  .columns {
+    grid-template-columns: minmax(0, 4fr) minmax(0, 5fr) minmax(0, 4fr);
+    column-gap: var(--space-10);
+  }
+}

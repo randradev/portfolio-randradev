@@ -1,6 +1,7 @@
 import type { CaseStudyPoint } from "~/content/types";
 
 import styles from "./PointList.module.css";
+import shared from "./shared.module.css";
 
 type PointListProps = {
   points: CaseStudyPoint[];
@@ -18,7 +19,7 @@ export function PointList({ points, label, layout = "columns" }: PointListProps)
     <ol className={`${styles.list} ${styles[layout]}`} aria-label={label}>
       {points.map((point, index) => (
         <li key={point.title} className={styles.point}>
-          <span className={styles.index} aria-hidden="true">
+          <span className={`${shared.index} ${styles.index}`} aria-hidden="true">
             {String(index + 1).padStart(2, "0")}
           </span>
           <h3 className={styles.title}>{point.title}</h3>

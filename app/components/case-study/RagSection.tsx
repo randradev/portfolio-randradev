@@ -36,7 +36,7 @@ export function RagSection({ content }: { content: RagContent }) {
             <h3 id={NOTES_ID} className={shared.label}>
               {notes.title}
             </h3>
-            <ul className={styles.notesList}>
+            <ul className={shared.bulletList}>
               {notes.items.map((item) => (
                 <li key={item}>{item}</li>
               ))}

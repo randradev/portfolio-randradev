@@ -19,3 +19,35 @@
   border: 1px dashed var(--color-border-strong);
   border-radius: var(--radius-lg);
 }
+
+/* Lista de afirmaciones breves con una viñeta cuadrada azul. */
+.bulletList {
+  display: grid;
+  gap: var(--space-3);
+  padding: 0;
+  list-style: none;
+  color: var(--color-text-muted);
+  font-size: var(--text-small);
+}
+
+.bulletList li {
+  display: flex;
+  gap: var(--space-3);
+}
+
+.bulletList li::before {
+  content: "";
+  flex: none;
+  width: 4px;
+  height: 4px;
+  margin-top: 0.6em;
+  background-color: var(--color-primary);
+}
+
+/* Índice de un elemento en una serie (01, 02…). */
+.index {
+  color: var(--color-primary);
+  font-family: var(--font-mono);
+  font-size: var(--text-meta);
+  letter-spacing: var(--tracking-mono);
+}
