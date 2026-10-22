@@ -9,8 +9,8 @@ import type { Project } from "./types";
  * repositorio; Flux en el CV y la estructura del repositorio.
  * Portadas: capturas reales de cada aplicación, recortadas a 16:9 sin la
  * interfaz del navegador.
- * Flux: caso de estudio en /proyectos/flux (rol en app/content/case-studies/flux.ts).
- * PENDIENTE (Fase 4): rol real y caso de estudio de LicitAI.
+ * Casos de estudio en /proyectos/flux y /proyectos/licitai (rol en
+ * app/content/case-studies/).
  */
 export const projects: Project[] = [
   {
@@ -20,7 +20,7 @@ export const projects: Project[] = [
     summary:
       "Analiza licitaciones con IA para identificar riesgos y priorizar oportunidades según el perfil de la empresa.",
     stack: ["Python", "Selenium", "Gemini API", "SQLite", "Streamlit"],
-    caseStudyTo: null,
+    caseStudyTo: "/proyectos/licitai",
     cover: {
       src: licitaiCover,
       alt: "Panel de LicitAI: ficha de una licitación con puntaje estratégico, veredicto y puntos clave del análisis de la IA y riesgos detectados.",

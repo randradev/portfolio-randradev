@@ -1,0 +1,140 @@
+/* Diagrama entidad-relación. El lienzo, las orientaciones y el desplegable
+   vienen de RoutingDiagram.module.css; aquí solo lo propio de las tablas. */
+
+.table,
+.central {
+  fill: var(--color-surface);
+  stroke: var(--color-border-strong);
+  stroke-width: 1;
+}
+
+/* La tabla central se distingue con el azul primario, sin luz añadida. */
+.central {
+  stroke: var(--color-primary);
+  stroke-width: 1.25;
+}
+
+.divider {
+  stroke: var(--color-border);
+}
+
+.relation {
+  fill: none;
+  stroke: var(--color-accent);
+  stroke-width: 1.25;
+}
+
+/* Relación lógica: la mantiene el código, sin FOREIGN KEY. */
+.relation[data-logical] {
+  stroke-dasharray: 5 4;
+}
+
+/* ── Textos ────────────────────────────────────────────────────────────── */
+
+.name {
+  fill: var(--color-text);
+  font-family: var(--font-mono);
+  font-size: 15px;
+  font-weight: var(--weight-medium);
+}
+
+.role {
+  fill: var(--color-text-muted);
+  font-family: var(--font-body);
+  font-size: 13px;
+}
+
+.field,
+.ref {
+  fill: var(--color-text);
+  font-family: var(--font-mono);
+  font-size: 13px;
+}
+
+.ref {
+  fill: color-mix(in srgb, var(--color-accent) 55%, var(--color-text));
+}
+
+.pk {
+  fill: var(--color-primary);
+  font-weight: var(--weight-medium);
+}
+
+.group {
+  fill: var(--color-text-muted);
+  font-family: var(--font-mono);
+  font-size: 11px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+
+.cardinality {
+  fill: var(--color-accent);
+  font-family: var(--font-mono);
+  font-size: 12px;
+}
+
+/* ── Leyenda, versión en texto y notas ─────────────────────────────────── */
+
+.legend {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-3) var(--space-8);
+  padding: 0;
+  list-style: none;
+  color: var(--color-text-muted);
+  font-size: var(--text-meta);
+}
+
+.legend li {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+}
+
+.legendPk {
+  color: var(--color-primary);
+  font-family: var(--font-mono);
+  font-weight: var(--weight-medium);
+}
+
+.legendRef {
+  width: 10px;
+  height: 10px;
+  border-radius: 2px;
+  background-color: color-mix(in srgb, var(--color-accent) 55%, var(--color-text));
+}
+
+.legendLine {
+  width: 24px;
+  border-top: 1.5px dashed var(--color-accent);
+}
+
+.details {
+  margin-top: var(--space-6);
+}
+
+.textModel {
+  display: grid;
+  gap: var(--space-1);
+  margin-top: var(--space-3);
+}
+
+.textModel dt {
+  color: var(--color-text);
+}
+
+.textModel dd {
+  margin-bottom: var(--space-3);
+  overflow-wrap: anywhere;
+}
+
+.textRelations {
+  display: grid;
+  gap: var(--space-2);
+  padding-left: var(--space-5);
+}
+
+.notes {
+  margin-top: var(--space-12);
+}

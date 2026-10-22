@@ -1,0 +1,41 @@
+.detail {
+  display: grid;
+  gap: var(--space-12);
+  margin-top: var(--space-16);
+}
+
+.pages {
+  display: grid;
+  align-content: start;
+  gap: var(--space-5);
+}
+
+.pageList {
+  display: grid;
+}
+
+.page {
+  display: grid;
+  gap: var(--space-1);
+  padding-block: var(--space-3);
+  border-top: 1px solid var(--color-border);
+}
+
+.pageName {
+  font-family: var(--font-heading);
+  font-weight: var(--weight-medium);
+}
+
+.pageDescription {
+  color: var(--color-text-muted);
+  font-size: var(--text-small);
+}
+
+/* Escritorio: las páginas a la izquierda; la captura, más ancha, a la derecha. */
+@media (min-width: 64rem) {
+  .detail {
+    grid-template-columns: minmax(0, 4fr) minmax(0, 8fr);
+    align-items: start;
+    column-gap: var(--space-16);
+  }
+}

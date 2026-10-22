@@ -66,7 +66,7 @@ export function ArchitectureSection({ content }: { content: ArchitectureContent 
         </figcaption>
       </figure>
 
-      <RoutingDiagram content={content.routing} />
+      {content.routing && <RoutingDiagram content={content.routing} />}
 
       <div className={styles.turn}>
         <h3 className={styles.turnTitle}>{content.turn.title}</h3>

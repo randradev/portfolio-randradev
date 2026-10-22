@@ -5,5 +5,5 @@ export default {
   ssr: false,
   // Rutas públicas que se pre-renderizan: cada una tiene su HTML y funciona
   // al entrar directamente o recargar.
-  prerender: ["/", "/proyectos/flux"],
+  prerender: ["/", "/proyectos/flux", "/proyectos/licitai"],
 } satisfies Config;

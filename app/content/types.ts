@@ -223,7 +223,8 @@ export interface ArchitectureContent extends SectionIntro {
   /** Procedencia del diagrama (versión del código). */
   caption: string;
   layers: ArchitectureLayer[];
-  routing: RoutingContent;
+  /** Ruteo de entrada (Flux). Ausente en sistemas sin un ruteo equivalente. */
+  routing?: RoutingContent;
   services: { title: string; items: CaseStudyPoint[] };
   /** Recorrido de un turno de conversación, en orden. */
   turn: { title: string; steps: string[] };
@@ -252,6 +253,8 @@ export interface EvidenceImage extends EvidenceBase {
   type: "image";
   src: string;
   alt: string;
+  /** Captura con texto pequeño: ofrece verla a tamaño real en un diálogo. */
+  zoomable?: boolean;
 }
 
 export interface EvidenceVideo extends EvidenceBase {
@@ -273,7 +276,7 @@ export interface RagContent extends SectionIntro {
   /** Aclaraciones para leer la evidencia sin sobreinterpretarla. */
   notes: CaseStudyList;
   /** El mismo mecanismo en otro producto. */
-  secondary: { title: string; description: string; evidence: EvidenceMedia[] };
+  secondary?: { title: string; description: string; evidence: EvidenceMedia[] };
 }
 
 /** Etapa de un flujo de producto, ligada a su nodo del grafo. */
@@ -343,19 +346,127 @@ export interface CaseStudyClosingContent extends SectionIntro {
   secondaryLink: ExternalLink;
 }
 
-/** Contenido completo de la página de un caso de estudio. */
-export interface CaseStudyContent {
+/* ── Scoring (LicitAI) ─────────────────────────────────────────────────── */
+
+/** Criterio de una rúbrica de evaluación, con su peso sobre 100. */
+export interface ScoringCriterion {
+  /** Clave del criterio en el código. */
+  key: string;
+  name: string;
+  weight: number;
+  description: string;
+  /** Sin su nota no hay evaluación posible. */
+  blocking?: boolean;
+  /** Si falta, se advierte, pero el score sigue siendo posible. */
+  essential?: boolean;
+}
+
+/** Estado posible del resultado, en orden de prevalencia. */
+export interface ScoringState {
+  /** Etiqueta exacta que muestra la aplicación. */
+  label: string;
+  /** Valor guardado en la base de datos. */
+  key: string;
+  condition: string;
+  score: string;
+}
+
+export interface ScoringContent extends SectionIntro {
+  /** Qué aporta el modelo y qué calcula el código. */
+  split: CaseStudyList[];
+  criteria: {
+    title: string;
+    source: string;
+    labels: { weight: string; blocking: string; essential: string };
+    items: ScoringCriterion[];
+  };
+  formula: {
+    title: string;
+    rules: { label: string; value: string }[];
+    note: string;
+  };
+  states: { title: string; source: string; items: ScoringState[] };
+  /** Lo que el score no es. */
+  notes: CaseStudyList;
+}
+
+/* ── Modelo de datos (LicitAI) ─────────────────────────────────────────── */
+
+/**
+ * Fila de una tabla del diagrama. `pk`: clave primaria. `ref`: columna que
+ * vincula con otra tabla. `group`: subtítulo de un grupo de columnas.
+ */
+export interface DataField {
+  text: string;
+  kind?: "pk" | "ref" | "group";
+}
+
+export interface DataEntity {
+  /** Identificador estable para la geometría del diagrama. */
+  id: "perfil" | "licitaciones" | "historial" | "fallidas" | "ejecuciones";
+  /** Nombre de la tabla en SQLite. */
+  name: string;
+  role: string;
+  fields: DataField[];
+}
+
+/** Relación entre tablas. `logical`: la mantiene el código, sin FOREIGN KEY. */
+export interface DataRelation {
+  from: DataEntity["id"];
+  to: DataEntity["id"];
+  cardinality: string;
+  label: string;
+  logical: boolean;
+}
+
+export interface DataModelContent extends SectionIntro {
+  /** Descripción accesible del diagrama completo. */
+  label: string;
+  entities: DataEntity[];
+  relations: DataRelation[];
+  legend: { pk: string; ref: string; logical: string };
+  /** Procedencia del diagrama (archivo y versión del código). */
+  caption: string;
+  textToggle: string;
+  notes: CaseStudyList;
+}
+
+/* ── Interfaz (LicitAI) ────────────────────────────────────────────────── */
+
+export interface InterfaceContent extends SectionIntro {
+  demo: EvidenceVideo;
+  capture: EvidenceImage;
+  pages: { title: string; items: CaseStudyPoint[] };
+}
+
+/** Partes comunes a todos los casos de estudio. */
+export interface CaseStudyBase {
   meta: RouteMeta;
   hero: CaseStudyHeroContent;
   context: CaseStudyContextContent;
   architecture: ArchitectureContent;
+  decisions: DecisionsContent;
+  outcomes: OutcomesContent;
+  closing: CaseStudyClosingContent;
+}
+
+/** Contenido completo de la página de un caso de estudio (Flux). */
+export interface CaseStudyContent extends CaseStudyBase {
   rag: RagContent;
   credit: ProductFlowContent;
   deposit: ProductFlowContent;
   security: SecurityContent;
-  decisions: DecisionsContent;
-  outcomes: OutcomesContent;
-  closing: CaseStudyClosingContent;
+}
+
+/** Caso de estudio de LicitAI: LICITAI-CASE-STUDY.md §4. */
+export interface LicitaiCaseStudyContent extends CaseStudyBase {
+  dataModel: DataModelContent;
+  /** Análisis de una oportunidad, con la misma composición que el caso RAG de Flux. */
+  analysis: RagContent;
+  scoring: ScoringContent;
+  interface: InterfaceContent;
+  /** Fallos externos y validación, con la composición de la sección de seguridad de Flux. */
+  reliability: SecurityContent;
 }
 
 /** Canales de contacto públicos, verificados contra el CV. */
