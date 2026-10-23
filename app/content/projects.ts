@@ -23,7 +23,7 @@ export const projects: Project[] = [
     caseStudyTo: "/proyectos/licitai",
     cover: {
       src: licitaiCover,
-      alt: "Panel de LicitAI: ficha de una licitación con puntaje estratégico, veredicto y puntos clave del análisis de la IA y riesgos detectados.",
+      alt: "Página Oportunidades de LicitAI: indicadores de oportunidades activas, cierres de la semana, score promedio y licitaciones en proceso, filtros de búsqueda y tarjetas de licitaciones con su score, días al cierre, región y reclamos de pago.",
     },
   },
   {
