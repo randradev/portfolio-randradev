@@ -7,7 +7,6 @@
 
 /* Marco discreto: la evidencia se muestra sin filtros para no alterarla. */
 .frame {
-  position: relative;
   overflow: hidden;
   border: 1px solid var(--color-border);
   border-radius: var(--radius-md);
@@ -29,62 +28,6 @@
   .figure[data-kind="log"] .media {
     min-width: var(--log-min);
   }
-}
-
-/* ── Ampliar una captura ───────────────────────────────────────────────── */
-
-.zoom {
-  position: absolute;
-  top: var(--space-3);
-  right: var(--space-3);
-  background-color: var(--color-overlay);
-}
-
-@supports (backdrop-filter: blur(1px)) or (-webkit-backdrop-filter: blur(1px)) {
-  .zoom {
-    -webkit-backdrop-filter: var(--glass-filter);
-    backdrop-filter: var(--glass-filter);
-  }
-}
-
-.dialog {
-  width: min(100% - 2 * var(--space-4), 90rem);
-  max-width: none;
-  max-height: calc(100dvh - 2 * var(--space-4));
-  padding: 0;
-  overflow: hidden;
-  border: 1px solid var(--color-border-strong);
-  border-radius: var(--radius-lg);
-  background-color: var(--color-surface);
-  color: var(--color-text);
-  box-shadow: var(--shadow-raised);
-}
-
-.dialog[open] {
-  display: grid;
-  grid-template-rows: auto minmax(0, 1fr);
-}
-
-.dialog::backdrop {
-  background-color: var(--color-overlay);
-}
-
-.dialogBar {
-  display: flex;
-  justify-content: flex-end;
-  padding: var(--space-3);
-  border-bottom: 1px solid var(--color-border);
-}
-
-/* La imagen a su tamaño real; si no cabe, el cuerpo se desplaza. */
-.dialogBody {
-  overflow: auto;
-  overscroll-behavior: contain;
-}
-
-.dialogBody img {
-  max-width: none;
-  margin-inline: auto;
 }
 
 .caption {

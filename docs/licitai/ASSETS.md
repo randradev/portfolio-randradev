@@ -35,10 +35,14 @@ empresa (distribuidora de insumos de laboratorio y salud) es ficticio
 
 | Archivo | Origen | Sección | Qué demuestra |
 |---|---|---|---|
-| `analysis-detail.webp` | `licitai-analysis-detail-particular.png` (1045 × 785), sin recorte | Análisis | Ficha `1057421-39-LE26` (Hospital de Laja): 93/100, desglose 5/4/5/5/4 con peso y evidencia. 35 + 20 + 20 + 10 + 8 = 93, coherente con `rubrica.calcular`. |
+| `analysis-detail.webp` | `licitai-analysis-detail-particular.png`, `crop=660:785:0:0` (columna del análisis, sin el panel de preparación) | Análisis | Ficha `1057421-39-LE26` (Hospital de Laja): 93/100, desglose 5/4/5/5/4 con peso y evidencia. 35 + 20 + 20 + 10 + 8 = 93, coherente con `rubrica.calcular`. |
 | `analysis-uncertainty.webp` | Fotograma 32 s de la grabación, `crop=1000:585:455:442` | Análisis | Otra licitación (Angol): excluyentes «No verificable», información faltante, riesgos y reclamos de pago con su fuente. |
-| `opportunities.webp` | `licitai-opportunities.png`, `crop=1060:860:425:56` | Interfaz | Página Oportunidades: indicadores, filtros, orden y tarjetas con score y señales. |
+| `opportunities.webp` | `licitai-opportunities.png`, `crop=1060:669:425:56` | Interfaz | Página Oportunidades: indicadores, filtros, orden y la primera tarjeta con score y señales. |
 | `processing-queue.webp` | `licitai-processing-queue.png`, `crop=1282:515:430:60` | Fiabilidad | Dos licitaciones con «La IA no entregó un análisis válido», con «Analizar ahora» y «Reintentar». |
+| `panorama-funnel.webp` | Fotograma 66 s de la grabación, `crop=1030:315:440:334` | Panorama | Embudo de 30 días: 2.482 publicadas, 18 coinciden con el perfil, 16 analizadas, 2 favoritas. |
+| `panorama-closings.webp` | Fotograma 70 s de la grabación, `crop=1030:546:440:494` | Panorama | Próximos cierres: días al cierre y score de 12 de las 14 licitaciones abiertas. |
+| `panorama-score.webp` | `licitai-analytics-overview-particular.png`, `crop=1040:510:0:0` | Panorama | Score vs. reclamos de pago y distribución de scores (14 licitaciones, 2 no elegibles aparte). |
+| `panorama-calibration.webp` | Fotograma 82 s de la grabación, `crop=1030:603:440:244` | Panorama | Tarjeta «¿Qué tan acertada es la IA?»: 53 % / 47 % / 0 % según 15 evaluaciones y % de postulación por tramo. 14 de las 15 evaluaciones son simuladas; el pie de la captura lo indica. |
 | `demo-poster.webp` | Fotograma 26 s de la grabación | Interfaz | Desglose del score de la licitación de Angol. |
 
 ## Diagramas
@@ -52,13 +56,12 @@ Flux, en lugar de archivos `.svg`:
   relaciones (por `id_externo`) se dibujan como relaciones lógicas.
 - Modelo de scoring → `ScoringSection`, con los pesos y estados de `core/rubrica.py`.
 
-Fuentes técnicas: `docs/licitai/architecture/*.md`.
+Fuentes técnicas: `docs/licitai/architecture/*.md`, con los diagramas Mermaid
+de referencia (flujo, componentes, entidad-relación y estados del score).
 
 ## Descartados
 
 - `licitai-analysis-detail.png` (524 × 887): reducida; su texto no se lee.
   El fotograma del video cubre requisitos, faltantes y riesgos.
-- `licitai-analytics-overview*.png`: muestran «53 % acertado según 15
-  evaluaciones», con 14 simuladas. Publicarla sugeriría una métrica de precisión
-  que no existe.
+- `licitai-analytics-overview.png` (350 × 898): reducida; su texto no se lee.
 - `code/reporte_autopsia_fase2.md`: es un informe de Flux, no de LicitAI.

@@ -1,3 +1,4 @@
+import { AnalysisSection } from "~/components/case-study/AnalysisSection";
 import { ArchitectureSection } from "~/components/case-study/ArchitectureSection";
 import { CaseStudyHero } from "~/components/case-study/CaseStudyHero";
 import { ClosingSection } from "~/components/case-study/ClosingSection";
@@ -6,7 +7,7 @@ import { DataModelSection } from "~/components/case-study/DataModelSection";
 import { DecisionsSection } from "~/components/case-study/DecisionsSection";
 import { InterfaceSection } from "~/components/case-study/InterfaceSection";
 import { OutcomesSection } from "~/components/case-study/OutcomesSection";
-import { RagSection } from "~/components/case-study/RagSection";
+import { PanoramaSection } from "~/components/case-study/PanoramaSection";
 import { ScoringSection } from "~/components/case-study/ScoringSection";
 import { SecuritySection } from "~/components/case-study/SecuritySection";
 import { licitai } from "~/content/case-studies/licitai";
@@ -18,8 +19,8 @@ export function meta() {
 
 /**
  * Caso de estudio de LicitAI. Orden de secciones: LICITAI-CASE-STUDY.md §4.
- * El análisis y la fiabilidad reutilizan la composición de las secciones RAG y
- * de seguridad de Flux.
+ * El análisis sigue la composición de la sección RAG de Flux y la fiabilidad
+ * reutiliza la sección de seguridad.
  */
 export default function LicitaiCaseStudy() {
   return (
@@ -28,9 +29,10 @@ export default function LicitaiCaseStudy() {
       <ContextSection content={licitai.context} />
       <ArchitectureSection content={licitai.architecture} />
       <DataModelSection content={licitai.dataModel} />
-      <RagSection content={licitai.analysis} />
+      <AnalysisSection content={licitai.analysis} />
       <ScoringSection content={licitai.scoring} />
       <InterfaceSection content={licitai.interface} />
+      <PanoramaSection content={licitai.panorama} />
       <DecisionsSection content={licitai.decisions} />
       <SecuritySection content={licitai.reliability} />
       <OutcomesSection content={licitai.outcomes} />

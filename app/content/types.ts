@@ -253,8 +253,6 @@ export interface EvidenceImage extends EvidenceBase {
   type: "image";
   src: string;
   alt: string;
-  /** Captura con texto pequeño: ofrece verla a tamaño real en un diálogo. */
-  zoomable?: boolean;
 }
 
 export interface EvidenceVideo extends EvidenceBase {
@@ -276,7 +274,7 @@ export interface RagContent extends SectionIntro {
   /** Aclaraciones para leer la evidencia sin sobreinterpretarla. */
   notes: CaseStudyList;
   /** El mismo mecanismo en otro producto. */
-  secondary?: { title: string; description: string; evidence: EvidenceMedia[] };
+  secondary: { title: string; description: string; evidence: EvidenceMedia[] };
 }
 
 /** Etapa de un flujo de producto, ligada a su nodo del grafo. */
@@ -386,8 +384,39 @@ export interface ScoringContent extends SectionIntro {
     note: string;
   };
   states: { title: string; source: string; items: ScoringState[] };
-  /** Lo que el score no es. */
+}
+
+/* ── Análisis de una oportunidad (LicitAI) ─────────────────────────────── */
+
+export interface AnalysisContent extends SectionIntro {
+  /** Recorrido de la oportunidad, en orden. */
+  steps: CaseStudyPoint[];
+  /** Captura principal, junto a la secuencia. */
+  evidence: EvidenceImage;
+  /** Aclaraciones para leer la evidencia sin sobreinterpretarla. */
   notes: CaseStudyList;
+  /** Lo que la ficha deja pendiente, con su evidencia. */
+  pending: { title: string; description: string; evidence: EvidenceImage };
+}
+
+/* ── Panorama (LicitAI) ────────────────────────────────────────────────── */
+
+/** Gráfico de la aplicación: qué mide y para qué sirve. */
+export interface PanoramaMetric {
+  title: string;
+  measures: string;
+  relevance: string;
+}
+
+/** Uno o más gráficos que se leen juntos, con su captura si se publica. */
+export interface PanoramaGroup {
+  metrics: PanoramaMetric[];
+  evidence?: EvidenceImage;
+}
+
+export interface PanoramaContent extends SectionIntro {
+  labels: { measures: string; relevance: string };
+  groups: PanoramaGroup[];
 }
 
 /* ── Modelo de datos (LicitAI) ─────────────────────────────────────────── */
@@ -461,10 +490,10 @@ export interface CaseStudyContent extends CaseStudyBase {
 /** Caso de estudio de LicitAI: LICITAI-CASE-STUDY.md §4. */
 export interface LicitaiCaseStudyContent extends CaseStudyBase {
   dataModel: DataModelContent;
-  /** Análisis de una oportunidad, con la misma composición que el caso RAG de Flux. */
-  analysis: RagContent;
+  analysis: AnalysisContent;
   scoring: ScoringContent;
   interface: InterfaceContent;
+  panorama: PanoramaContent;
   /** Fallos externos y validación, con la composición de la sección de seguridad de Flux. */
   reliability: SecurityContent;
 }

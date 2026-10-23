@@ -214,10 +214,6 @@
   font-size: var(--text-meta);
 }
 
-.notes {
-  margin-top: var(--space-16);
-}
-
 @media (min-width: 48rem) {
   .split {
     grid-template-columns: repeat(2, minmax(0, 1fr));

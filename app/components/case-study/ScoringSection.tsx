@@ -13,10 +13,9 @@ import shared from "./shared.module.css";
  * prevalencia. Las barras de peso son decorativas: el peso está en el texto.
  */
 export function ScoringSection({ content }: { content: ScoringContent }) {
-  const { id, criteria, formula, states, notes } = content;
+  const { id, criteria, formula, states } = content;
   const criteriaId = `${id}-criterios`;
   const statesId = `${id}-estados`;
-  const notesId = `${id}-notas`;
 
   return (
     <Section intro={content} layout="stack" tone="grid">
@@ -110,20 +109,6 @@ export function ScoringSection({ content }: { content: ScoringContent }) {
           </ol>
         </section>
       </div>
-
-      <aside
-        className={`${shared.dashedPanel} ${styles.notes}`}
-        aria-labelledby={notesId}
-      >
-        <h3 id={notesId} className={shared.label}>
-          {notes.title}
-        </h3>
-        <ul className={shared.bulletList}>
-          {notes.items.map((item) => (
-            <li key={item}>{item}</li>
-          ))}
-        </ul>
-      </aside>
     </Section>
   );
 }

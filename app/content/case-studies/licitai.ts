@@ -2,6 +2,10 @@ import analysisDetail from "~/assets/projects/licitai/analysis-detail.webp";
 import analysisUncertainty from "~/assets/projects/licitai/analysis-uncertainty.webp";
 import demoPoster from "~/assets/projects/licitai/demo-poster.webp";
 import opportunities from "~/assets/projects/licitai/opportunities.webp";
+import panoramaCalibration from "~/assets/projects/licitai/panorama-calibration.webp";
+import panoramaClosings from "~/assets/projects/licitai/panorama-closings.webp";
+import panoramaFunnel from "~/assets/projects/licitai/panorama-funnel.webp";
+import panoramaScore from "~/assets/projects/licitai/panorama-score.webp";
 import processingQueue from "~/assets/projects/licitai/processing-queue.webp";
 
 import type { LicitaiCaseStudyContent } from "../types";
@@ -58,7 +62,7 @@ export const licitai: LicitaiCaseStudyContent = {
     title: "Revisar licitaciones requiere algo más que encontrar coincidencias",
     description: [
       "Mercado Público publica oportunidades que una empresa proveedora debe revisar y contrastar con sus capacidades. LicitAI automatiza parte de esa revisión: filtra oportunidades según un perfil de negocio, extrae información de las fichas y genera un análisis estructurado para ayudar a decidir cuáles conviene estudiar.",
-      "El problema no es solo encontrar palabras clave. También hay que distinguir requisitos, riesgos e información que todavía no está disponible. La decisión de postular sigue siendo de una persona.",
+      "Además de encontrar palabras clave, hay que distinguir requisitos, riesgos e información que todavía no está disponible. La decisión de postular sigue siendo de una persona.",
     ],
     points: [
       {
@@ -279,7 +283,7 @@ export const licitai: LicitaiCaseStudyContent = {
         "Las relaciones se mantienen por id_externo en el código. SQLite no las exige: no hay claves foráneas ni borrados en cascada, y la aplicación no borra licitaciones.",
         "El historial y las respuestas rechazadas solo reciben inserciones: re-analizar o fallar no borra un análisis anterior.",
         "El análisis se guarda como JSON. Score, estado, cobertura y versión de la rúbrica se duplican en columnas para ordenar y filtrar con SQL.",
-        "La versión del perfil no es una clave: es una huella de las palabras clave y la descripción, grabada en cada análisis.",
+        "Cada análisis guarda una huella del perfil usado (palabras clave y descripción), sin relación con la tabla del perfil.",
       ],
     },
   },
@@ -324,53 +328,53 @@ export const licitai: LicitaiCaseStudyContent = {
           "Score, etiqueta, desglose con evidencia, requisitos y riesgos en la misma ficha.",
       },
     ],
-    evidence: [
-      {
-        type: "image",
-        kind: "capture",
-        date: "22 oct 2026",
-        src: analysisDetail,
-        width: 1045,
-        height: 785,
-        zoomable: true,
-        alt: "Ficha de LicitAI del convenio de insumos clínicos para curaciones del Hospital de Laja: score 93/100, «Idoneidad excelente», veredicto de la IA y desglose del score. Compatibilidad comercial 5/5, requisitos obligatorios 4/5, capacidad de cumplimiento 5/5, viabilidad geográfica 5/5 y viabilidad económica 4/5, cada uno con su peso y la evidencia citada.",
-        caption:
-          "Desglose del score de la licitación 1057421-39-LE26: nota, peso y evidencia de cada criterio. Licitación pública; perfil de empresa ficticio.",
-      },
-      {
+    evidence: {
+      type: "image",
+      kind: "capture",
+      date: "22 oct 2026",
+      src: analysisDetail,
+      width: 660,
+      height: 785,
+      alt: "Ficha de LicitAI del convenio de insumos clínicos para curaciones del Hospital de Laja: score 93/100, «Idoneidad excelente», veredicto de la IA y desglose del score. Compatibilidad comercial 5/5, requisitos obligatorios 4/5, capacidad de cumplimiento 5/5, viabilidad geográfica 5/5 y viabilidad económica 4/5, cada uno con su peso y la evidencia citada.",
+      caption:
+        "Desglose del score de la licitación 1057421-39-LE26: nota, peso y evidencia de cada criterio. Licitación pública; perfil de empresa ficticio.",
+    },
+    notes: {
+      title: "Cómo leer esta evidencia",
+      items: [
+        "El score mide la compatibilidad con el perfil según la rúbrica. La probabilidad de adjudicación queda fuera de su alcance.",
+        "El perfil es ficticio: una distribuidora de insumos de laboratorio y salud creada para la demostración. Las licitaciones y sus datos son públicos.",
+        "Los reclamos de pago salen de la ficha y se muestran aparte del score.",
+      ],
+    },
+    pending: {
+      title: "Requisitos e información pendientes",
+      description:
+        "Un requisito excluyente solo deja la licitación como no elegible si su incumplimiento está confirmado con evidencia. Si falta información, queda como «No verificable», y los datos que faltan se listan para revisarlos en las bases.",
+      evidence: {
         type: "image",
         kind: "capture",
         date: "22 oct 2026",
         src: analysisUncertainty,
         width: 1000,
         height: 585,
-        zoomable: true,
         alt: "Parte inferior de un análisis de LicitAI: dos requisitos excluyentes marcados como «No verificable», tres datos faltantes, puntos críticos, riesgos comerciales y 29 reclamos por pagos atrasados del organismo, con la fuente y la fecha de lectura de la ficha.",
         caption:
-          "Fotograma de la grabación, sobre otra licitación (Angol). Lo que no se puede verificar en la ficha queda marcado como tal.",
+          "Fotograma de la grabación, sobre otra licitación (Angol): requisitos excluyentes, información faltante y riesgos.",
       },
-    ],
-    notes: {
-      title: "Cómo leer esta evidencia",
-      items: [
-        "El score mide la compatibilidad con el perfil según la rúbrica. No es la probabilidad de adjudicarse la licitación.",
-        "El perfil es ficticio: una distribuidora de insumos de laboratorio y salud creada para la demostración. Las licitaciones y sus datos son públicos.",
-        "Un requisito excluyente solo deja la licitación como no elegible si su incumplimiento está confirmado con evidencia; si falta información, queda como «No verificable».",
-        "Los reclamos de pago salen de la ficha y se muestran aparte: no forman parte del score.",
-      ],
     },
   },
 
   scoring: {
     id: "scoring",
     eyebrow: "MODELO DE SCORING",
-    title: "La IA evalúa; el código calcula",
+    title: "La IA evalúa. El código calcula.",
     description: [
-      "Gemini entrega una evaluación por criterio junto con la evidencia disponible. Python calcula el resultado final y aplica las reglas de estado. Así, el score no depende de una cifra total generada libremente por el modelo.",
+      "Gemini entrega una evaluación por criterio junto con la evidencia disponible. Python calcula el resultado final y aplica las reglas de estado, así que el total siempre se puede reproducir a partir de las notas.",
     ],
     split: [
       {
-        title: "Lo que aporta Gemini",
+        title: "Aporte de Gemini",
         items: [
           "Una nota entera de 0 a 5 por criterio, o ninguna si no hay información.",
           "El estado de la evidencia (suficiente, parcial o ausente) y la cita que la respalda.",
@@ -378,7 +382,7 @@ export const licitai: LicitaiCaseStudyContent = {
         ],
       },
       {
-        title: "Lo que decide Python",
+        title: "Cálculo en Python",
         items: [
           "Rechaza la respuesta completa si una nota es decimal o está fuera de 0 a 5.",
           "Anula las notas sin evidencia y registra cada corrección como advertencia.",
@@ -484,15 +488,6 @@ export const licitai: LicitaiCaseStudyContent = {
         },
       ],
     },
-    notes: {
-      title: "Lo que el score no es",
-      items: [
-        "No es una probabilidad de ganar la licitación: mide la adecuación al perfil según la rúbrica.",
-        "No está validado con evaluaciones humanas representativas. La base de desarrollo tiene una sola evaluación del autor; el resto son simuladas y no cuentan como evidencia.",
-        "La urgencia y el riesgo de pago se muestran como señales aparte; el prompt indica no considerarlos en las notas.",
-        "Con temperatura 0 la variación entre ejecuciones sobre la misma ficha se reduce, pero no desaparece.",
-      ],
-    },
   },
 
   interface: {
@@ -514,7 +509,7 @@ export const licitai: LicitaiCaseStudyContent = {
       duration: "1:36",
       title: "Recorrido por la interfaz de LicitAI",
       caption:
-        "Oportunidades, análisis y desglose del score, Favoritas, En proceso, Panorama y Perfil, sobre datos ya sincronizados. Panorama muestra un porcentaje de acierto calculado casi solo con evaluaciones simuladas: no es una medida de precisión. Sin audio.",
+        "Oportunidades, análisis y desglose del score, Favoritas, En proceso, Panorama y Perfil, sobre datos ya sincronizados. El porcentaje de acierto de Panorama se calcula casi solo con evaluaciones simuladas (ver la sección Panorama). Sin audio.",
     },
     capture: {
       type: "image",
@@ -522,9 +517,8 @@ export const licitai: LicitaiCaseStudyContent = {
       date: "22 oct 2026",
       src: opportunities,
       width: 1060,
-      height: 860,
-      zoomable: true,
-      alt: "Página Oportunidades de LicitAI: indicadores de oportunidades activas, cierres de la semana, score promedio y licitaciones en proceso; buscador, filtros por score mínimo y región, orden por cierre, score o publicación, y tarjetas de licitaciones con su score, etiqueta, días al cierre, región y reclamos de pago.",
+      height: 669,
+      alt: "Página Oportunidades de LicitAI: indicadores de oportunidades activas, cierres de la semana, score promedio y licitaciones en proceso; buscador, filtros por score mínimo y región, orden por cierre, score o publicación, y la primera tarjeta de licitación con su score, etiqueta, días al cierre, región y reclamos de pago.",
       caption:
         "Página Oportunidades, ordenada por cierre más próximo. Recortada a la zona de contenido.",
     },
@@ -559,8 +553,115 @@ export const licitai: LicitaiCaseStudyContent = {
     },
   },
 
-  // Motivos: los documentados en el dossier y en los comentarios del código
-  // (ca854c1). PENDIENTE: confirmación del autor, como en Flux (2026-10-19).
+  // Gráficos y textos: web/panorama.py (ca854c1). Cifras de las capturas: base de
+  // desarrollo, periodo «Últimos 30 días», sincronización del 2026-10-21.
+  panorama: {
+    id: "panorama",
+    eyebrow: "PANORAMA",
+    title: "Una vista de conjunto de las oportunidades",
+    description: [
+      "La página Panorama agrega las licitaciones y las sincronizaciones registradas. Cada gráfico tiene su tabla de datos y muestra cuántas licitaciones lo componen; un filtro de periodo (7, 30 o 90 días, o todo) acota los que miran hacia atrás, y los datos se pueden exportar a CSV o JSON.",
+    ],
+    labels: { measures: "Qué muestra", relevance: "Para qué sirve" },
+    groups: [
+      {
+        metrics: [
+          {
+            title: "De lo publicado a tus oportunidades",
+            measures:
+              "Las licitaciones de los listados consultados, cuántas coinciden con el perfil, cuántas analizó la IA y cuántas se marcaron como favoritas.",
+            relevance:
+              "Muestra cuánto filtra el perfil antes de gastar llamadas al modelo. En la captura, 18 de 2.482 publicaciones (0,7 %) coincidieron en 30 días.",
+          },
+        ],
+        evidence: {
+          type: "image",
+          kind: "capture",
+          date: "22 oct 2026",
+          src: panoramaFunnel,
+          width: 1030,
+          height: 315,
+          alt: "Embudo de Panorama: 2.482 licitaciones publicadas en el portal, 18 que coinciden con el perfil (0,7 %), 16 analizadas por la IA (0,6 %) y 2 favoritas (0,1 %).",
+          caption: "Fotograma de la grabación. Periodo: últimos 30 días.",
+        },
+      },
+      {
+        metrics: [
+          {
+            title: "Próximos cierres",
+            measures:
+              "Los días que quedan para postular a cada oportunidad abierta, de la más urgente a la menos urgente, junto a su score.",
+            relevance:
+              "Ordena el trabajo por plazo. La urgencia se muestra aquí, aparte del score: el prompt indica no considerar la fecha de cierre en las notas.",
+          },
+        ],
+        evidence: {
+          type: "image",
+          kind: "capture",
+          date: "22 oct 2026",
+          src: panoramaClosings,
+          width: 1030,
+          height: 546,
+          alt: "Gráfico de próximos cierres: una barra por licitación abierta con los días hasta el cierre, la fecha y el score, por ejemplo «Cierra el 28/10 · en 6 días · 70/100»; una de ellas figura como «No elegible».",
+          caption:
+            "Fotograma de la grabación: las primeras 12 de 14 licitaciones abiertas.",
+        },
+      },
+      {
+        metrics: [
+          {
+            title: "Score vs. reclamos de pago",
+            measures:
+              "Cada licitación con score frente a los reclamos por pagos atrasados del organismo en los últimos 12 meses, leídos de la ficha.",
+            relevance:
+              "Separa dos preguntas: si la oportunidad encaja con la empresa y si el organismo suele pagar a tiempo. La propia vista advierte que los organismos que compran mucho acumulan más reclamos.",
+          },
+          {
+            title: "Distribución de scores",
+            measures:
+              "Cuántas licitaciones caen en cada tramo de interpretación y cuántas quedaron sin score comparable: no elegibles, evaluación incompleta o rúbrica anterior.",
+            relevance:
+              "Deja ver el sesgo de la muestra. Con el perfil de demostración, 9 de 14 quedaron en 75 o más, en parte porque el filtro por palabras clave ya selecciona licitaciones afines.",
+          },
+        ],
+        evidence: {
+          type: "image",
+          kind: "capture",
+          date: "22 oct 2026",
+          src: panoramaScore,
+          width: 1040,
+          height: 510,
+          alt: "Dos gráficos de Panorama. A la izquierda, dispersión del score (0 a 100) frente a los reclamos por pagos atrasados de 14 licitaciones. A la derecha, histograma por tramos: 1 entre 0 y 39, 1 entre 40 y 59, 3 entre 60 y 74, 5 entre 75 y 89 y 4 entre 90 y 100; aparte, 2 no elegibles.",
+          caption: "Captura de Panorama. Periodo: últimos 30 días.",
+        },
+      },
+      {
+        metrics: [
+          {
+            title: "¿Qué tan acertada es la IA?",
+            measures:
+              "Compara el score con evaluaciones humanas de cada análisis: si fue acertado, muy alto o muy bajo, y si se postularía. Con 10 evaluaciones o más, muestra el porcentaje de «sí» por tramo del score.",
+            relevance:
+              "Está pensada para calibrar la rúbrica: si el score funciona, ese porcentaje debería subir con él. Hoy 14 de las 15 evaluaciones son simuladas, así que las cifras de la captura solo sirven para probar la vista.",
+          },
+        ],
+        evidence: {
+          type: "image",
+          kind: "capture",
+          date: "22 oct 2026",
+          src: panoramaCalibration,
+          width: 1030,
+          height: 603,
+          alt: "Tarjeta «¿Qué tan acertada es la IA?» de Panorama: score acertado 53 %, muy alto 47 % y muy bajo 0 %, según 15 evaluaciones; debajo, el porcentaje de licitaciones a las que se postularía por tramo del score: 0 % en 0–39, 40–59 y 60–74, 20 % en 75–89 (5 evaluaciones) y 50 % en 90–100 (4 evaluaciones).",
+          caption:
+            "Fotograma de la grabación. 14 de las 15 evaluaciones son simuladas: las cifras ilustran la vista y no miden la precisión del score.",
+        },
+      },
+    ],
+  },
+
+  // Motivos: documentados en el dossier y en el código (ca854c1), aprobados por
+  // el autor (2026-10-22).
   decisions: {
     id: "decisiones",
     eyebrow: "DECISIONES DE INGENIERÍA",
@@ -586,7 +687,7 @@ export const licitai: LicitaiCaseStudyContent = {
           "Una respuesta rechazada consume un intento y una solicitud de la cuota diaria.",
       },
       {
-        title: "La falta de información no es una nota",
+        title: "Separar la falta de información de la compatibilidad",
         reason:
           "Una nota sin respaldo infla el score. En dos respuestas reales, Gemini puntuó 5 la viabilidad geográfica aunque el perfil no decía dónde opera la empresa.",
         implementation:
@@ -595,7 +696,7 @@ export const licitai: LicitaiCaseStudyContent = {
           "Los requisitos suelen estar en las bases PDF, que el prototipo no lee: muchos análisis quedan con avisos de «revisar bases».",
       },
       {
-        title: "Los fallos externos no se ocultan",
+        title: "Tratar cada fallo externo según su causa",
         reason:
           "El portal, la API y el modelo fallan por motivos distintos y no todos son culpa de la licitación.",
         implementation:
@@ -638,7 +739,6 @@ export const licitai: LicitaiCaseStudyContent = {
       src: processingQueue,
       width: 1282,
       height: 515,
-      zoomable: true,
       alt: "Página En proceso de LicitAI: dos licitaciones marcadas «No se pudo completar» con el motivo «La IA no entregó un análisis válido», los botones «Analizar ahora» y «Reintentar», y la ayuda que explica que analizar ahora usa un análisis de IA.",
       caption:
         "Dos licitaciones cuya respuesta de la IA no pasó la validación, esperando un nuevo intento.",
@@ -657,7 +757,7 @@ export const licitai: LicitaiCaseStudyContent = {
     eyebrow: "ESTADO",
     title: "Un prototipo funcional con límites identificados",
     description: [
-      "LicitAI se ha ejecutado localmente contra los servicios reales y no tiene métricas de uso ni de precisión. Lo que sigue distingue lo implementado de lo pendiente.",
+      "LicitAI se ha ejecutado localmente contra los servicios reales y no tiene métricas de uso ni de precisión. A continuación se distingue lo implementado de lo pendiente.",
     ],
     columns: [
       {

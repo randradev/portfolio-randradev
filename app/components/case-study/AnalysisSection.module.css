@@ -1,0 +1,21 @@
+/* Misma rejilla que la secuencia del caso RAG de Flux, sin el margen que allí
+   la separa de la evidencia a todo el ancho. */
+.main {
+  display: grid;
+  gap: var(--space-12);
+}
+
+/* Escritorio: secuencia a la izquierda y evidencia a la derecha; debajo, el
+   texto a la izquierda y la captura a la derecha, en eco. */
+@media (min-width: 64rem) {
+  .main {
+    grid-template-columns: minmax(0, 5fr) minmax(0, 7fr);
+    column-gap: var(--space-16);
+  }
+
+  .pending {
+    grid-template-columns: minmax(0, 5fr) minmax(0, 7fr);
+    align-items: start;
+    column-gap: var(--space-16);
+  }
+}

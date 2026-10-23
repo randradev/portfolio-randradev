@@ -1,8 +1,7 @@
-import { type CSSProperties, useRef } from "react";
+import type { CSSProperties } from "react";
 
-import type { EvidenceImage, EvidenceKind, EvidenceMedia } from "~/content/types";
+import type { EvidenceKind, EvidenceMedia } from "~/content/types";
 
-import { Button } from "../ui/Button";
 import styles from "./EvidenceFigure.module.css";
 
 const KIND_LABELS: Record<EvidenceKind, string> = {
@@ -15,48 +14,6 @@ type EvidenceFigureProps = {
   media: EvidenceMedia;
   className?: string;
 };
-
-/**
- * Botón «Ampliar» sobre una captura y un diálogo modal con la imagen a su
- * tamaño real, desplazable. El `<dialog>` nativo atrapa el foco, se cierra con
- * Escape y devuelve el foco al botón.
- */
-function ZoomControl({ media }: { media: EvidenceImage }) {
-  const dialogRef = useRef<HTMLDialogElement>(null);
-
-  return (
-    <>
-      <Button
-        variant="secondary"
-        className={styles.zoom}
-        aria-haspopup="dialog"
-        onClick={() => dialogRef.current?.showModal()}
-      >
-        Ampliar<span className="visually-hidden"> captura</span>
-      </Button>
-      <dialog
-        ref={dialogRef}
-        className={styles.dialog}
-        aria-label={`Captura ampliada: ${media.caption}`}
-      >
-        <div className={styles.dialogBar}>
-          <Button variant="secondary" onClick={() => dialogRef.current?.close()}>
-            Cerrar
-          </Button>
-        </div>
-        <div className={styles.dialogBody}>
-          <img
-            src={media.src}
-            alt={media.alt}
-            width={media.width}
-            height={media.height}
-            decoding="async"
-          />
-        </div>
-      </dialog>
-    </>
-  );
-}
 
 /**
  * Evidencia real del proyecto con su procedencia: tipo de recurso, fecha de la
@@ -117,7 +74,6 @@ export function EvidenceFigure({ media, className }: EvidenceFigureProps) {
             <a href={media.src}>Descargar el video ({media.title})</a>.
           </video>
         )}
-        {media.type === "image" && media.zoomable && <ZoomControl media={media} />}
       </div>
       <figcaption className={styles.caption}>
         <span className={styles.meta}>{meta}</span>

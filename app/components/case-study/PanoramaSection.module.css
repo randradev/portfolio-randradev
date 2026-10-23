@@ -1,0 +1,58 @@
+.groups {
+  display: grid;
+  gap: var(--space-16);
+}
+
+.group {
+  display: grid;
+  gap: var(--space-8);
+}
+
+.group[data-media] {
+  padding-top: var(--space-12);
+  border-top: 1px solid var(--color-border);
+}
+
+.group[data-media]:first-child {
+  padding-top: 0;
+  border-top: 0;
+}
+
+.metrics {
+  display: grid;
+  align-content: start;
+  gap: var(--space-10);
+}
+
+.metric {
+  display: grid;
+  gap: var(--space-4);
+}
+
+.title {
+  font-size: var(--text-h3);
+}
+
+.rows {
+  display: grid;
+  gap: var(--space-4);
+}
+
+.row {
+  display: grid;
+  gap: var(--space-1);
+}
+
+.row dd {
+  color: var(--color-text-muted);
+  font-size: var(--text-small);
+}
+
+/* Escritorio: explicación a la izquierda; la captura, a la derecha. */
+@media (min-width: 64rem) {
+  .group[data-media] {
+    grid-template-columns: minmax(0, 5fr) minmax(0, 7fr);
+    align-items: start;
+    column-gap: var(--space-16);
+  }
+}
