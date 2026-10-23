@@ -29,7 +29,6 @@ export function ContactSection() {
       }
     >
       <div className={styles.details}>
-        <p className={styles.note}>{contact.note}</p>
         <ul className={styles.channels} aria-label="Canales de contacto">
           <li>
             <TextLink href={`mailto:${email}`} className={styles.email}>

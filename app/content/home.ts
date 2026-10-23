@@ -26,7 +26,7 @@ export const hero: HeroContent = {
     "Desarrollador Full Stack con foco en Python e inteligencia artificial aplicada.",
   primaryCta: { label: "Ver proyectos", to: "/#proyectos" },
   secondaryCta: { label: "Ver trayectoria", to: "/#trayectoria" },
-  note: "Abierto a oportunidades en desarrollo de software.",
+  note: "Ricardo Andrade · Software Developer",
 };
 
 export const projectsIntro: ProjectsContent = {
@@ -112,11 +112,10 @@ export const contact: ContactContent = {
   eyebrow: "CONTACTO",
   title: "Hablemos de software.",
   description: [
-    "Busco una oportunidad para desarrollar software Full Stack e integrar inteligencia artificial en productos y procesos reales.",
+    "Aporto desarrollo Full Stack e integración de inteligencia artificial a equipos que construyen productos y procesos reales.",
   ],
   primaryCtaLabel: "Contactarme",
   cvCtaLabel: "Descargar CV",
-  note: "Disponible para oportunidades laborales en desarrollo de software.",
 };
 
 export const footer: FooterContent = {

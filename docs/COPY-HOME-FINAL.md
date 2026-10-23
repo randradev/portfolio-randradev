@@ -28,7 +28,7 @@ Desarrollador Full Stack con foco en Python e inteligencia artificial aplicada.
 
 **CTA principal:** `Ver proyectos`  
 **CTA secundario:** `Ver trayectoria`  
-**Microcopy:** `Abierto a oportunidades en desarrollo de software.`
+**Microcopy:** `Ricardo Andrade · Software Developer`
 
 ## 3. Proyectos
 **Eyebrow:** `PROYECTOS SELECCIONADOS`
@@ -129,11 +129,10 @@ Mi experiencia en producción y coordinación también aporta a mi forma de trab
 
 ## Hablemos de software.
 
-Busco una oportunidad para desarrollar software Full Stack e integrar inteligencia artificial en productos y procesos reales.
+Aporto desarrollo Full Stack e integración de inteligencia artificial a equipos que construyen productos y procesos reales.
 
 **CTA principal:** `Contactarme`  
-**CTA secundario:** `Descargar CV`  
-**Microcopy:** `Disponible para oportunidades laborales en desarrollo de software.`
+**CTA secundario:** `Descargar CV`
 
 ## 11. Pie de página
 - **Marca:** `Ricardo Andrade`

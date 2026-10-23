@@ -124,7 +124,6 @@ export interface AboutContent extends SectionIntro {
 export interface ContactContent extends SectionIntro {
   primaryCtaLabel: string;
   cvCtaLabel: string;
-  note: string;
 }
 
 export interface FooterContent {
