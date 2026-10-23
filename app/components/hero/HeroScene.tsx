@@ -149,6 +149,8 @@ function Backdrop({ palette }: { palette: Palette }) {
 }
 
 const SPHERE_SEGMENTS: [number, number, number] = [1, 160, 120];
+/** En móvil la forma mide menos de la mitad: con menos vértices no se nota. */
+const COMPACT_SPHERE_SEGMENTS: [number, number, number] = [1, 96, 72];
 
 /** Calma y agitación: el hover interpola entre ambos estados. */
 const CALM = { amplitude: 0.24, frequency: 0.7, speed: 0.2 };
@@ -167,11 +169,13 @@ function Sculpture({
   palette,
   animate,
   interactive,
+  compact,
 }: {
   palette: Palette;
   animate: boolean;
   /** Inclinación y agitación con el puntero (solo puntero fino). */
   interactive: boolean;
+  compact: boolean;
 }) {
   const gl = useThree((state) => state.gl);
   const group = useRef<Group>(null);
@@ -265,7 +269,7 @@ function Sculpture({
   return (
     <group ref={group}>
       <mesh ref={mesh} material={material}>
-        <sphereGeometry args={SPHERE_SEGMENTS} />
+        <sphereGeometry args={compact ? COMPACT_SPHERE_SEGMENTS : SPHERE_SEGMENTS} />
       </mesh>
     </group>
   );
@@ -276,6 +280,8 @@ type HeroSceneProps = {
   animate: boolean;
   /** Inclinación y agitación con el puntero: solo con puntero fino. */
   tilt: boolean;
+  /** Pantalla pequeña: menos densidad de píxeles y de malla. */
+  compact: boolean;
   onReady: () => void;
   onContextLost: () => void;
 };
@@ -284,6 +290,7 @@ export default function HeroScene({
   className,
   animate,
   tilt,
+  compact,
   onReady,
   onContextLost,
 }: HeroSceneProps) {
@@ -294,8 +301,8 @@ export default function HeroScene({
       className={className}
       // Sin animación solo se renderiza al crear la escena o al redimensionar.
       frameloop={animate ? "always" : "demand"}
-      // La transmisión añade un pase extra: se limita la densidad de píxeles.
-      dpr={[1, 1.5]}
+      // El material físico es costoso por píxel: se limita la densidad, más en móvil.
+      dpr={compact ? [1, 1.25] : [1, 1.5]}
       // La forma ocupa ~50 % del lado: la máscara de bordes no la recorta.
       camera={{ position: [0, 0, 7.6], fov: 35 }}
       gl={{ antialias: true, alpha: true }}
@@ -309,7 +316,12 @@ export default function HeroScene({
     >
       <Backdrop palette={palette} />
       <StudioEnvironment palette={palette} />
-      <Sculpture palette={palette} animate={animate} interactive={tilt && animate} />
+      <Sculpture
+        palette={palette}
+        animate={animate}
+        interactive={tilt && animate}
+        compact={compact}
+      />
     </Canvas>
   );
 }

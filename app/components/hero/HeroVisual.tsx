@@ -19,20 +19,19 @@ const HeroScene = lazy(() => import("./HeroScene"));
 
 let sceneSupport: boolean | undefined;
 
-/** Móvil: a ese tamaño el tiempo real no compensa el coste de la transmisión. */
-const STATIC_QUERY = "(max-width: 47.9375rem)";
+/** Móvil: la escena se dibuja con menos píxeles y una malla más ligera. */
+const COMPACT_QUERY = "(max-width: 47.9375rem)";
 const FINE_POINTER_QUERY = "(pointer: fine)";
 
 /**
- * Three.js requiere WebGL 2. Con ahorro de datos activo o en pantallas pequeñas
- * se usa el render estático. Se evalúa una vez, al montar.
+ * Three.js requiere WebGL 2. Con ahorro de datos activo se usa el render
+ * estático. Se evalúa una vez, al montar.
  */
 function supportsScene() {
   if (sceneSupport !== undefined) return sceneSupport;
 
   const { connection } = navigator as Navigator & { connection?: { saveData?: boolean } };
   if (connection?.saveData) return (sceneSupport = false);
-  if (window.matchMedia(STATIC_QUERY).matches) return (sceneSupport = false);
 
   try {
     const gl = document.createElement("canvas").getContext("webgl2");
@@ -78,6 +77,11 @@ export function HeroVisual({ className }: { className?: string }) {
     () => window.matchMedia(FINE_POINTER_QUERY).matches,
     () => false,
   );
+  const compact = useSyncExternalStore(
+    noopSubscribe,
+    () => window.matchMedia(COMPACT_QUERY).matches,
+    () => false,
+  );
   const reducedMotion = usePrefersReducedMotion();
   const [failed, setFailed] = useState(false);
   const [ready, setReady] = useState(false);
@@ -116,6 +120,7 @@ export function HeroVisual({ className }: { className?: string }) {
               className={`${styles.layer} ${styles.scene}`}
               animate={inView && !reducedMotion}
               tilt={finePointer}
+              compact={compact}
               onReady={() => setReady(true)}
               onContextLost={handleFailure}
             />
